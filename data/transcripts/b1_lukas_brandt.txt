@@ -1,0 +1,26 @@
+Debrief call: Lukas Brandt after first round at Brackenvane Trading (Low-Latency C++ Developer)
+Date: 2026-11-12
+
+Consultant: Lukas, Tom here. How was the coding round?
+Candidate: Hey Tom. Um. Mixed? The first half was really good, the second half I'm not sure.
+Consultant: Let's start with the good half.
+Candidate: So it was ninety minutes, two engineers from the execution tech team, Raj and Ellie. Shared editor, C++20, no compiler at first, they just wanted to see me write. First task was a single-producer single-consumer ring buffer. Lock-free.
+Consultant: Right up your street.
+Candidate: Yes, I've written about four of them at Quarnby. So I did the head and tail as atomics, power of two size so you mask instead of modulo, and then they asked about memory ordering. I said release on the store of the tail, acquire on the load on the other side, and relaxed for the thread reading its own index. Ellie asked why not just seq_cst everywhere and I explained the fence cost on the hot path.
+Consultant: Sounds like they liked it.
+Candidate: I think so. Then false sharing. They asked what happens if head and tail sit on the same cache line, and I talked about padding to sixty-four bytes, alignas, and that on some chips you want to pad more because of the adjacent line prefetcher. Raj wrote that down, which, I don't know if that's good or bad.
+Consultant: Probably good. And the second half?
+Candidate: So second half they turned on a compiler and gave me an order book. Price levels, add, modify, cancel, and they wanted the best bid and ask fast. I started with std::map because it's quick to write, and Raj immediately asked "what does that do to your cache". Which, fair. So I talked about a flat array indexed by price tick, with a bitmap to find the best level, but I ran out of time before I had it working. It compiled but the cancel path had a bug.
+Consultant: Did they say anything about that?
+Candidate: Ellie said they don't expect people to finish, they want to see how you'd move off the naive version. But I'm annoyed with myself.
+Consultant: That's common feedback from that round, for what it's worth. What else did they ask?
+Candidate: A bit about measuring latency. How would I know my change made things faster. I said rdtsc, pinned cores, warm cache versus cold, look at the tail not the mean, ninety-nine point nine. And kernel bypass, whether I'd used it. I have, on the market data side. Also one question on virtual functions versus templates on the hot path, I said CRTP, and why.
+Consultant: Did they talk about the team or the next step?
+Candidate: A bit. Next round would be system design, design a market data handler end to end, and then a chat with the head of the team. They said they move fast, a week maybe.
+Consultant: Good. Notice and comp, nothing changed?
+Candidate: No. Eight weeks notice, no non-compete, Quarnby is a vendor, they don't do that. I'm on one eighteen base, bonus about fifteen. I said to you one forty-five, I'd still say that.
+Consultant: That fits their band. Anything else going on?
+Candidate: One other trading firm, first round next week. And to be honest my worry is the hours. I hear prop firms are, you know, intense. I've got a little one at home.
+Consultant: That's a fair thing to ask about, and better asked at the next round with the head of team than me guessing. I'll find out what I can.
+Candidate: Thanks Tom. Let me know as soon as you hear.
+Consultant: Will do, speak soon.

@@ -1,0 +1,271 @@
+{
+  "matched": {
+    "candidate": "Sofia Marchetti",
+    "client": "Fernhallow Capital",
+    "role": "Quantitative Researcher, Systematic Equities",
+    "round": "second round"
+  },
+  "crm_note": {
+    "headline": "Sofia: second round at Fernhallow done on 24 Nov. She enjoyed it and wants the role if the office attendance works.",
+    "stage_after": "second_round done, awaiting feedback from client",
+    "how_it_went": "Sofia said the round was intense but she enjoyed it, which she did not expect. She was stronger on the portfolio construction case than on the coding task, where she caught the split but missed the ticker change until Nadia hinted. She thought her answer on factor crowding was OK but not sharp. Fernhallow is her first choice if the office attendance works for her.",
+    "rounds": [
+      {
+        "round": "Second round, coding task with Nadia",
+        "format": "Coding on messy price data with the pandas documentation open in a browser and nothing else (no search, no AI tools). Nadia said the coding part was changed in the week before the call. The task was twelve-one momentum rather than reversal: build the signal, rank it and look at the long-short.",
+        "asked": [
+          "Build and rank a twelve-one momentum signal and look at the long-short on messy price data including delisted names",
+          "Data traps: delisted names (survivorship, which Sofia flagged straight away), an unadjusted ten-for-one split causing a fake crash in one stock's returns (caught), and a ticker change after a company renamed (missed until Nadia hinted to look at names that start and stop on the same day)"
+        ],
+        "candidate_view": "Sofia said Nadia seemed happy when she flagged survivorship. She caught the split but completely missed the ticker change until the hint. She said the hint was not bad."
+      },
+      {
+        "round": "Second round, second hour with Graham Lowe (first fifteen minutes)",
+        "format": "Probability question followed by a market intuition question",
+        "asked": [
+          "Expected value of the maximum of two independent uniforms on zero to one (Sofia answered two thirds)",
+          "Views on factor crowding this year, including the momentum unwind in the spring"
+        ],
+        "candidate_view": "Sofia had not prepped the market intuition question. She talked about crowding and deleveraging and thought it was OK but not sharp. Graham gave nothing away, as expected, and she did not panic this time."
+      },
+      {
+        "round": "Second round, case with Nadia and Pieter",
+        "format": "Not the bad backtest case. Sofia was given a signal with an IC of about 0.03 and asked how she would turn it into a portfolio.",
+        "asked": [
+          "Sizing",
+          "Turnover",
+          "How costs eat into the signal",
+          "Capacity, meaning how much money before it stops working"
+        ],
+        "candidate_view": "Sofia said she was much stronger on this than on the coding, as she does this every day at Ketterby."
+      },
+      {
+        "round": "Second round, Marcus (about ten minutes at the end)",
+        "format": "Marcus came in at the end, standing, and asked one question",
+        "asked": [
+          "What would make her kill a signal"
+        ],
+        "candidate_view": "Sofia answered a pre-agreed drawdown and decay rule set before the signal goes live. Marcus said \"that's the right order\" and left."
+      }
+    ],
+    "compensation": {
+      "current": "Base £125k, bonus about £35k",
+      "expectation": "Base of £145k to £150k",
+      "notes": "Compensation did not come up in the interview."
+    },
+    "notice_and_non_compete": "Notice is 12 weeks. No non-compete. Nadia asked about this, and said \"that's nice to hear for once\" on hearing there was no non-compete.",
+    "competing_processes": [
+      "Asset manager in Paris has asked for a second round next week (week of 30 Nov). Sofia said Fernhallow is her first choice if the office issue works."
+    ],
+    "risks": [
+      "Office attendance: Nadia said the team is in the office five days a week. Sofia had thought the role was hybrid and Hannah had understood four days. Sofia said this might be a problem because her partner is in Milan for half of each month. She said this is her real worry, not the job.",
+      "Competing process with the Paris asset manager moving to a second round next week.",
+      "Sofia missed the ticker change in the coding task until hinted and felt her factor crowding answer was not sharp."
+    ],
+    "next_actions": [
+      {
+        "action": "Call Ingrid at Fernhallow for feedback on the second round",
+        "owner": "consultant",
+        "due": "2026-11-25"
+      },
+      {
+        "action": "Ask Ingrid to confirm the current office attendance policy for the team (Nadia said five days; Hannah had understood four)",
+        "owner": "consultant",
+        "due": "2026-11-25"
+      },
+      {
+        "action": "Talk through the office attendance concern with Sofia properly",
+        "owner": "consultant",
+        "due": "not discussed"
+      },
+      {
+        "action": "Pass on to other candidates for this process that the coding part changed in the week of 16 Nov: pandas documentation allowed, no search or AI tools; the task was twelve-one momentum, and the data had a split and a ticker change",
+        "owner": "consultant",
+        "due": "not discussed"
+      },
+      {
+        "action": "Start picking a project for the final round research presentation with Marcus",
+        "owner": "candidate",
+        "due": "not discussed"
+      }
+    ]
+  },
+  "emails": {
+    "candidate": {
+      "to": "sofia.marchetti@example.com",
+      "subject": "Fernhallow second round: next steps",
+      "body": "Hi Sofia,\n\nThanks for talking me through the second round on the train. The detail on the coding changes and the case is really helpful for me to have.\n\nAs agreed, I will call Ingrid at Fernhallow today for feedback and ask her to confirm the current office attendance policy. I will come back to you once I have that, and we can talk through the office days properly then.\n\nIf you progress, the final round would be the research presentation with Marcus, so please carry on picking a project.\n\nBest wishes,\nHannah"
+    },
+    "client": {
+      "to": "Hiring team, Fernhallow Capital",
+      "subject": "Sofia Marchetti: second round feedback",
+      "body": "Hi,\n\nThank you for arranging Sofia's second round for the Quantitative Researcher, Systematic Equities role. I spoke to her after the interview. She said it was intense but that she enjoyed it, and she remains interested in the role.\n\nI would be grateful for any feedback you can share on the round. Could you also confirm the current office attendance policy for the team?\n\nI understand the final stage would be a research presentation with Marcus. I will call you today to discuss.\n\nKind regards,\nHannah"
+    }
+  },
+  "prep_pack": {
+    "client": "Fernhallow Capital",
+    "role": "Quantitative Researcher, Systematic Equities",
+    "for_candidate": {
+      "name": "Aisha Karim",
+      "stage": "second_round",
+      "interview_at": "2026-11-27 14:00"
+    },
+    "built_from": [
+      {
+        "candidate": "Oliver Brennan",
+        "round": "first round",
+        "date": "2026-11-03",
+        "role": "Quantitative Researcher, Systematic Equities",
+        "same_role": true
+      },
+      {
+        "candidate": "Mei Lin Tan",
+        "round": "second round",
+        "date": "2026-11-10",
+        "role": "Quantitative Researcher, Systematic Equities",
+        "same_role": true
+      },
+      {
+        "candidate": "Rohan Mehta",
+        "round": "final round",
+        "date": "2026-11-17",
+        "role": "Quantitative Researcher, Systematic Equities",
+        "same_role": true
+      },
+      {
+        "candidate": "Sofia Marchetti",
+        "round": "second round",
+        "date": "2026-11-24",
+        "role": "Quantitative Researcher, Systematic Equities",
+        "same_role": true
+      }
+    ],
+    "process": [
+      {
+        "round": "First round",
+        "format": "Video call of about 45 minutes. Around ten minutes on your CV, then probability questions typed into a shared document. No coding.",
+        "who": "Graham Lowe, senior researcher",
+        "what_they_look_for": "Probability fluency and care in checking answers. He also went into how past research was validated, including out-of-sample testing and who chose the holdout, rather than headline performance. He gives no feedback during the call."
+      },
+      {
+        "round": "Second round (technical)",
+        "format": "At the office, a little over two hours in two parts. Part one is live Python on messy daily price and volume data for a few hundred stocks over about ten years, on a firm laptop. Part two is a case. The first call in the series was dated 10 Nov and the second 24 Nov.",
+        "who": "Nadia Osei, a researcher on the equities side, for both parts. Pieter (surname not caught) joined the case in both second-round debriefs. In the 24 Nov debrief Graham Lowe joined for the first 15 minutes of the second hour and Marcus Elling, the PM, came in for about ten minutes at the end.",
+        "what_they_look_for": "Sound logic more than exact syntax, and noticing data problems before computing anything: names that stop part way through (survivorship bias), unadjusted splits and ticker changes. In the case they look at backtest scrutiny (look-ahead, costs, turnover, multiple testing) or turning a signal into a portfolio (sizing, turnover, costs, capacity)."
+      },
+      {
+        "round": "Final round",
+        "format": "A 30-minute research presentation of a past project (sanitised for confidentiality) with questioning, then 30 minutes on culture and working style, then in one debrief an extra 15-minute one-to-one with the PM. That round took about three hours in total. In the 24 Nov debrief, the consultant said the final would be the research presentation with Marcus.",
+        "who": "Marcus Elling (PM), Nadia Osei and Felix (researchers) for the presentation. Ingrid Saarinen, head of research, for the culture conversation. Marcus alone for the extra chat.",
+        "what_they_look_for": "Economic reasoning for why a signal works and who is on the other side of the trade, factor-neutral robustness, and a clear rule for when to cut or kill a signal, set before going live. Marcus rejects 'the model found it' answers. They also look at how you deal with being wrong."
+      }
+    ],
+    "question_themes": [
+      {
+        "theme": "Probability and expected value puzzles",
+        "examples": [
+          "Expected number of rolls of a fair die until a six",
+          "Expected number of coin flips until two heads in a row, and the heads-then-tails version",
+          "Three random points on a circle: probability the triangle contains the centre",
+          "Stick broken at two random points: probability the pieces form a triangle",
+          "Expected value of the maximum of two independent uniforms on zero to one"
+        ],
+        "seen_in": 3
+      },
+      {
+        "theme": "Messy data handling in live Python",
+        "examples": [
+          "Build a simple reversal signal and report performance (10 Nov debrief)",
+          "Build twelve-one momentum, rank it and look at the long-short (24 Nov debrief)",
+          "Why series end, delistings and survivorship bias",
+          "Unadjusted ten-for-one split and a ticker change after a rename"
+        ],
+        "seen_in": 2
+      },
+      {
+        "theme": "Backtest critique and costs",
+        "examples": [
+          "Shown a backtest with a Sharpe of about 2.1 and asked what is wrong with it: look-ahead, costs, turnover, multiple testing, deflating the Sharpe for the number of trials",
+          "How to model market impact for small caps and what participation rate",
+          "Turn a signal with an IC of about 0.03 into a portfolio: sizing, turnover, costs, capacity"
+        ],
+        "seen_in": 2
+      },
+      {
+        "theme": "Validation and out-of-sample discipline",
+        "examples": [
+          "How crash periods such as 2009 were handled in a momentum strategy",
+          "Whether it was tested out of sample or tuned on the full history, and who chose the holdout",
+          "Is this just value in disguise: neutralising against standard factors"
+        ],
+        "seen_in": 2
+      },
+      {
+        "theme": "Killing or sizing down a signal",
+        "examples": [
+          "What evidence and threshold would make you switch a signal off live",
+          "How long you would sit through a drawdown",
+          "Why the signal works economically and who is on the other side"
+        ],
+        "seen_in": 2
+      },
+      {
+        "theme": "Market intuition",
+        "examples": [
+          "Views on factor crowding this year, including the momentum unwind in the spring"
+        ],
+        "seen_in": 1
+      },
+      {
+        "theme": "Notice period and non-compete",
+        "examples": [
+          "Asked directly about notice and non-compete: by Graham at the end of a first round, by Nadia in a second round, and by Ingrid in a final round"
+        ],
+        "seen_in": 4
+      }
+    ],
+    "went_well": [
+      "Catching and correcting a first answer on the coin-flip question. Graham Lowe said 'good, you checked it'.",
+      "Saying you would normally check the docs and writing pseudo-pandas. Nadia said she cares about the logic.",
+      "Flagging survivorship bias before computing anything. Nadia reacted with a smile in one debrief and looked happy in the other.",
+      "Having a backup slide with a factor-neutral version of the research. Marcus said 'OK, good' and moved on.",
+      "Saying you would cut size rather than kill outright, with the rule set before going live. Marcus said 'that's the right order' in one debrief, and Felix nodded in another.",
+      "Strong portfolio construction answers, from daily experience of sizing, turnover, costs and capacity."
+    ],
+    "tripped_people_up": [
+      "Giving four first on the two-heads-in-a-row question before correcting to six.",
+      "Taking a while over the three-points-on-a-circle question, working it out on paper.",
+      "Being hand-wavy on modelling market impact for small caps and participation rate.",
+      "Missing the ticker change in the data until Nadia hinted to look at names that start and stop on the same day.",
+      "Giving an answer that was 'OK but not sharp' on the factor crowding question, which had not been prepared."
+    ],
+    "advice": [
+      "Practise probability and expected value puzzles and state your checks aloud. Graham Lowe gives no reaction, and the consultant said that silence in his round should not be read as a bad sign.",
+      "Before computing anything on the messy data, check for names that disappear, unadjusted splits, ticker changes, gaps and bad prints. Look at names that start and stop on the same day.",
+      "Be ready to build either a reversal or a momentum signal, since the task has varied between debriefs.",
+      "Prepare a view on market impact for small caps and participation rates, and on capacity, because interviewers pushed on costs.",
+      "Prepare a view on factor crowding and recent factor moves, including the spring momentum unwind.",
+      "Choose a presentation project you can discuss without breaking confidentiality, and have a factor-neutral version ready. Be able to explain why it works economically and who is on the other side.",
+      "Decide in advance your rule for cutting or killing a signal, including drawdown and decay thresholds set before going live.",
+      "Be ready to say how you validated past work, including who chose the holdout.",
+      "Expect a notice period and non-compete question and have your own answer ready. Your record shows 8 weeks notice and a 3-month non-compete."
+    ],
+    "logistics": [
+      "Technical round is at the office. In the debrief dated 10 Nov it ran a little over two hours after a late start.",
+      "Coding is on a firm laptop. On 10 Nov there was no internet. In the 24 Nov debrief, Nadia said the coding part changed in the week before that call: the pandas documentation is now open in a browser, with no search and no AI tools.",
+      "First round is by video, about 45 minutes. The final round took about three hours in one debrief, with a 30-minute presentation, a 30-minute culture conversation and an extra 15-minute chat with the PM.",
+      "Notice and non-compete are asked about from the first round. In the 17 Nov debrief, Ingrid Saarinen said the firm does not buy out garden leave, as a policy, and that they are used to waiting. She asked whether the candidate would ask their firm to shorten it.",
+      "Fernhallow asks for references before an offer, according to the 17 Nov debrief.",
+      "In the 24 Nov debrief, Nadia said the office is five days a week. The consultant had understood four and planned to check it with the firm.",
+      "Feedback after first round usually comes within about two days. After the technical round it usually takes a few days.",
+      "Your second round is booked for 27 Nov at 14:00."
+    ]
+  },
+  "meta": {
+    "model": "claude-sonnet-5-5",
+    "ms": 20856,
+    "calls": 2,
+    "input_tokens": 11479,
+    "output_tokens": 5000
+  }
+}

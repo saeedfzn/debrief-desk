@@ -1,0 +1,25 @@
+Debrief call: Chloe Adeyemi after second round at Brackenvane Trading (Quantitative Trader, Options Market Making)
+Date: 2026-11-19
+
+Consultant: Chloe, Hannah. You survived the game?
+Candidate: Just about. That was the most fun I've had in an interview and also the most stressed. Hang on, let me get off the main road.
+Consultant: Take your time.
+Candidate: OK. So it was the market-making game, about an hour, with two traders from the index options desk, Sam and a woman called Bea. Before the game there was a mental maths test, eighty questions in eight minutes, on a tablet. Fractions, decimals, a few percentages. I got through about seventy, I think, no idea how many right.
+Consultant: That's around normal for that test. Then the game?
+Candidate: Then the game. They asked me to make a market on the sum of three dice. I said ten and a half is the fair value so I quoted nine and a half at eleven and a half, two wide. Then they start trading against me and revealing dice one at a time. First die comes up a six, so I moved my mid up to thirteen. Then they lifted me a couple of times and I realised they knew something, so I widened.
+Consultant: How did they react to you widening?
+Candidate: Sam actually stopped and asked why I'd widened. I said because they were trading like they had information and I didn't want to keep getting picked off. He said good, a lot of people just keep quoting tight to look confident. Then later Bea asked me what my position was and I got it wrong by one lot. That annoyed me.
+Consultant: Did they say anything about it?
+Candidate: She just said "always know your position", quite firmly. Then there was a second game, a sort of betting one, where you're offered bets at different odds and you have to decide sizing. I think I was too cautious there, I was sizing small. They asked about Kelly and I knew it but didn't use it properly.
+Consultant: OK. Anything on options knowledge?
+Candidate: Yes, at the end. Put-call parity, what happens to a call's delta as expiry gets close, and then why an index skew exists at all. That bit I was comfortable with, it's my day job at Kelmscroft.
+Consultant: And next steps?
+Candidate: They said if it goes well the final is with the head of the desk, more about how I'd fit in, and maybe a day on the desk watching. They said they'd come back quickly.
+Consultant: Good. Did notice or non-compete come up?
+Candidate: Yes, Bea asked. Twelve weeks notice and six months non-compete. She said that's standard for them, they'd cover it, they're used to it. Which was a relief, honestly, I was worried that would kill it.
+Consultant: That is good news. Comp, for my notes, ninety-five base, forty bonus, and you wanted?
+Candidate: Around one ten base and a bonus that's actually tied to the desk. I don't want another discretionary black box.
+Consultant: Understood. Other processes?
+Candidate: I've done a first round at a market maker in Amsterdam. Too early to say. And my worry, honestly, is whether I'm too slow at the maths for them. Seventy out of eighty felt slow.
+Consultant: We'll see what the feedback says rather than guess. I'll speak to them tomorrow.
+Candidate: Thanks Hannah.

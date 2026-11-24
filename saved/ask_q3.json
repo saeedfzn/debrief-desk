@@ -1,0 +1,81 @@
+{
+  "question": "Which candidates in an active process have a non-compete of six months or more, grouped by client?",
+  "sql": "SELECT cl.name AS client, c.name AS candidate, r.title AS role, a.stage AS stage, c.non_compete_months AS non_compete_months, c.current_employer AS current_employer FROM applications a JOIN candidates c ON c.id = a.candidate_id JOIN roles r ON r.id = a.role_id JOIN clients cl ON cl.id = r.client_id WHERE a.status = 'active' AND c.non_compete_months >= 6 ORDER BY cl.name, c.non_compete_months DESC, c.name LIMIT 200",
+  "columns": [
+    "client",
+    "candidate",
+    "role",
+    "stage",
+    "non_compete_months",
+    "current_employer"
+  ],
+  "rows": [
+    [
+      "Brackenvane Trading",
+      "Ewan Fairley",
+      "Quantitative Trader, Options Market Making",
+      "second_round",
+      12,
+      "Kelmscroft Derivatives"
+    ],
+    [
+      "Brackenvane Trading",
+      "Chloe Adeyemi",
+      "Quantitative Trader, Options Market Making",
+      "final_round",
+      6,
+      "Kelmscroft Derivatives"
+    ],
+    [
+      "Brackenvane Trading",
+      "Grace Holloway",
+      "Quantitative Trader, Options Market Making",
+      "first_round",
+      6,
+      "Varnley Securities"
+    ],
+    [
+      "Fernhallow Capital",
+      "Mei Lin Tan",
+      "Quantitative Researcher, Systematic Equities",
+      "final_round",
+      6,
+      "Pennick Systematic"
+    ],
+    [
+      "Fernhallow Capital",
+      "Rohan Mehta",
+      "Quantitative Researcher, Systematic Equities",
+      "offer",
+      6,
+      "Sallowmere Asset Management"
+    ],
+    [
+      "Fernhallow Capital",
+      "Ruth Abernethy",
+      "Quantitative Researcher, Systematic Equities",
+      "submitted",
+      6,
+      "Ombrelle Quantitative"
+    ],
+    [
+      "Fernhallow Capital",
+      "Wei Zhang",
+      "Quant Developer, Research Platform",
+      "second_round",
+      6,
+      "Sallowmere Asset Management"
+    ]
+  ],
+  "answer": "Seven candidates in active processes have a non-compete of six months or more. At Brackenvane Trading there are three: Ewan Fairley (12 months, second round), Chloe Adeyemi (6 months, final round) and Grace Holloway (6 months, first round). At Fernhallow Capital there are four, all with 6 months: Mei Lin Tan (final round), Rohan Mehta (offer), Ruth Abernethy (submitted) and Wei Zhang (second round).",
+  "meta": {
+    "model": "claude-sonnet-5-5",
+    "ms": 3802,
+    "calls": 2,
+    "input_tokens": 2876,
+    "output_tokens": 424,
+    "row_count": 7,
+    "truncated": false,
+    "note": "Active applications (status = 'active') for candidates with non_compete_months >= 6, listed grouped by client name (ordered by client, then longest non-compete)."
+  }
+}

@@ -1,0 +1,193 @@
+{
+  "matched": {
+    "candidate": "Lukas Brandt",
+    "client": "Brackenvane Trading",
+    "role": "Low-Latency C++ Developer",
+    "round": "first round"
+  },
+  "crm_note": {
+    "headline": "Lukas: first round coding interview at Brackenvane done, first half strong, second half unfinished; still keen",
+    "stage_after": "first_round done, awaiting feedback; next round is system design plus a conversation with the head of the team",
+    "how_it_went": "Lukas described the round as mixed. He felt the first half (lock-free ring buffer) went well and was unsure about the second half (order book), where he ran out of time and the cancel path had a bug. He said Ellie told him they do not expect people to finish and want to see how a candidate moves off the naive version.",
+    "rounds": [
+      {
+        "round": "first round, coding",
+        "format": "90 minutes, shared editor, C++20, with two engineers from the execution tech team, Raj and Ellie. No compiler at first, then a compiler was turned on for the second half.",
+        "asked": [
+          "Write a lock-free single-producer single-consumer ring buffer",
+          "Memory ordering choices, and why not seq_cst everywhere (Ellie)",
+          "False sharing: what happens if head and tail share a cache line",
+          "Order book with add, modify, cancel and fast best bid and ask",
+          "How to measure latency and know a change made things faster",
+          "Whether he had used kernel bypass",
+          "Virtual functions versus templates on the hot path"
+        ],
+        "candidate_view": "Lukas said the first half was really good and he is unsure about the second. He answered the ring buffer with atomic head and tail, power of two size with masking, release on the tail store, acquire on the other side's load and relaxed for a thread reading its own index. On false sharing he talked about padding to 64 bytes with alignas, and more on some chips because of the adjacent line prefetcher. In the order book he started with std::map, Raj asked what that does to the cache, and he then described a flat array indexed by price tick with a bitmap to find the best level. He ran out of time, the code compiled but the cancel path had a bug. For latency he said rdtsc, pinned cores, warm versus cold cache, and looking at the tail (99.9th percentile) rather than the mean. He has used kernel bypass on the market data side. On virtual functions versus templates he answered CRTP and gave his reasons. He said he is annoyed with himself about the second half."
+      }
+    ],
+    "compensation": {
+      "current": "Base £118k, bonus about £15k",
+      "expectation": "£145k, unchanged from what he told Tom previously",
+      "notes": "Tom said this fits their band."
+    },
+    "notice_and_non_compete": "8 weeks notice. No non-compete (Quarnby is a vendor and does not use them).",
+    "competing_processes": [
+      "One other trading firm, first round in the week starting 2026-11-16"
+    ],
+    "risks": [
+      "Lukas is worried about hours at a prop firm and has a young child at home",
+      "He is unhappy with the second half of the coding round and the unfinished cancel path"
+    ],
+    "next_actions": [
+      {
+        "action": "Find out what he can about hours and working pattern at Brackenvane, and encourage Lukas to raise it with the head of team at the next round",
+        "owner": "consultant",
+        "due": "before the next round"
+      },
+      {
+        "action": "Chase Brackenvane for feedback on the first round and confirm timing of the system design round and head of team conversation (they said they move fast, maybe a week)",
+        "owner": "consultant",
+        "due": "2026-11-19"
+      },
+      {
+        "action": "Let Lukas know as soon as feedback is heard",
+        "owner": "consultant",
+        "due": "on receipt of feedback"
+      },
+      {
+        "action": "Prepare for system design round: design a market data handler end to end",
+        "owner": "candidate",
+        "due": "before the next round"
+      }
+    ]
+  },
+  "emails": {
+    "candidate": {
+      "to": "lukas.brandt@example.com",
+      "subject": "Brackenvane first round: next steps",
+      "body": "Hi Lukas,\n\nThanks for talking me through the coding round today. I'm glad the ring buffer section went the way you wanted, and Ellie's comment about how they look at the order book task is worth keeping in mind.\n\nAs agreed, the next steps are:\n- I will ask Brackenvane for their feedback and confirm timing for the next round, which they said would be system design (a market data handler end to end) followed by a conversation with the head of the team. They said they move fast, maybe a week.\n- I will let you know as soon as I hear.\n- I will find out what I can about hours, and you can raise it with the head of team at the next round.\n\nSpeak soon.\n\nTom"
+    },
+    "client": {
+      "to": "Hiring team, Brackenvane Trading",
+      "subject": "Low-Latency C++ Developer: Lukas Brandt, first round feedback",
+      "body": "Hi,\n\nI spoke to Lukas Brandt today after his first round coding interview for the Low-Latency C++ Developer role.\n\nHe said the first half, the ring buffer, went well. He said Ellie told him the team do not expect people to finish the order book task and want to see how a candidate moves off the naive version. Lukas remains keen to continue.\n\nI understand the next stage is a system design round on a market data handler, followed by a conversation with the head of the team. Could you let me know your feedback on the first round and the likely timing for the next stage?\n\nKind regards,\n\nTom"
+    }
+  },
+  "prep_pack": {
+    "client": "Brackenvane Trading",
+    "role": "Low-Latency C++ Developer",
+    "for_candidate": {
+      "name": "Laura Schmidt",
+      "stage": "first_round",
+      "interview_at": "2026-11-27 15:00"
+    },
+    "built_from": [
+      {
+        "candidate": "Lukas Brandt",
+        "round": "first round",
+        "date": "2026-11-12",
+        "role": "Low-Latency C++ Developer",
+        "same_role": true
+      },
+      {
+        "candidate": "Chloe Adeyemi",
+        "round": "second round",
+        "date": "2026-11-19",
+        "role": "Quantitative Trader, Options Market Making",
+        "same_role": false
+      }
+    ],
+    "process": [
+      {
+        "round": "First round: coding round (call dated 12 Nov 2026)",
+        "format": "90 minutes in a shared editor in C++20. There was no compiler at first, as the interviewers wanted to see you write. A compiler was turned on for the second half.",
+        "who": "Two engineers from the execution tech team, Raj and Ellie.",
+        "what_they_look_for": "Lock-free and cache-aware C++ on the hot path, and how you move off a naive first version. Ellie said they do not expect people to finish the order book task and want to see how you move off the naive version."
+      },
+      {
+        "round": "Next round: system design",
+        "format": "Design a market data handler end to end. This was described by the interviewers at the first round, so details beyond that are not discussed.",
+        "who": "Not discussed",
+        "what_they_look_for": "Not discussed"
+      },
+      {
+        "round": "Round after that: chat with the head of the team",
+        "format": "A conversation. Further detail not discussed.",
+        "who": "Head of the team",
+        "what_they_look_for": "Not discussed"
+      }
+    ],
+    "question_themes": [
+      {
+        "theme": "Lock-free data structures and memory ordering",
+        "examples": [
+          "Write a single-producer single-consumer lock-free ring buffer.",
+          "Which memory orderings would you use, and why not seq_cst everywhere?"
+        ],
+        "seen_in": 1
+      },
+      {
+        "theme": "Cache behaviour and false sharing",
+        "examples": [
+          "What happens if head and tail sit on the same cache line?",
+          "Raj asked what a std::map does to your cache when it was used for the order book."
+        ],
+        "seen_in": 1
+      },
+      {
+        "theme": "Order book design",
+        "examples": [
+          "Handle add, modify and cancel on price levels and get the best bid and ask quickly.",
+          "Moving from std::map to a flat array indexed by price tick with a bitmap to find the best level."
+        ],
+        "seen_in": 1
+      },
+      {
+        "theme": "Measuring latency",
+        "examples": [
+          "How would you know a change made things faster?",
+          "Whether you have used kernel bypass."
+        ],
+        "seen_in": 1
+      },
+      {
+        "theme": "Virtual functions versus templates on the hot path",
+        "examples": [
+          "One question on virtual functions versus templates on the hot path, and the reasoning behind the choice."
+        ],
+        "seen_in": 1
+      }
+    ],
+    "went_well": [
+      "The ring buffer task went well: atomic head and tail, a power of two size so you mask instead of using modulo, and acquire/release/relaxed ordering with a clear reason for avoiding seq_cst on the hot path.",
+      "The false sharing answer covered padding to 64 bytes with alignas, and padding more on some chips because of the adjacent line prefetcher. Raj wrote this down.",
+      "The latency measurement answer covered rdtsc, pinned cores, warm versus cold cache, and looking at the 99.9th percentile rather than the mean.",
+      "The virtual functions versus templates question was answered with CRTP and the reasons for it."
+    ],
+    "tripped_people_up": [
+      "Starting the order book with std::map drew an immediate question from Raj about the effect on the cache.",
+      "The flat array with a bitmap design was not working by the end of the time. It compiled but the cancel path had a bug."
+    ],
+    "advice": [
+      "Be ready to write a lock-free SPSC ring buffer from scratch in C++20 without a compiler, and to justify each memory order you choose.",
+      "Prepare to explain false sharing, cache line padding and alignas, including why you might pad more than 64 bytes on some chips.",
+      "For the order book, start with a cache-friendly layout such as a flat array indexed by price tick with a bitmap for the best level, rather than std::map. Practise getting the cancel path right within the time.",
+      "If you do not finish, talk through how you would move off the naive version, since the interviewers said that is what they want to see.",
+      "Prepare a clear answer on latency measurement, including tail percentiles, core pinning and warm versus cold cache, and be ready to say whether you have used kernel bypass.",
+      "Look ahead to the system design round on an end-to-end market data handler."
+    ],
+    "logistics": [
+      "Your first round is booked for 27 Nov 2026 at 15:00.",
+      "The first round debrief (call dated 12 Nov 2026) said the interviewers told the candidate that the firm moves fast, about a week, between rounds.",
+      "After the first round the stated next steps were a system design round and then a chat with the head of the team.",
+      "From a debrief for a different role (Quantitative Trader, Options Market Making, call dated 19 Nov 2026): a Brackenvane interviewer asked about notice period and non-compete in that process and said a long notice period and non-compete were standard for them and that they were used to covering them. This came from a different role, so it is not confirmed for yours. Your record shows 8 weeks notice and no non-compete."
+    ]
+  },
+  "meta": {
+    "model": "claude-sonnet-5-5",
+    "ms": 13468,
+    "calls": 2,
+    "input_tokens": 8249,
+    "output_tokens": 3321
+  }
+}

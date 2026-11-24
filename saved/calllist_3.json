@@ -1,0 +1,169 @@
+{
+  "consultant": {
+    "id": 3,
+    "name": "Priya Raman",
+    "desk": "AI/ML"
+  },
+  "date": "2026-11-25",
+  "calls": [
+    {
+      "rank": 1,
+      "candidate": "Arjun Nair",
+      "phone": "07700 900131",
+      "client": "Lumenfold Research",
+      "role": "Research Engineer, Training Infrastructure",
+      "stage": "final_round",
+      "score": 56,
+      "factors": [
+        {
+          "label": "Interview Fri 27 Nov, no prep call logged",
+          "points": 35
+        },
+        {
+          "label": "Final round in progress",
+          "points": 20
+        },
+        {
+          "label": "5 days since last contact (final round allows 4)",
+          "points": 1
+        }
+      ],
+      "last_contact": "2026-11-20 email: Lumenfold: final round Fri 27 Nov 11:00, values chat and head of infra.",
+      "reason": "Arjun's final round with Lumenfold is on Friday 27 Nov at 11:00, no prep call is logged and it is 5 days since last contact, over the 4 allowed for this stage.",
+      "opener": "Hi Arjun, it's Priya. I wanted to catch up before your final round on Friday at 11:00 and see how you're feeling about it."
+    },
+    {
+      "rank": 2,
+      "candidate": "Zara Hussain",
+      "phone": "07700 900132",
+      "client": "Lumenfold Research",
+      "role": "Research Scientist, Evaluations",
+      "stage": "offer",
+      "score": 30,
+      "factors": [
+        {
+          "label": "Offer out, in touch since it was sent",
+          "points": 30
+        }
+      ],
+      "last_contact": "2026-11-24 call: Zara has questions on the option vesting schedule. Asked Lumenfold for the valuation detail.",
+      "reason": "Zara has an offer from Lumenfold sent on 20 Nov, and she had questions on the option vesting schedule yesterday, with the valuation detail requested from Lumenfold.",
+      "opener": "Hi Zara, it's Priya. I wanted to follow up on your questions about the option vesting schedule from our call yesterday."
+    },
+    {
+      "rank": 3,
+      "candidate": "Ines Duarte",
+      "phone": "07700 900144",
+      "client": "Lumenfold Research",
+      "role": "Research Scientist, Evaluations",
+      "stage": "second_round",
+      "score": 15,
+      "factors": [
+        {
+          "label": "Interview tomorrow, prep call logged",
+          "points": 15
+        }
+      ],
+      "last_contact": "2026-11-24 call: Prep call for Lumenfold second round: contamination checks and how to design an eval.",
+      "reason": "Ines has her Lumenfold second round tomorrow, Thursday 26 Nov at 16:00, and the prep call on contamination checks and eval design was done yesterday.",
+      "opener": "Hi Ines, it's Priya. I just wanted to check in ahead of your second round tomorrow afternoon and see if anything else has come up since yesterday's prep."
+    },
+    {
+      "rank": 4,
+      "candidate": "Hugo Laurent",
+      "phone": "07700 900112",
+      "client": "Lumenfold Research",
+      "role": "Research Scientist, Evaluations",
+      "stage": "submitted",
+      "score": 12,
+      "factors": [
+        {
+          "label": "Early stage, stale for 22 days",
+          "points": 12
+        }
+      ],
+      "last_contact": "2026-11-03 email: Chased Lumenfold for CV feedback. Nothing yet.",
+      "reason": "Hugo was submitted to Lumenfold and has had no contact for 22 days, and the CV feedback chased on 3 Nov has not come back.",
+      "opener": "Hi Hugo, it's Priya. I wanted to get in touch about your application for the Research Scientist, Evaluations role at Lumenfold."
+    },
+    {
+      "rank": 5,
+      "candidate": "Pavel Horak",
+      "phone": "07700 900140",
+      "client": "Lumenfold Research",
+      "role": "Research Engineer, Training Infrastructure",
+      "stage": "sourced",
+      "score": 12,
+      "factors": [
+        {
+          "label": "Early stage, stale for 23 days",
+          "points": 12
+        }
+      ],
+      "last_contact": "2026-11-02 note: Sourced. Prague based, would relocate.",
+      "reason": "Pavel was sourced for the Lumenfold training infrastructure role and has had no contact for 23 days; he is Prague based and open to relocating.",
+      "opener": "Hi Pavel, it's Priya. I wanted to catch up about the Research Engineer, Training Infrastructure role at Lumenfold and whether it is still of interest."
+    },
+    {
+      "rank": 6,
+      "candidate": "Rafael Mendes",
+      "phone": "07700 900145",
+      "client": "Lumenfold Research",
+      "role": "Research Engineer, Training Infrastructure",
+      "stage": "first_round",
+      "score": 5,
+      "factors": [
+        {
+          "label": "12 days since last contact (first round allows 7)",
+          "points": 5
+        }
+      ],
+      "last_contact": "2026-11-13 call: Debrief after Lumenfold first round. Coding went well, unsure on the systems questions. Waiting on feedback.",
+      "reason": "Rafael had his Lumenfold first round and was waiting on feedback at the last debrief, and it is 12 days since contact, over the 7 allowed.",
+      "opener": "Hi Rafael, it's Priya. I wanted to catch up with you following your first round at Lumenfold."
+    },
+    {
+      "rank": 7,
+      "candidate": "Daniel Weiss",
+      "phone": "07700 900136",
+      "client": "Lumenfold Research",
+      "role": "Research Engineer, Training Infrastructure",
+      "stage": "submitted",
+      "score": 2,
+      "factors": [
+        {
+          "label": "9 days since last contact (submitted allows 7)",
+          "points": 2
+        }
+      ],
+      "last_contact": "2026-11-16 email: CV submitted to Lumenfold training infrastructure role.",
+      "reason": "Daniel's CV was submitted to Lumenfold on the training infrastructure role and it is 9 days since contact, over the 7 allowed for this stage.",
+      "opener": "Hi Daniel, it's Priya. I wanted to check in on your application for the Research Engineer, Training Infrastructure role at Lumenfold."
+    },
+    {
+      "rank": 8,
+      "candidate": "Chen Yu",
+      "phone": "07700 900134",
+      "client": "Lumenfold Research",
+      "role": "Research Engineer, Training Infrastructure",
+      "stage": "second_round",
+      "score": 1,
+      "factors": [
+        {
+          "label": "6 days since last contact (second round allows 5)",
+          "points": 1
+        }
+      ],
+      "last_contact": "2026-11-19 email: Lumenfold: second round Wed 2 Dec 15:00.",
+      "reason": "Chen Yu has a Lumenfold second round on Wed 2 Dec at 15:00 and it is 6 days since contact, over the 5 allowed for this stage.",
+      "opener": "Hi Chen Yu, it's Priya. I wanted to check in ahead of your second round with Lumenfold on 2 December and see how preparation is going."
+    }
+  ],
+  "meta": {
+    "model": "claude-sonnet-5-5",
+    "ms": 6224,
+    "wording": "model",
+    "input_tokens": 2539,
+    "output_tokens": 999
+  }
+}

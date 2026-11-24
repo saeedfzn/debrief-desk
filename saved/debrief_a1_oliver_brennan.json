@@ -1,0 +1,232 @@
+{
+  "matched": {
+    "candidate": "Oliver Brennan",
+    "client": "Fernhallow Capital",
+    "role": "Quantitative Researcher, Systematic Equities",
+    "round": "first round"
+  },
+  "crm_note": {
+    "headline": "Oliver Brennan: first round with Graham Lowe at Fernhallow Capital done, awaiting feedback",
+    "stage_after": "first_round done, awaiting feedback",
+    "how_it_went": "Oliver had a video interview of about forty-five minutes with Graham Lowe, senior researcher. Oliver said he thinks it went OK but found it hard to tell, as Graham gave no reaction during the call. The only positive comment was \"good, you checked it\" after Oliver corrected his own answer on the coin flip question.",
+    "rounds": [
+      {
+        "round": "first round",
+        "format": "Video call with Graham Lowe, senior researcher, about 45 minutes. About ten minutes on the CV, then probability questions in a shared doc. No coding.",
+        "asked": [
+          "Expected number of rolls of a fair die until a six (Oliver answered six)",
+          "Expected number of flips until two heads in a row (Oliver first said four, then corrected to six and walked through the states)",
+          "The heads-then-tails version, asked straight after",
+          "Three random points on a circle: probability the triangle contains the centre (Oliver got a quarter, but it took him a while)",
+          "Momentum work at Brindlecombe: how he handles crash periods such as 2009, and whether it was tested out of sample (Oliver said there was a holdout from 2019 onwards; Graham asked who chose it, and Oliver said he did)",
+          "Notice period and whether he has a non-compete (Oliver said twelve weeks and three months)"
+        ],
+        "candidate_view": "Oliver said he liked that Graham cared about how he validated things rather than the headline Sharpe, and that it felt like a serious shop. He said he does not know if he came across as quick enough on the circle question."
+      }
+    ],
+    "compensation": {
+      "current": "Base £115k, bonus about £30k last year",
+      "expectation": "Base of £135k to £145k to move",
+      "notes": "Compensation did not come up in the interview. Hannah said the expectation is within the band for this role."
+    },
+    "notice_and_non_compete": "Twelve weeks notice and a three month non-compete. Oliver told Graham he thought Brindlecombe would probably pay him through it but does not know. Hannah will check the contract wording with him later.",
+    "competing_processes": [
+      "Systematic macro team at another fund (not named), one round done"
+    ],
+    "risks": [
+      "Oliver is worried his manager will find out he is looking, as it is a small team",
+      "Oliver is unsure whether he came across as quick enough on the circle question",
+      "Notice and non-compete: Oliver does not know whether Brindlecombe would pay him through the non-compete period"
+    ],
+    "next_actions": [
+      {
+        "action": "Chase Fernhallow for feedback if nothing heard by Thursday",
+        "owner": "consultant",
+        "due": "2026-11-05"
+      },
+      {
+        "action": "Speak to Oliver on Thursday",
+        "owner": "consultant",
+        "due": "2026-11-05"
+      },
+      {
+        "action": "Check the contract wording on notice and non-compete with Oliver",
+        "owner": "consultant",
+        "due": "not specified, said \"later\""
+      },
+      {
+        "action": "Prepare for a likely technical round at the office: Python on real data plus a stats case",
+        "owner": "candidate",
+        "due": "not specified"
+      }
+    ]
+  },
+  "emails": {
+    "candidate": {
+      "to": "oliver.brennan@example.com",
+      "subject": "Fernhallow first round: next steps",
+      "body": "Hi Oliver,\n\nThanks for talking me through the Fernhallow interview earlier today. It was helpful to hear the detail on the questions and on how the CV discussion went.\n\nTo confirm where we are: Graham usually gets feedback back within two days, and I will chase on Thursday if we have heard nothing. We will speak on Thursday either way. If you go through, the next round is usually a technical at the office, with Python on real data plus a stats case, so it is worth getting your pandas practice in.\n\nI will also check the contract wording on your notice and non-compete with you later. Nothing goes to anyone without you saying so.\n\nSpeak Thursday.\n\nHannah"
+    },
+    "client": {
+      "to": "Hiring team, Fernhallow Capital",
+      "subject": "Oliver Brennan: first round, Quantitative Researcher, Systematic Equities",
+      "body": "Hi,\n\nThank you for arranging Oliver Brennan's first round interview with Graham Lowe for the Quantitative Researcher, Systematic Equities role.\n\nOliver told me he liked that the discussion focused on how he validated his work rather than the headline Sharpe, and said it felt like a serious shop. He remains interested in the role.\n\nCould you let me know when feedback is available? I understand this is usually within two days, so I will follow up on Thursday if I have not heard before then. If Oliver is taken forward, I understand the next stage is usually a technical interview at your office, and I would be glad to arrange it.\n\nKind regards,\nHannah"
+    }
+  },
+  "prep_pack": {
+    "client": "Fernhallow Capital",
+    "role": "Quantitative Researcher, Systematic Equities",
+    "for_candidate": {
+      "name": "Aisha Karim",
+      "stage": "second_round",
+      "interview_at": "2026-11-27 14:00"
+    },
+    "built_from": [
+      {
+        "candidate": "Oliver Brennan",
+        "round": "first round",
+        "date": "2026-11-03",
+        "role": "Quantitative Researcher, Systematic Equities",
+        "same_role": true
+      },
+      {
+        "candidate": "Mei Lin Tan",
+        "round": "second round",
+        "date": "2026-11-10",
+        "role": "Quantitative Researcher, Systematic Equities",
+        "same_role": true
+      },
+      {
+        "candidate": "Rohan Mehta",
+        "round": "final round",
+        "date": "2026-11-17",
+        "role": "Quantitative Researcher, Systematic Equities",
+        "same_role": true
+      }
+    ],
+    "process": [
+      {
+        "round": "First round",
+        "format": "Video call of about 45 minutes. About ten minutes on the CV, then probability questions typed into a shared document. No code.",
+        "who": "Graham Lowe, senior researcher",
+        "what_they_look_for": "Probability fluency and checking your own answers. Also how carefully you validated past work, such as out-of-sample testing, rather than the headline Sharpe."
+      },
+      {
+        "round": "Second round (technical)",
+        "format": "At the office, a little over two hours in the debrief (it started late). First hour: live Python on a firm laptop with no internet, plus one probability warm-up question. Second hour: a case where you review a backtest.",
+        "who": "Nadia Osei, a researcher on the equities side, for the Python hour. Nadia and a second researcher, Pieter (surname not caught), for the backtest case.",
+        "what_they_look_for": "Sound logic over exact syntax, and noticing data problems such as series that stop part-way (survivorship bias). Also spotting flaws in a backtest (look-ahead, costs, multiple testing) and handling transaction costs and market impact."
+      },
+      {
+        "round": "Final round",
+        "format": "About three hours in the debrief. A 30 minute research presentation of a past project (the debrief says any project you can discuss without breaching confidentiality) with questioning, then 30 minutes on culture and working style, then a 15 minute one-to-one chat that was added at the end.",
+        "who": "Presentation: Marcus Elling (PM), Nadia and a researcher called Felix. Culture conversation: Ingrid Saarinen, head of research. Final chat: Marcus Elling alone.",
+        "what_they_look_for": "A signal you can defend economically (who is on the other side of the trade), factor-neutral robustness, and a clear rule for when to cut or switch off a signal. Also how you deal with being wrong."
+      }
+    ],
+    "question_themes": [
+      {
+        "theme": "Probability and expected-value puzzles",
+        "examples": [
+          "Expected number of rolls of a fair die until a six",
+          "Expected number of flips to get two heads in a row, and the heads-then-tails version",
+          "Three random points on a circle: probability the triangle contains the centre",
+          "Stick broken at two random points: chance the three pieces form a triangle"
+        ],
+        "seen_in": 2
+      },
+      {
+        "theme": "Validation and out-of-sample testing of past work",
+        "examples": [
+          "How a momentum strategy handled crash periods such as 2009",
+          "Whether it was tested out of sample or tuned on the whole history, and who chose the holdout",
+          "Whether a signal is just value in disguise, and whether it was neutralised against standard factors"
+        ],
+        "seen_in": 2
+      },
+      {
+        "theme": "Backtest critique and data hygiene",
+        "examples": [
+          "Given a backtest with a Sharpe of about 2.1: what is wrong with it",
+          "Look-ahead from trading at the same close, high turnover and costs, multiple testing and deflating the Sharpe for number of trials",
+          "Messy price data with names that stop part-way: why, and the survivorship bias if dropped"
+        ],
+        "seen_in": 1
+      },
+      {
+        "theme": "Transaction costs and market impact",
+        "examples": [
+          "How to model market impact for small caps",
+          "What participation rate to assume"
+        ],
+        "seen_in": 1
+      },
+      {
+        "theme": "Signal economics and when to kill a signal",
+        "examples": [
+          "Why does it work economically, and who is on the other side of the trade",
+          "What evidence or threshold would make you switch a signal off live",
+          "How long you would sit through a drawdown"
+        ],
+        "seen_in": 1
+      },
+      {
+        "theme": "Notice period and non-compete",
+        "examples": [
+          "Asked about notice and non-compete in the first, second and final rounds",
+          "In the final round, the head of research said Fernhallow does not buy out garden leave and asked whether the candidate would ask their firm to shorten it"
+        ],
+        "seen_in": 3
+      },
+      {
+        "theme": "Culture and working style",
+        "examples": [
+          "How you like to work",
+          "How you deal with being wrong"
+        ],
+        "seen_in": 1
+      }
+    ],
+    "went_well": [
+      "In the first round, a candidate caught a wrong first answer on the two-heads coin question, corrected it by walking through the states, and Graham said \"good, you checked it\".",
+      "Saying that you would normally check the docs and writing pseudo-pandas was accepted in the no-internet Python hour; Nadia said she cares about the logic.",
+      "Asking why data series end (delisted, acquired) before computing anything, and naming survivorship bias, got a smile from Nadia.",
+      "In the backtest case, a candidate covered look-ahead, costs, turnover and multiple testing, including deflating the Sharpe for the number of trials.",
+      "A backup slide with the factor-neutral version answered Marcus's \"value in disguise\" challenge, and he said \"OK, good\".",
+      "Saying you would cut size rather than kill a signal, with the rule set before going live, got a nod from Felix.",
+      "Telling Nadia you had seen the stick-breaking question before, rather than pretending otherwise, was accepted."
+    ],
+    "tripped_people_up": [
+      "The first answer to the two heads in a row question was four (the heads-then-tails answer) before it was corrected to six.",
+      "The circle triangle question took a while, with the candidate working it out on paper while Graham waited.",
+      "The answer on modelling market impact for small caps and participation rate was hand-wavy.",
+      "The holdout period used to test a momentum strategy had been chosen by the candidate, which Graham picked up on."
+    ],
+    "advice": [
+      "Expect Graham's first round to give no feedback during the call. Previous candidates were told by the consultant that this silence is normal and not a sign of how it went.",
+      "Practise the dice, coin-flip, circle and broken-stick probability questions, and check your first answer before committing, as the two-heads question caught one candidate out.",
+      "Be ready to explain how you validated your own past work: who chose the holdout, how crash periods were handled, and how you avoided tuning on the full history.",
+      "For the technical round, practise pandas without internet and say what you would check in the docs. Talk through the logic as you go.",
+      "With messy data, ask why series end and deal with survivorship bias before computing anything.",
+      "Prepare a clear answer on market impact for small caps and participation rates, as costs were pushed hard in the backtest case.",
+      "For your presentation, have a factor-neutral version ready, know the economic reason the signal works, and have a rule for when you would cut or kill it. Expect Marcus to interrupt early.",
+      "Be ready to discuss your notice period and non-compete from the first round. You have 8 weeks notice and a 3 month non-compete on your record. Fernhallow does not buy out garden leave, so think about what you would say if asked whether you could ask your firm to shorten it."
+    ],
+    "logistics": [
+      "First round is on video and the second round is at the office; the final round's location is not discussed.",
+      "Your second round is booked for 27 November at 14:00. Past second rounds ran a little over two hours, so allow for that.",
+      "The second round uses a firm laptop with no internet access.",
+      "Notice period and non-compete were asked in all three rounds, including the first.",
+      "Fernhallow does not buy out garden leave, per Ingrid Saarinen in the final round debrief. She said they are used to waiting and it is not a deal-breaker.",
+      "In the final round, Marcus asked what it would take in terms of compensation and asked for references before any offer.",
+      "The consultant said Graham usually gives feedback within two days, and that Fernhallow usually takes a few days after the technical round."
+    ]
+  },
+  "meta": {
+    "model": "claude-sonnet-5-5",
+    "ms": 17990,
+    "calls": 2,
+    "input_tokens": 9816,
+    "output_tokens": 4109
+  }
+}

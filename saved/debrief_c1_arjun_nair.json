@@ -1,0 +1,184 @@
+{
+  "matched": {
+    "candidate": "Arjun Nair",
+    "client": "Lumenfold Research",
+    "role": "Research Engineer, Training Infrastructure",
+    "round": "second round"
+  },
+  "crm_note": {
+    "headline": "Arjun finished the second round at Lumenfold (three sessions); next is a values and team chat plus a call with the head of infra.",
+    "stage_after": "second_round done, awaiting feedback; final stage described as a values and team chat plus a call with the head of infra",
+    "how_it_went": "Arjun had three sessions on the afternoon of 18 Nov: systems design, debugging and parallelism, and a research deep dive. He felt solid on debugging and parallelism and enjoyed the research session. He felt shaky on the restart side of the checkpointing design, where he had forgotten the data loader state until Oren asked, and on a back-of-the-envelope checkpoint write estimate where he got the arithmetic wrong first time before reaching the answer.",
+    "rounds": [
+      {
+        "round": "Session 1: systems design with Oren (pre-training infra team)",
+        "format": "Systems design",
+        "asked": [
+          "Design checkpointing for a training run across a few thousand GPUs: how often to save, how to avoid stalling the job during writes, what happens when a node dies mid-save",
+          "How long to get back to the same step on restart, and whether data loader state is in the checkpoint",
+          "Back-of-the-envelope estimate of checkpoint write time for a given model size and bandwidth"
+        ],
+        "candidate_view": "Arjun proposed async checkpointing (snapshot to host memory, write in the background), sharded state with each rank writing its own piece, and keeping the last two good checkpoints. He had forgotten the data loader until Oren asked, and says he recovered but Oren noticed. He did the write-time arithmetic wrong first time and got there slowly. He named the restart question as the shaky part."
+      },
+      {
+        "round": "Session 2: debugging and parallelism with Hana",
+        "format": "Debugging exercise plus discussion",
+        "asked": [
+          "What to check given a loss curve with spikes",
+          "When to use FSDP versus tensor parallel, and the communication cost of each"
+        ],
+        "candidate_view": "Arjun covered learning rate warmup, bad batches, fp16 overflow, attention logits blowing up and gradient norm. He says Hana liked that he asked for the gradient norm plot before guessing. He says he was solid on the parallelism part because it is what he does every day at Whitfenn."
+      },
+      {
+        "round": "Session 3: research deep dive with Marta (research lead)",
+        "format": "Research discussion",
+        "asked": [
+          "Detailed questions on his data mixing paper: why that ablation and not another, and whether the result would hold at bigger scale",
+          "How he would know a benchmark had leaked into the training data (eval contamination)"
+        ],
+        "candidate_view": "Arjun said he enjoyed this session."
+      }
+    ],
+    "compensation": {
+      "current": "Base £140k (CRM)",
+      "expectation": "Around £175k base, as already agreed with Priya and given to Lumenfold's recruiter at the end of the day",
+      "notes": "Arjun asked how the equity works. Lumenfold's recruiter said it is options with a four-year vest and a one-year cliff, and that they would explain the valuation at offer stage. Arjun's concern is the equity: he has a mortgage and is not sure if the base is lower and the package mostly equity."
+    },
+    "notice_and_non_compete": "Eight weeks' notice. No non-compete (Whitfenn does not use them).",
+    "competing_processes": [
+      "Another lab is interested, at an early stage",
+      "A big tech offer that Arjun is probably going to turn down"
+    ],
+    "risks": [
+      "Equity versus base: Arjun said he is not sure if the base is lower and the package is mostly equity",
+      "Arjun was unsure about his performance on checkpoint restart and data loader state, and on the write-time estimate",
+      "Other process and a big tech offer running alongside"
+    ],
+    "next_actions": [
+      {
+        "action": "Call Arjun to update him",
+        "owner": "consultant",
+        "due": "2026-11-20"
+      },
+      {
+        "action": "Get the base salary range from Lumenfold firmed up before Arjun goes further, so there are no surprises at offer stage (raise by phone)",
+        "owner": "consultant",
+        "due": "before the final stage; no date given"
+      },
+      {
+        "action": "Get feedback from Lumenfold on the second round and confirm timing of the final stage (values and team chat, plus call with head of infra). Lumenfold said a week or so",
+        "owner": "consultant",
+        "due": "not specified"
+      }
+    ]
+  },
+  "emails": {
+    "candidate": {
+      "to": "arjun.nair@example.com",
+      "subject": "Following up on today's Lumenfold interviews",
+      "body": "Hi Arjun,\n\nThanks for taking the time to talk me through the afternoon, especially while you were eating.\n\nTo confirm where we are: Lumenfold said the last stage is a values and team chat plus a call with the head of infra, and that you should hear in a week or so. I will get feedback from them on today's sessions.\n\nOn compensation, I will get the base range firmed up with Lumenfold before you go any further, so you are not surprised at offer stage. I will call you on Friday.\n\nBest wishes,\nPriya"
+    },
+    "client": {
+      "to": "Hiring team, Lumenfold Research",
+      "subject": "Arjun Nair: Research Engineer, Training Infrastructure, second round",
+      "body": "Hi,\n\nThank you for hosting Arjun Nair for the second round today for the Research Engineer, Training Infrastructure role. He met Oren, Hana and Marta, and said he enjoyed the research deep dive.\n\nArjun understands the last stage is a values and team chat plus a call with the head of infra, and remains interested in the role.\n\nCould you let me know when you expect to share feedback on today's sessions, and the timing for the final stage?\n\nKind regards,\nPriya"
+    }
+  },
+  "prep_pack": {
+    "client": "Lumenfold Research",
+    "role": "Research Engineer, Training Infrastructure",
+    "for_candidate": {
+      "name": "Chen Yu",
+      "stage": "second_round",
+      "interview_at": "2026-12-02 15:00"
+    },
+    "built_from": [
+      {
+        "candidate": "Arjun Nair",
+        "round": "second round",
+        "date": "2026-11-18",
+        "role": "Research Engineer, Training Infrastructure",
+        "same_role": true
+      }
+    ],
+    "process": [
+      {
+        "round": "Second round (full afternoon, three sessions)",
+        "format": "Three back-to-back sessions in one afternoon: a systems design session, a debugging and parallelism session, and a research deep dive.",
+        "who": "Oren from the pre-training infra team (systems design); Hana (debugging and parallelism; her role was not stated); Marta, a research lead (research deep dive).",
+        "what_they_look_for": "Sound systems design for large-scale training, including recovery and restart. A methodical approach to debugging training problems. Clear knowledge of parallelism trade-offs. Depth on your own published research, including ablation choices, whether results hold at scale, and eval contamination."
+      },
+      {
+        "round": "Final stage (described by Marta in the debrief for the second round)",
+        "format": "A values and team chat, plus a call with the head of infra.",
+        "who": "Head of infra for one call; interviewers for the values and team chat not discussed.",
+        "what_they_look_for": "Not discussed. The debrief gave a timeline of about a week after the second round for this stage."
+      }
+    ],
+    "question_themes": [
+      {
+        "theme": "Checkpointing design for a large training run",
+        "examples": [
+          "Design checkpointing for a run across a few thousand GPUs: how often to save, how to avoid stalling the job during writes, and what happens if a node dies mid-save.",
+          "Restart side: how long to get back to the same step, and whether data loader state is in the checkpoint.",
+          "Back-of-the-envelope estimate of checkpoint write time for a given model size and bandwidth."
+        ],
+        "seen_in": 1
+      },
+      {
+        "theme": "Debugging training instability",
+        "examples": [
+          "Shown a loss curve with spikes and asked what you would check.",
+          "Topics covered in the answer: learning rate warmup, bad batches, fp16 overflow, attention logits blowing up, gradient norm."
+        ],
+        "seen_in": 1
+      },
+      {
+        "theme": "Parallelism trade-offs",
+        "examples": [
+          "When to use FSDP versus tensor parallel, and the communication cost of each."
+        ],
+        "seen_in": 1
+      },
+      {
+        "theme": "Deep dive on your own research",
+        "examples": [
+          "Why a particular ablation was chosen and not another.",
+          "Whether a result would hold at bigger scale.",
+          "How you would know a benchmark had leaked into the training data (eval contamination)."
+        ],
+        "seen_in": 1
+      }
+    ],
+    "went_well": [
+      "In the debugging session, asking for the gradient norm plot before guessing at causes was received well by the interviewer.",
+      "The parallelism discussion (FSDP versus tensor parallel and communication costs) went solidly.",
+      "The research deep dive on a paper about data mixing went well."
+    ],
+    "tripped_people_up": [
+      "Forgetting to include data loader state in the checkpoint until the interviewer asked about it.",
+      "Getting the arithmetic wrong at first on the checkpoint write time estimate, then reaching the answer slowly."
+    ],
+    "advice": [
+      "For checkpointing, cover restart as well as saving: time to get back to the same step and everything needed to resume exactly, including data loader state.",
+      "Practise quick back-of-the-envelope estimates (checkpoint size against write bandwidth) and check the arithmetic as you go.",
+      "In the debugging session, ask for diagnostics such as the gradient norm plot before listing causes.",
+      "Be ready to defend the choices in your own papers: why one ablation and not another, whether results hold at larger scale, and how you would detect benchmark contamination.",
+      "Expect the later stage to include a values and team chat and a call with the head of infra, as described in the debrief for the second round."
+    ],
+    "logistics": [
+      "The second round was a full afternoon with three sessions.",
+      "Next steps were described as a final stage of a values and team chat plus a call with the head of infra, with a timeline of about a week after the second round (call dated 18 Nov 2026).",
+      "The firm's recruiter asked about salary expectations at the end of the second round.",
+      "On equity, the recruiter said it is options with a four-year vest and a one-year cliff, and that the valuation would be explained at offer stage.",
+      "Your second round is booked for 2 Dec 2026 at 15:00. Your record shows a 12-week notice period and no non-compete."
+    ]
+  },
+  "meta": {
+    "model": "claude-sonnet-5-5",
+    "ms": 14162,
+    "calls": 2,
+    "input_tokens": 7070,
+    "output_tokens": 3345
+  }
+}

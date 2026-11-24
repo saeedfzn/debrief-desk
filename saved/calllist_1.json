@@ -1,0 +1,203 @@
+{
+  "consultant": {
+    "id": 1,
+    "name": "Hannah Pryce",
+    "desk": "Quant Research"
+  },
+  "date": "2026-11-25",
+  "calls": [
+    {
+      "rank": 1,
+      "candidate": "Rohan Mehta",
+      "phone": "07700 900103",
+      "client": "Fernhallow Capital",
+      "role": "Quantitative Researcher, Systematic Equities",
+      "stage": "offer",
+      "score": 58,
+      "factors": [
+        {
+          "label": "Offer out 4 working days, no contact since",
+          "points": 48
+        },
+        {
+          "label": "6-month non-compete, worth an early talk on timing",
+          "points": 10
+        }
+      ],
+      "last_contact": "2026-11-18 call: Ingrid Saarinen at Fernhallow: offer coming, references requested. Asked her about a guaranteed first-year bonus.",
+      "reason": "Rohan's offer from Fernhallow Capital went out on 19 November with no contact since, and his 6-month non-compete makes timing worth discussing early.",
+      "opener": "Hi Rohan, it's Hannah. I wanted to check in now that the offer from Fernhallow Capital is with you and talk through how you're finding it, including timing."
+    },
+    {
+      "rank": 2,
+      "candidate": "Grace Holloway",
+      "phone": "07700 900107",
+      "client": "Brackenvane Trading",
+      "role": "Quantitative Trader, Options Market Making",
+      "stage": "first_round",
+      "score": 50,
+      "factors": [
+        {
+          "label": "Interview tomorrow, no prep call logged",
+          "points": 35
+        },
+        {
+          "label": "6-month non-compete, worth an early talk on timing",
+          "points": 10
+        },
+        {
+          "label": "12 days since last contact (first round allows 7)",
+          "points": 5
+        }
+      ],
+      "last_contact": "2026-11-13 email: Confirmed first round time with Brackenvane: Thu 26 Nov 09:30.",
+      "reason": "Grace has her first round with Brackenvane Trading tomorrow at 09:30 with no prep call logged, and it has been 12 days since last contact.",
+      "opener": "Hi Grace, it's Hannah. I know your Brackenvane first round is tomorrow at 09:30, so I wanted to catch up and see whether a quick prep chat would help."
+    },
+    {
+      "rank": 3,
+      "candidate": "Mei Lin Tan",
+      "phone": "07700 900102",
+      "client": "Fernhallow Capital",
+      "role": "Quantitative Researcher, Systematic Equities",
+      "stage": "final_round",
+      "score": 40,
+      "factors": [
+        {
+          "label": "Final round, no contact for 12 days",
+          "points": 30
+        },
+        {
+          "label": "6-month non-compete, worth an early talk on timing",
+          "points": 10
+        }
+      ],
+      "last_contact": "2026-11-13 email: Fernhallow passed her to the final round. Asked for her availability for the research presentation.",
+      "reason": "Mei Lin is in the final round at Fernhallow Capital with no contact for 12 days, and her availability for the research presentation was requested but no reply is logged.",
+      "opener": "Hi Mei Lin, it's Hannah. I wanted to follow up on your availability for the research presentation at Fernhallow and see how you're getting on."
+    },
+    {
+      "rank": 4,
+      "candidate": "Chloe Adeyemi",
+      "phone": "07700 900106",
+      "client": "Brackenvane Trading",
+      "role": "Quantitative Trader, Options Market Making",
+      "stage": "final_round",
+      "score": 31,
+      "factors": [
+        {
+          "label": "Final round in progress",
+          "points": 20
+        },
+        {
+          "label": "6-month non-compete, worth an early talk on timing",
+          "points": 10
+        },
+        {
+          "label": "5 days since last contact (final round allows 4)",
+          "points": 1
+        }
+      ],
+      "last_contact": "2026-11-20 email: Brackenvane feedback positive: final round with the head of the index options desk, Thu 3 Dec 10:00.",
+      "reason": "Chloe is in the final round at Brackenvane Trading, with the interview on 3 December at 10:00, and it has been 5 days since last contact against a 4-day limit.",
+      "opener": "Hi Chloe, it's Hannah. I wanted to catch up ahead of your final round with Brackenvane on 3 December and see if there is anything you'd like to go through."
+    },
+    {
+      "rank": 5,
+      "candidate": "Aisha Karim",
+      "phone": "07700 900105",
+      "client": "Fernhallow Capital",
+      "role": "Quantitative Researcher, Systematic Equities",
+      "stage": "second_round",
+      "score": 15,
+      "factors": [
+        {
+          "label": "Interview Fri 27 Nov, prep call logged",
+          "points": 15
+        }
+      ],
+      "last_contact": "2026-11-23 call: Prep call: walked through the Fernhallow second round format. Second prep call booked for Thu 26 Nov.",
+      "reason": "Aisha has her Fernhallow second round on Friday 27 November, and a second prep call is already booked for Thursday.",
+      "opener": "Hi Aisha, it's Hannah. I'm just touching base ahead of your second round at Fernhallow on Friday and our prep call tomorrow."
+    },
+    {
+      "rank": 6,
+      "candidate": "Ewan Fairley",
+      "phone": "07700 900108",
+      "client": "Brackenvane Trading",
+      "role": "Quantitative Trader, Options Market Making",
+      "stage": "second_round",
+      "score": 15,
+      "factors": [
+        {
+          "label": "12-month non-compete, worth an early talk on timing",
+          "points": 15
+        }
+      ],
+      "last_contact": "2026-11-20 call: Second round at Brackenvane booked for 4 Dec. Brackenvane checking whether they would cover a 12-month non-compete.",
+      "reason": "Ewan's second round at Brackenvane is booked for 4 December, and his 12-month non-compete is worth discussing early.",
+      "opener": "Hi Ewan, it's Hannah. I wanted to catch up ahead of your second round at Brackenvane on 4 December and talk through the non-compete and timing."
+    },
+    {
+      "rank": 7,
+      "candidate": "Freya Lindqvist",
+      "phone": "07700 900110",
+      "client": "Fernhallow Capital",
+      "role": "Quantitative Researcher, Systematic Equities",
+      "stage": "sourced",
+      "score": 12,
+      "factors": [
+        {
+          "label": "Early stage, stale for 42 days",
+          "points": 12
+        }
+      ],
+      "last_contact": "2026-10-14 note: Sourced via referral. Interested in Fernhallow, not yet screened.",
+      "reason": "Freya was sourced by referral for Fernhallow Capital but has not been screened, and the record has been stale for 42 days.",
+      "opener": "Hi Freya, it's Hannah. I wanted to pick up our conversation about the Quantitative Researcher role at Fernhallow Capital and see if you have time for a chat."
+    },
+    {
+      "rank": 8,
+      "candidate": "Jonah Whitcombe",
+      "phone": "07700 900116",
+      "client": "Brackenvane Trading",
+      "role": "Quantitative Trader, Options Market Making",
+      "stage": "sourced",
+      "score": 12,
+      "factors": [
+        {
+          "label": "Early stage, never contacted",
+          "points": 12
+        }
+      ],
+      "last_contact": "No contact logged",
+      "reason": "Jonah has been sourced for the Brackenvane Trading options role but has never been contacted.",
+      "opener": "Hi Jonah, it's Hannah. I'm calling about a Quantitative Trader role in options market making at Brackenvane Trading and wondered if you had a few minutes to talk."
+    },
+    {
+      "rank": 9,
+      "candidate": "Marek Novak",
+      "phone": "07700 900111",
+      "client": "Brackenvane Trading",
+      "role": "Quantitative Trader, Options Market Making",
+      "stage": "screened",
+      "score": 12,
+      "factors": [
+        {
+          "label": "Early stage, stale for 28 days",
+          "points": 12
+        }
+      ],
+      "last_contact": "2026-10-28 call: Screened for the Brackenvane options role. Strong maths, wants to think about leaving rates.",
+      "reason": "Marek was screened for the Brackenvane options role on 28 October and the record has been stale for 28 days.",
+      "opener": "Hi Marek, it's Hannah. I wanted to follow up on our conversation about the Brackenvane options role and see how your thinking has developed."
+    }
+  ],
+  "meta": {
+    "model": "claude-sonnet-5-5",
+    "ms": 6910,
+    "wording": "model",
+    "input_tokens": 2925,
+    "output_tokens": 1089
+  }
+}

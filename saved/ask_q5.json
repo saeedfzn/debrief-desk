@@ -1,0 +1,83 @@
+{
+  "question": "Who has an interview in the next three days, and has each of them had a call since their last stage change?",
+  "sql": "SELECT c.name AS candidate, cl.name AS client, r.title AS role, a.stage AS stage, a.next_interview_at AS interview_at, a.stage_updated AS stage_changed, (SELECT MAX(ac.at) FROM activities ac WHERE ac.candidate_id = c.id AND ac.kind = 'call') AS last_call, CASE WHEN EXISTS (SELECT 1 FROM activities ac WHERE ac.candidate_id = c.id AND ac.kind = 'call' AND ac.at >= a.stage_updated) THEN 'Yes' ELSE 'No' END AS call_since_stage_change, co.name AS consultant FROM applications a JOIN candidates c ON c.id = a.candidate_id JOIN roles r ON r.id = a.role_id JOIN clients cl ON cl.id = r.client_id LEFT JOIN consultants co ON co.id = c.consultant_id WHERE a.status = 'active' AND a.next_interview_at IS NOT NULL AND substr(a.next_interview_at,1,10) BETWEEN '2026-11-25' AND '2026-11-28' ORDER BY a.next_interview_at LIMIT 200",
+  "columns": [
+    "candidate",
+    "client",
+    "role",
+    "stage",
+    "interview_at",
+    "stage_changed",
+    "last_call",
+    "call_since_stage_change",
+    "consultant"
+  ],
+  "rows": [
+    [
+      "Grace Holloway",
+      "Brackenvane Trading",
+      "Quantitative Trader, Options Market Making",
+      "first_round",
+      "2026-11-26 09:30",
+      "2026-11-13",
+      "2026-11-06",
+      "No",
+      "Hannah Pryce"
+    ],
+    [
+      "Ines Duarte",
+      "Lumenfold Research",
+      "Research Scientist, Evaluations",
+      "second_round",
+      "2026-11-26 16:00",
+      "2026-11-19",
+      "2026-11-24",
+      "Yes",
+      "Priya Raman"
+    ],
+    [
+      "Arjun Nair",
+      "Lumenfold Research",
+      "Research Engineer, Training Infrastructure",
+      "final_round",
+      "2026-11-27 11:00",
+      "2026-11-20",
+      "2026-11-18",
+      "No",
+      "Priya Raman"
+    ],
+    [
+      "Aisha Karim",
+      "Fernhallow Capital",
+      "Quantitative Researcher, Systematic Equities",
+      "second_round",
+      "2026-11-27 14:00",
+      "2026-11-20",
+      "2026-11-23",
+      "Yes",
+      "Hannah Pryce"
+    ],
+    [
+      "Laura Schmidt",
+      "Brackenvane Trading",
+      "Low-Latency C++ Developer",
+      "first_round",
+      "2026-11-27 15:00",
+      "2026-11-23",
+      "2026-11-24",
+      "Yes",
+      "Tom Okafor"
+    ]
+  ],
+  "answer": "Five candidates have interviews in the next three days: Grace Holloway (26 Nov, Brackenvane Trading), Ines Duarte (26 Nov, Lumenfold Research), Arjun Nair (27 Nov, Lumenfold Research), Aisha Karim (27 Nov, Fernhallow Capital) and Laura Schmidt (27 Nov, Brackenvane Trading). Ines Duarte, Aisha Karim and Laura Schmidt have had a call since their last stage change, but Grace Holloway (last call 6 Nov, stage changed 13 Nov) and Arjun Nair (last call 18 Nov, stage changed 20 Nov) have not.",
+  "meta": {
+    "model": "claude-sonnet-5-5",
+    "ms": 5202,
+    "calls": 2,
+    "input_tokens": 2890,
+    "output_tokens": 775,
+    "row_count": 5,
+    "truncated": false,
+    "note": "Active applications with an interview from 2026-11-25 to 2026-11-28 inclusive; flags whether a call was logged on or after the last stage change."
+  }
+}

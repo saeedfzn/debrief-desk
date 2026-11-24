@@ -1,0 +1,35 @@
+{
+  "question": "Which final-round candidates have not had a call from us in the last 7 days?",
+  "sql": "SELECT c.name AS candidate, cl.name AS client, r.title AS role, a.stage_updated AS stage_updated, substr(a.next_interview_at,1,16) AS next_interview, (SELECT MAX(act.at) FROM activities act WHERE act.candidate_id = c.id AND act.kind = 'call') AS last_call, co.name AS consultant FROM applications a JOIN candidates c ON c.id = a.candidate_id JOIN roles r ON r.id = a.role_id JOIN clients cl ON cl.id = r.client_id LEFT JOIN consultants co ON co.id = c.consultant_id WHERE a.status = 'active' AND a.stage = 'final_round' AND NOT EXISTS (SELECT 1 FROM activities act WHERE act.candidate_id = c.id AND act.kind = 'call' AND act.at >= date('2026-11-25','-7 day')) ORDER BY last_call IS NOT NULL, last_call ASC, c.name LIMIT 200",
+  "columns": [
+    "candidate",
+    "client",
+    "role",
+    "stage_updated",
+    "next_interview",
+    "last_call",
+    "consultant"
+  ],
+  "rows": [
+    [
+      "Mei Lin Tan",
+      "Fernhallow Capital",
+      "Quantitative Researcher, Systematic Equities",
+      "2026-11-13",
+      null,
+      "2026-11-10",
+      "Hannah Pryce"
+    ]
+  ],
+  "answer": "Only Mei Lin Tan, who is at final round for the Quantitative Researcher, Systematic Equities role at Fernhallow Capital, has not had a call in the last 7 days. Her last call was on 2026-11-10 with consultant Hannah Pryce, and no next interview is booked.",
+  "meta": {
+    "model": "claude-sonnet-5-5",
+    "ms": 5313,
+    "calls": 2,
+    "input_tokens": 2515,
+    "output_tokens": 519,
+    "row_count": 1,
+    "truncated": false,
+    "note": "Active applications at final_round where the candidate has no logged call (activities.kind='call') dated 2026-11-18 or later; showing their last call date, oldest first."
+  }
+}

@@ -1,0 +1,1178 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Debrief Desk</title>
+<meta name="description" content="Turn a debrief call into a CRM note, follow-up drafts and a prep pack; rank today's calls; ask the pipeline in plain English.">
+<style>
+:root {
+  --paper: #E8ECF0;
+  --sheet: #FFFFFF;
+  --sheet-2: #F4F6F9;
+  --ink: #17202B;
+  --ink-2: #3B4656;
+  --muted: #627080;
+  --rule: #D4DAE1;
+  --rule-strong: #B7C0CB;
+  --pen: #1F45A8;
+  --pen-ink: #FFFFFF;
+  --pen-soft: #E2E9F9;
+  --marker: #F6E35A;
+  --marker-ink: #2A2500;
+  --marker-soft: rgba(246, 227, 90, .55);
+  --risk: #9E3810;
+  --risk-soft: #FBEAE2;
+  --ok: #1D6B44;
+  --ok-soft: #E1F2E8;
+  --err: #B3261E;
+  --err-soft: #FCE8E6;
+  --sans: "Segoe UI Variable Text", "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+  --serif: Charter, "Bitstream Charter", "Sitka Text", Cambria, "Iowan Old Style", Georgia, serif;
+  --mono: ui-monospace, "Cascadia Mono", Consolas, "SF Mono", Menlo, monospace;
+  color-scheme: light dark;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #0F141B;
+    --sheet: #171E28;
+    --sheet-2: #1C2430;
+    --ink: #E6EAF0;
+    --ink-2: #C2CAD5;
+    --muted: #8D98A7;
+    --rule: #29323F;
+    --rule-strong: #3B4656;
+    --pen: #93AEF7;
+    --pen-ink: #0F141B;
+    --pen-soft: #1F2A45;
+    --marker: #E8D13D;
+    --marker-ink: #1A1600;
+    --marker-soft: rgba(232, 209, 61, .26);
+    --risk: #F2A584;
+    --risk-soft: #33211A;
+    --ok: #7FD0A4;
+    --ok-soft: #17301F;
+    --err: #F59C93;
+    --err-soft: #3A1F1E;
+  }
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font: 14px/1.45 var(--sans);
+  overflow-x: hidden;
+}
+button, input, select, textarea { font: inherit; color: inherit; }
+a { color: var(--pen); }
+:focus-visible { outline: 2px solid var(--pen); outline-offset: 2px; }
+[hidden] { display: none !important; }
+.wrap { max-width: 1440px; margin: 0 auto; padding: 0 20px; }
+@media (max-width: 600px) { .wrap { padding: 0 12px; } }
+
+/* Header */
+.top { background: var(--sheet); border-bottom: 1px solid var(--rule); }
+.top-in { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 20px; padding-top: 12px; }
+.byline { margin: 0; color: var(--muted); font-size: 13px; }
+.byline strong { color: var(--ink); font-size: 16px; letter-spacing: -.01em; margin-right: 2px;
+  background: linear-gradient(transparent 58%, var(--marker-soft) 58%, var(--marker-soft) 92%, transparent 92%); }
+.status { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 12.5px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.pill { display: inline-flex; align-items: center; gap: 6px; color: var(--ink-2); font-weight: 600; }
+.pill::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--rule-strong); }
+.pill.live::before { background: var(--ok); }
+.pill.static::before { background: var(--marker); box-shadow: 0 0 0 1px var(--rule-strong); }
+.warn-text { color: var(--risk); font-weight: 600; }
+.static-note { margin: 4px 0 0; font-size: 12.5px; color: var(--muted); }
+.tabs { display: flex; gap: 4px; margin-top: 10px; overflow-x: auto; scrollbar-width: none; }
+.tab {
+  border: 0; background: none; padding: 9px 12px 11px; cursor: pointer; white-space: nowrap;
+  font-weight: 600; color: var(--muted); position: relative;
+}
+.tab:hover { color: var(--ink); }
+.tab[aria-selected="true"] { color: var(--ink); }
+.tab[aria-selected="true"]::after {
+  content: ""; position: absolute; left: 6px; right: 6px; bottom: 3px; height: 7px;
+  background: var(--marker); opacity: .9; border-radius: 2px; transform: skewX(-12deg); z-index: -1;
+}
+.tab { isolation: isolate; }
+.tab .count { font-weight: 400; color: var(--muted); margin-left: 4px; font-variant-numeric: tabular-nums; }
+
+main { padding: 16px 0 48px; }
+.panel-tab[hidden] { display: none; }
+
+/* Generic blocks */
+.sheet { background: var(--sheet); border: 1px solid var(--rule); border-radius: 6px; min-width: 0; }
+.sheet-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap;
+  padding: 10px 14px; border-bottom: 1px solid var(--rule); }
+.sheet-head h2 { margin: 0; font-size: 15px; font-weight: 700; letter-spacing: -.005em; }
+.sheet-body { padding: 12px 14px 14px; min-width: 0; overflow-wrap: break-word; }
+.sub { color: var(--muted); font-size: 12.5px; }
+h3.k { margin: 14px 0 6px; font-size: 13px; font-weight: 700; color: var(--ink-2); }
+h3.k:first-child { margin-top: 0; }
+ul.plain { margin: 0; padding-left: 18px; }
+ul.plain li { margin: 2px 0; }
+.none { color: var(--muted); font-style: italic; }
+
+.btn {
+  display: inline-flex; align-items: center; gap: 6px; border-radius: 5px; cursor: pointer;
+  padding: 7px 14px; border: 1px solid var(--pen); background: var(--pen); color: var(--pen-ink); font-weight: 600;
+}
+.btn:hover { filter: brightness(1.08); }
+.btn:disabled { opacity: .6; cursor: default; filter: none; }
+.btn-quiet {
+  display: inline-flex; align-items: center; gap: 4px; border-radius: 4px; cursor: pointer;
+  padding: 3px 9px; border: 1px solid var(--rule-strong); background: var(--sheet); color: var(--ink-2); font-size: 12.5px;
+}
+.btn-quiet:hover { border-color: var(--pen); color: var(--pen); }
+.btn-quiet.done { border-color: var(--ok); color: var(--ok); }
+.actions { display: flex; gap: 6px; flex-wrap: wrap; }
+
+select, input[type="text"], textarea {
+  background: var(--sheet); border: 1px solid var(--rule-strong); border-radius: 5px; padding: 7px 9px; max-width: 100%;
+}
+select { padding-right: 28px; }
+textarea { width: 100%; resize: vertical; line-height: 1.5; font-size: 13px; }
+textarea[readonly] { background: var(--sheet-2); color: var(--ink-2); }
+label.lbl { font-weight: 600; font-size: 13px; margin-right: 6px; }
+
+.msg { margin: 10px 0 0; padding: 9px 12px; border-radius: 5px; font-size: 13.5px; }
+.msg.err { background: var(--err-soft); color: var(--err); border: 1px solid currentColor; }
+.msg.info { background: var(--sheet); color: var(--ink-2); border: 1px solid var(--rule); }
+.msg pre { margin: 8px 0 0; }
+.meta { display: flex; flex-wrap: wrap; gap: 2px 14px; color: var(--muted); font-size: 12px; font-variant-numeric: tabular-nums; }
+
+/* Debrief */
+.intake { margin-bottom: 14px; }
+.intake > summary { list-style: none; cursor: pointer; display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap;
+  padding: 10px 14px; }
+.intake > summary::-webkit-details-marker { display: none; }
+.intake > summary .t { font-weight: 700; }
+.intake > summary .sub { flex: 1 1 200px; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.intake > summary .toggle { color: var(--pen); font-size: 12.5px; font-weight: 600; }
+.intake[open] > summary { border-bottom: 1px solid var(--rule); }
+.intake-body { padding: 12px 14px 14px; }
+.intake-row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; margin-bottom: 10px; }
+.intake-row select { flex: 1 1 280px; min-width: 0; }
+.intake-foot { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; margin-top: 10px; }
+#transcript-text { min-height: 260px; }
+
+.matched { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; margin-bottom: 14px; }
+.matched > div { padding: 9px 14px; border-right: 1px solid var(--rule); min-width: 0; }
+.matched > div:last-child { border-right: 0; }
+.matched dt { font-size: 12px; color: var(--muted); }
+.matched dd { margin: 1px 0 0; font-weight: 600; overflow-wrap: anywhere; }
+.matched dd.miss { color: var(--risk); font-weight: 600; }
+@media (max-width: 760px) {
+  .matched { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .matched > div:nth-child(2) { border-right: 0; }
+  .matched > div:nth-child(-n+2) { border-bottom: 1px solid var(--rule); }
+}
+.drafts-line { margin: -6px 0 12px; color: var(--muted); font-size: 12.5px; }
+
+.results { display: grid; gap: 14px; align-items: start;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr); grid-template-rows: auto 1fr;
+  grid-template-areas: "note pack" "mail pack"; }
+.col { display: grid; gap: 14px; min-width: 0; align-content: start; }
+.col-note { grid-area: note; }
+.col-mail { grid-area: mail; }
+.col-pack { grid-area: pack; }
+@media (min-width: 1360px) {
+  .results { grid-template-columns: minmax(0, 1fr) minmax(0, .9fr) minmax(0, 1.45fr); grid-template-rows: auto; grid-template-areas: "note mail pack"; }
+}
+@media (max-width: 1000px) {
+  .results { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto; grid-template-areas: "note" "mail" "pack"; }
+}
+
+.headline { font-size: 15.5px; font-weight: 700; margin: 0 0 6px; line-height: 1.35; }
+.stage-after { display: inline-block; font-size: 12.5px; padding: 1px 8px; border-radius: 3px; background: var(--pen-soft); color: var(--pen); font-weight: 600; margin-bottom: 8px; }
+.round { border-left: 3px solid var(--rule-strong); padding: 2px 0 2px 10px; margin: 8px 0; }
+.round b { display: block; }
+.round .fmt { color: var(--muted); font-size: 12.5px; }
+.round ul { margin: 4px 0 0; padding-left: 18px; }
+.round .view { margin: 4px 0 0; font-style: italic; color: var(--ink-2); }
+dl.facts { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 5px 14px; margin: 0; }
+dl.facts dt { color: var(--muted); font-size: 12.5px; padding-top: 1px; }
+dl.facts dd { margin: 0; min-width: 0; }
+dl.facts dd ul { margin: 0; padding-left: 16px; }
+@media (max-width: 480px) { dl.facts { grid-template-columns: minmax(0, 1fr); } dl.facts dd { margin-bottom: 6px; } }
+.risk-list li { color: var(--risk); }
+.todo { display: grid; grid-template-columns: fit-content(30%) minmax(0, 1fr) fit-content(32%); gap: 5px 10px; margin: 0; padding: 0; list-style: none; align-items: baseline; }
+.todo li { display: contents; }
+.owner { display: inline-block; max-width: 100%; overflow-wrap: anywhere; font-size: 11.5px; font-weight: 700; padding: 0 6px; border-radius: 3px; border: 1px solid currentColor; }
+.owner.consultant { color: var(--pen); }
+.owner.candidate { color: var(--ok); }
+.owner.client { color: var(--ink-2); }
+.due { color: var(--muted); font-size: 12.5px; text-align: right; overflow-wrap: anywhere; font-variant-numeric: tabular-nums; }
+
+.email .hdr { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 2px 10px; font-size: 13px; margin-bottom: 8px; }
+.email .hdr span:nth-child(odd) { color: var(--muted); }
+.email .hdr span:nth-child(even) { overflow-wrap: anywhere; }
+.email .body { white-space: pre-wrap; margin: 0; padding: 10px 12px; background: var(--sheet-2); border-radius: 4px; font-size: 13.5px; line-height: 1.55; }
+
+/* Prep pack: the briefing sheet */
+.pack { border-top: 4px solid var(--pen); }
+.pack .sheet-body { padding: 16px 20px 20px; }
+@media (max-width: 600px) { .pack .sheet-body { padding: 14px; } }
+.pack-title { font-family: var(--serif); font-size: 24px; line-height: 1.2; font-weight: 600; margin: 0 0 4px; letter-spacing: -.01em; }
+.pack-for { font-size: 14px; margin: 0 0 12px; color: var(--ink-2); }
+.pack-for b { color: var(--ink); }
+.built { background: var(--sheet-2); border-radius: 5px; padding: 9px 12px; margin-bottom: 16px; }
+.built-n { font-weight: 700; }
+.built-n span { background: var(--marker); color: var(--marker-ink); padding: 0 5px; border-radius: 2px; font-variant-numeric: tabular-nums; }
+.built ul { list-style: none; margin: 6px 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 3px 16px; font-size: 13px; }
+.built li { display: flex; gap: 8px; min-width: 0; }
+.built li .d { color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.pack h3.k { font-size: 14px; color: var(--ink); margin-top: 18px; padding-bottom: 4px; border-bottom: 1px solid var(--rule); }
+.pack .prose { font-family: var(--serif); font-size: 15px; line-height: 1.55; }
+.steps { list-style: none; margin: 0; padding: 0; }
+.steps li { display: grid; grid-template-columns: 140px minmax(0, 1fr); gap: 2px 14px; padding: 7px 0; border-bottom: 1px dashed var(--rule); }
+.steps li:last-child { border-bottom: 0; }
+.steps .r { font-family: var(--sans); font-weight: 700; font-size: 13.5px; }
+.steps .who { color: var(--muted); font-family: var(--sans); font-size: 12.5px; }
+.steps .look { margin-top: 2px; }
+.steps .look em { font-style: normal; font-family: var(--sans); font-size: 12.5px; color: var(--muted); margin-right: 4px; }
+@media (max-width: 600px) { .steps li { grid-template-columns: minmax(0, 1fr); } }
+.themes { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.themes li { display: grid; grid-template-columns: minmax(0, 1fr) max-content; gap: 2px 12px; }
+.themes .name { font-weight: 600; }
+.themes ul { grid-column: 1 / -1; margin: 0; padding-left: 18px; color: var(--ink-2); }
+.seen { font-family: var(--sans); font-size: 12px; font-weight: 600; padding: 1px 7px; border-radius: 3px; white-space: nowrap; color: var(--marker-ink);
+  background: var(--marker-soft); background: color-mix(in srgb, var(--marker) calc(var(--w, .5) * 100%), transparent); align-self: start; }
+@media (prefers-color-scheme: dark) { .seen { color: var(--ink); } }
+.two { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 0 20px; }
+@media (max-width: 600px) { .two { grid-template-columns: minmax(0, 1fr); } }
+.pack ul.plain li { margin: 3px 0; }
+
+/* Call list */
+.bar { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; margin-bottom: 12px; }
+.bar .grow { flex: 1 1 auto; }
+.list-head { margin: 0 0 10px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 16px; align-items: baseline; }
+.list-head h2 { margin: 0; font-size: 16px; }
+.calls { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.call { background: var(--sheet); border: 1px solid var(--rule); border-radius: 6px;
+  display: grid; grid-template-columns: 52px minmax(0, 1fr) max-content; gap: 0 14px; padding: 12px 14px; }
+.rank { font-size: 26px; font-weight: 800; line-height: 1; font-variant-numeric: tabular-nums; text-align: center; align-self: start;
+  padding: 6px 0 7px; color: var(--marker-ink); background: var(--marker); border-radius: 3px; transform: rotate(-2deg); }
+.call-main { min-width: 0; }
+.call-top { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 10px; }
+.call .name { font-size: 16px; font-weight: 700; }
+.stage { font-size: 12px; font-weight: 600; color: var(--pen); background: var(--pen-soft); padding: 0 7px; border-radius: 3px; }
+.phone { font-variant-numeric: tabular-nums; font-size: 13px; text-decoration: none; }
+.phone:hover { text-decoration: underline; }
+.where { color: var(--muted); font-size: 13px; }
+.reason { margin: 6px 0 0; }
+.opener { margin: 6px 0 0; padding: 6px 10px; border-left: 3px solid var(--marker); background: var(--sheet-2); border-radius: 0 4px 4px 0;
+  font-family: var(--serif); font-size: 14.5px; }
+.last { margin-top: 6px; color: var(--muted); font-size: 12.5px; }
+.score-btn { display: grid; justify-items: end; gap: 1px; border: 1px solid var(--rule-strong); background: var(--sheet); border-radius: 5px; padding: 5px 9px; cursor: pointer; text-align: right; }
+.score-btn:hover { border-color: var(--pen); }
+.score-btn b { font-size: 20px; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.score-btn span { font-size: 11.5px; color: var(--pen); font-weight: 600; white-space: nowrap; }
+.factors { grid-column: 2 / -1; margin-top: 10px; }
+.factors table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.factors td { padding: 4px 8px; border-top: 1px solid var(--rule); }
+.factors td.pts { text-align: right; font-variant-numeric: tabular-nums; font-weight: 600; white-space: nowrap; width: 1%; }
+.factors td.neg { color: var(--ok); }
+.factors tr.total td { border-top: 2px solid var(--rule-strong); font-weight: 700; }
+.factors .src { margin: 6px 8px 0; color: var(--muted); font-size: 12px; }
+@media (max-width: 600px) {
+  .call { grid-template-columns: 40px minmax(0, 1fr); gap: 0 10px; }
+  .rank { font-size: 20px; }
+  .score-cell { grid-column: 2; margin-top: 8px; }
+  .score-btn { grid-auto-flow: column; align-items: baseline; gap: 8px; }
+  .factors { grid-column: 1 / -1; }
+}
+
+/* Ask */
+.ask-form { display: flex; gap: 8px; flex-wrap: wrap; }
+.ask-form input { flex: 1 1 320px; min-width: 0; padding: 9px 11px; font-size: 15px; }
+.qs { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+.q { text-align: left; border: 1px solid var(--rule-strong); background: var(--sheet); border-radius: 5px; padding: 6px 10px; cursor: pointer; max-width: 100%; }
+.q:hover { border-color: var(--pen); color: var(--pen); }
+.q[aria-pressed="true"] { border-color: var(--pen); background: var(--pen-soft); color: var(--pen); font-weight: 600; }
+.qs-label { margin: 12px 0 0; font-size: 12.5px; color: var(--muted); }
+.answer { font-size: 17px; line-height: 1.45; margin: 0 0 4px; font-family: var(--serif); }
+.asked { color: var(--muted); font-size: 13px; margin: 0 0 10px; }
+.scroll { overflow-x: auto; max-width: 100%; border: 1px solid var(--rule); border-radius: 5px; }
+table.data { border-collapse: collapse; width: 100%; font-size: 13px; font-variant-numeric: tabular-nums; }
+table.data th { text-align: left; font-weight: 700; background: var(--sheet-2); padding: 6px 10px; border-bottom: 1px solid var(--rule-strong); white-space: nowrap; }
+table.data td { padding: 5px 10px; border-bottom: 1px solid var(--rule); white-space: nowrap; }
+table.data tr:last-child td { border-bottom: 0; }
+table.data td.num, table.data th.num { text-align: right; }
+table.data td.blank { color: var(--muted); }
+.sql-wrap { margin-top: 14px; }
+.sql-wrap .cap { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 4px; font-size: 13px; font-weight: 600; flex-wrap: wrap; }
+.sql-wrap .cap .sub { font-weight: 400; }
+pre.sql { margin: 0; padding: 10px 12px; background: var(--sheet-2); border: 1px solid var(--rule); border-radius: 5px; overflow-x: auto;
+  font: 12.5px/1.5 var(--mono); white-space: pre; }
+.empty { padding: 28px 16px; text-align: center; color: var(--muted); }
+
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <div class="top-in">
+      <p class="byline"><strong>Debrief Desk</strong> · Work sample by Faizaan Saeed · All people, firms and figures are fictional</p>
+      <div class="status" id="status" aria-live="polite">
+        <span class="pill" id="mode-pill">Connecting</span>
+        <span id="today-line"></span>
+        <span id="model-line"></span>
+      </div>
+    </div>
+    <p class="static-note" id="static-note" hidden>Showing saved results from real runs. Run it locally to paste your own debrief.</p>
+    <nav class="tabs" role="tablist" aria-label="Tools">
+      <button class="tab" role="tab" id="tab-debrief" data-tab="debrief" aria-controls="panel-debrief" aria-selected="true">Debrief</button>
+      <button class="tab" role="tab" id="tab-call-list" data-tab="call-list" aria-controls="panel-call-list" aria-selected="false">Call list</button>
+      <button class="tab" role="tab" id="tab-ask" data-tab="ask" aria-controls="panel-ask" aria-selected="false">Ask the pipeline</button>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="panel-tab" id="panel-debrief" role="tabpanel" aria-labelledby="tab-debrief">
+    <details class="sheet intake" id="transcript-box" open>
+      <summary><span class="t">Transcript</span><span class="sub" id="transcript-summary">Pick a debrief call</span><span class="toggle" id="transcript-toggle">Hide</span></summary>
+      <div class="intake-body">
+        <div class="intake-row">
+          <label class="lbl" for="transcript-select">Sample call</label>
+          <select id="transcript-select"></select>
+        </div>
+        <textarea id="transcript-text" spellcheck="false" aria-label="Debrief transcript"></textarea>
+        <div class="intake-foot">
+          <button class="btn" id="run-debrief" type="button">Run debrief</button>
+          <span class="sub" id="transcript-words"></span>
+          <span class="sub" id="debrief-hint"></span>
+        </div>
+        <div id="debrief-status" aria-live="polite"></div>
+      </div>
+    </details>
+    <div id="debrief-results"><div class="sheet empty">Pick a call above and press Run debrief. You get a CRM note, a draft email to the candidate and one to the client, and a prep pack for the next candidate booked on the same role.</div></div>
+  </section>
+
+  <section class="panel-tab" id="panel-call-list" role="tabpanel" aria-labelledby="tab-call-list" hidden>
+    <div class="bar">
+      <label class="lbl" for="consultant-select">Consultant</label>
+      <select id="consultant-select"></select>
+      <span class="grow"></span>
+      <button class="btn-quiet" id="calls-toggle-all" type="button" aria-pressed="false">Show all points</button>
+    </div>
+    <div id="calls-status" aria-live="polite"></div>
+    <div id="calls-results"></div>
+  </section>
+
+  <section class="panel-tab" id="panel-ask" role="tabpanel" aria-labelledby="tab-ask" hidden>
+    <div class="sheet"><div class="sheet-body">
+      <form class="ask-form" id="ask-form" autocomplete="off">
+        <input type="text" id="ask-input" placeholder="Ask about the pipeline, for example: who has an offer out?" aria-label="Question about the pipeline">
+        <button class="btn" id="ask-submit" type="submit">Ask</button>
+      </form>
+      <p class="qs-label" id="ask-questions-label">Saved questions</p>
+      <div class="qs" id="ask-questions"></div>
+      <div id="ask-status" aria-live="polite"></div>
+    </div></div>
+    <div id="ask-results" style="margin-top:14px"></div>
+  </section>
+</main>
+
+<script>
+(function () {
+  'use strict';
+
+  /* ---------- pure helpers (no DOM) ---------- */
+
+  var BLANKS = { 'null': 1, 'none': 1, 'undefined': 1, 'nan': 1 };
+
+  function str(v) {
+    if (v === null || v === undefined) return '';
+    if (typeof v === 'number') return isFinite(v) ? String(v) : '';
+    if (typeof v === 'boolean') return v ? 'Yes' : 'No';
+    if (typeof v !== 'string') return '';
+    var s = v.trim();
+    return BLANKS[s.toLowerCase()] ? '' : s;
+  }
+  function esc(v) {
+    return str(v).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+  function arr(v) { return Array.isArray(v) ? v : []; }
+  function obj(v) { return (v && typeof v === 'object' && !Array.isArray(v)) ? v : {}; }
+  function strs(v) {
+    if (typeof v === 'string') return str(v) ? [str(v)] : [];
+    return arr(v).map(str).filter(Boolean);
+  }
+  function num(v) {
+    if (typeof v === 'number' && isFinite(v)) return v;
+    if (typeof v === 'string' && v.trim() !== '' && isFinite(Number(v))) return Number(v);
+    return null;
+  }
+
+  var STAGES = {
+    sourced: 'Sourced', screened: 'Screened', submitted: 'Submitted',
+    first_round: 'First round', second_round: 'Second round', final_round: 'Final round',
+    offer: 'Offer', placed: 'Placed', rejected: 'Rejected', withdrawn: 'Withdrawn'
+  };
+  // "final_round" -> "Final round"; "final_round done, awaiting feedback" -> "Final round done, awaiting feedback"
+  function human(v) {
+    var s = str(v);
+    if (!s) return '';
+    if (STAGES[s.toLowerCase()]) return STAGES[s.toLowerCase()];
+    s = s.replace(/\b([a-z]+_[a-z_]+)\b/g, function (m) {
+      return STAGES[m] ? STAGES[m].toLowerCase() : m.replace(/_/g, ' ');
+    });
+    return s.charAt(0).toUpperCase() + s.slice(1);
+  }
+
+  var DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  var MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  function parseISO(v) {
+    var m = /^(\d{4})-(\d{2})-(\d{2})(?:[ T](\d{2}):(\d{2}))?/.exec(str(v));
+    if (!m) return null;
+    var d = new Date(Date.UTC(+m[1], +m[2] - 1, +m[3]));
+    if (isNaN(d.getTime()) || d.getUTCDate() !== +m[3]) return null;
+    return { date: d, time: m[4] ? m[4] + ':' + m[5] : '', rest: str(v).slice(m[0].length) };
+  }
+  // "2026-11-27 10:00" -> "Fri 27 Nov, 10:00". Anything that is not an ISO date comes back as written.
+  function fmtDate(v) {
+    var p = parseISO(v);
+    if (!p) return str(v);
+    var d = p.date;
+    var out = DAYS[d.getUTCDay()] + ' ' + d.getUTCDate() + ' ' + MONTHS[d.getUTCMonth()];
+    if (p.time) out += ', ' + p.time;
+    return out + p.rest;
+  }
+  function dayDiff(v, today) {
+    var a = parseISO(v), b = parseISO(today);
+    if (!a || !b) return null;
+    return Math.round((a.date - b.date) / 86400000);
+  }
+  function relDay(v, today) {
+    var n = dayDiff(v, today);
+    if (n === null) return '';
+    if (n === 0) return 'today';
+    if (n === 1) return 'tomorrow';
+    if (n === -1) return 'yesterday';
+    return n > 0 ? 'in ' + n + ' days' : n * -1 + ' days ago';
+  }
+  function fmtMs(v) {
+    var n = num(v);
+    if (n === null || n <= 0) return '';
+    return n < 1000 ? Math.round(n) + ' ms' : (n / 1000).toFixed(1) + ' s';
+  }
+  function plural(n, one, many) { return n + ' ' + (n === 1 ? one : (many || one + 's')); }
+  function fmtPoints(v) {
+    var n = num(v);
+    if (n === null) return '';
+    return (n > 0 ? '+' : n < 0 ? '-' : '') + Math.abs(n);
+  }
+  function telHref(v) {
+    var d = str(v).replace(/[^\d+]/g, '');
+    return d.length >= 6 ? 'tel:' + d : '';
+  }
+
+  function renderMeta(meta, extra) {
+    var m = obj(meta), bits = [];
+    if (str(m.model)) bits.push('Model: ' + esc(m.model));
+    var calls = num(m.calls);
+    if (calls !== null) bits.push(esc(plural(calls, 'model call')));
+    if (fmtMs(m.ms)) bits.push('Took ' + esc(fmtMs(m.ms)));
+    arr(extra).forEach(function (x) { if (str(x)) bits.push(esc(x)); });
+    if (!bits.length) return '';
+    return '<div class="meta">' + bits.map(function (b) { return '<span>' + b + '</span>'; }).join('') + '</div>';
+  }
+
+  function renderError(message, sql) {
+    var html = '<div class="msg err" role="alert">' + (esc(message) || 'Something went wrong.');
+    if (str(sql)) html += '<pre class="sql">' + esc(sql) + '</pre>';
+    return html + '</div>';
+  }
+  function renderInfo(message) { return '<div class="msg info">' + esc(message) + '</div>'; }
+
+  function copyBtn(key, label) {
+    return '<button type="button" class="btn-quiet" data-copy="' + esc(key) + '">' + esc(label) + '</button>';
+  }
+
+  /* ---------- Debrief ---------- */
+
+  function renderMatched(matched) {
+    var m = obj(matched);
+    function cell(label, v, missLabel, isStage) {
+      var s = isStage ? human(v) : str(v);
+      return '<div><dt>' + label + '</dt><dd' + (s ? '' : ' class="miss"') + '>' + (s ? esc(s) : missLabel) + '</dd></div>';
+    }
+    return '<dl class="sheet matched">' +
+      cell('Candidate', m.candidate, 'Not matched in the CRM') +
+      cell('Client', m.client, 'Not matched in the CRM') +
+      cell('Role', m.role, 'Not matched') +
+      cell('Round', m.round, 'Not stated', true) +
+      '</dl>';
+  }
+
+  function noteToText(note, matched) {
+    var n = obj(note), m = obj(matched), out = [];
+    var who = [str(m.candidate), str(m.client), str(m.role)].filter(Boolean).join(', ');
+    if (who) out.push(who);
+    if (str(n.headline)) out.push(str(n.headline));
+    if (str(n.stage_after)) out.push('Stage: ' + human(n.stage_after));
+    if (str(n.how_it_went)) out.push('', str(n.how_it_went));
+    var rounds = arr(n.rounds).map(obj).filter(function (r) { return str(r.round) || str(r.format) || strs(r.asked).length || str(r.candidate_view); });
+    if (rounds.length) {
+      out.push('', 'Rounds');
+      rounds.forEach(function (r) {
+        out.push('- ' + [human(r.round), str(r.format)].filter(Boolean).join(': '));
+        if (strs(r.asked).length) out.push('  Asked: ' + strs(r.asked).join('; '));
+        if (str(r.candidate_view)) out.push('  Candidate view: ' + str(r.candidate_view));
+      });
+    }
+    var c = obj(n.compensation), comp = [];
+    if (str(c.current)) comp.push('Current: ' + str(c.current));
+    if (str(c.expectation)) comp.push('Expectation: ' + str(c.expectation));
+    if (str(c.notes)) comp.push('Notes: ' + str(c.notes));
+    if (comp.length) out.push('', 'Compensation', comp.join('\n'));
+    if (str(n.notice_and_non_compete)) out.push('', 'Notice and non-compete: ' + str(n.notice_and_non_compete));
+    if (strs(n.competing_processes).length) out.push('', 'Other processes: ' + strs(n.competing_processes).join('; '));
+    if (strs(n.risks).length) out.push('', 'Risks: ' + strs(n.risks).join('; '));
+    var acts = arr(n.next_actions).map(obj).filter(function (a) { return str(a.action); });
+    if (acts.length) {
+      out.push('', 'Next actions');
+      acts.forEach(function (a) {
+        var tail = [human(a.owner), fmtDate(a.due)].filter(Boolean).join(', ');
+        out.push('- ' + str(a.action) + (tail ? ' (' + tail + ')' : ''));
+      });
+    }
+    return out.join('\n').trim();
+  }
+
+  function renderNote(note, matched) {
+    var n = obj(note), body = '';
+    if (str(n.headline)) body += '<p class="headline">' + esc(n.headline) + '</p>';
+    if (str(n.stage_after)) body += '<span class="stage-after">' + esc(human(n.stage_after)) + '</span>';
+    if (str(n.how_it_went)) body += '<p style="margin:0 0 4px">' + esc(n.how_it_went) + '</p>';
+
+    var rounds = arr(n.rounds).map(obj).filter(function (r) { return str(r.round) || str(r.format) || strs(r.asked).length; });
+    if (rounds.length) {
+      body += '<h3 class="k">Rounds</h3>';
+      rounds.forEach(function (r) {
+        body += '<div class="round"><b>' + (esc(human(r.round)) || 'Round') + '</b>';
+        if (str(r.format)) body += '<span class="fmt">' + esc(r.format) + '</span>';
+        var asked = strs(r.asked);
+        if (asked.length) body += '<ul>' + asked.map(function (a) { return '<li>' + esc(a) + '</li>'; }).join('') + '</ul>';
+        if (str(r.candidate_view)) body += '<p class="view">Their view: ' + esc(r.candidate_view) + '</p>';
+        body += '</div>';
+      });
+    }
+
+    var c = obj(n.compensation), facts = '';
+    function fact(label, html) { if (html) facts += '<dt>' + label + '</dt><dd>' + html + '</dd>'; }
+    function ul(list, cls) { return list.length ? '<ul' + (cls ? ' class="' + cls + '"' : '') + '>' + list.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul>' : ''; }
+    fact('Pay now', esc(c.current));
+    fact('Looking for', esc(c.expectation));
+    fact('Pay notes', esc(c.notes));
+    fact('Notice', esc(n.notice_and_non_compete));
+    fact('Other processes', ul(strs(n.competing_processes)));
+    fact('Risks', ul(strs(n.risks), 'risk-list'));
+    if (facts) body += '<h3 class="k">Key facts</h3><dl class="facts">' + facts + '</dl>';
+
+    var acts = arr(n.next_actions).map(obj).filter(function (a) { return str(a.action); });
+    if (acts.length) {
+      body += '<h3 class="k">Next actions</h3><ul class="todo">' + acts.map(function (a) {
+        var owner = str(a.owner).toLowerCase();
+        var cls = ({ consultant: 1, candidate: 1, client: 1 })[owner] ? ' ' + owner : '';
+        return '<li><span>' + (owner ? '<span class="owner' + cls + '">' + esc(human(owner)) + '</span>' : '') + '</span>' +
+          '<span>' + esc(a.action) + '</span><span class="due">' + esc(fmtDate(a.due)) + '</span></li>';
+      }).join('') + '</ul>';
+    }
+    if (!body) body = '<p class="none">No note came back for this call.</p>';
+    return '<section class="sheet note" aria-label="CRM note"><div class="sheet-head"><h2>CRM note</h2>' +
+      '<div class="actions">' + copyBtn('note', 'Copy note') + '</div></div><div class="sheet-body">' + body + '</div></section>';
+  }
+
+  function emailToText(e) {
+    var m = obj(e);
+    return str(m.body);
+  }
+
+  function renderEmail(email, who) {
+    var e = obj(email), key = 'email-' + who;
+    var title = who === 'client' ? 'Email to client' : 'Email to candidate';
+    var head = '<section class="sheet email" aria-label="' + title + '"><div class="sheet-head"><h2>' + title + '</h2>';
+    if (!str(e.body) && !str(e.subject)) {
+      return head + '</div><div class="sheet-body"><p class="none">No draft came back for this one.</p></div></section>';
+    }
+    var acts = [];
+    if (str(e.subject)) acts.push(copyBtn(key + '-subject', 'Copy subject'));
+    if (str(e.body)) acts.push(copyBtn(key + '-body', 'Copy body'));
+    var hdr = '<div class="hdr"><span>To</span><span>' + (esc(e.to) || '<span class="none">No address on file</span>') + '</span>' +
+      '<span>Subject</span><span>' + (esc(e.subject) || '<span class="none">No subject</span>') + '</span></div>';
+    return head + '<div class="actions">' + acts.join('') + '</div></div><div class="sheet-body">' + hdr +
+      (str(e.body) ? '<p class="body">' + esc(e.body) + '</p>' : '') + '</div></section>';
+  }
+
+  function sortThemes(themes) {
+    return arr(themes).map(obj).filter(function (t) { return str(t.theme); })
+      .map(function (t, i) { return { t: t, i: i, n: num(t.seen_in) || 0 }; })
+      .sort(function (a, b) { return b.n - a.n || a.i - b.i; })
+      .map(function (x) { return x.t; });
+  }
+
+  function packForLine(pack, today) {
+    var f = obj(obj(pack).for_candidate);
+    if (!str(f.name)) return '';
+    var bits = [human(f.stage)];
+    if (str(f.interview_at)) {
+      var r = relDay(f.interview_at, today);
+      bits.push('interview ' + fmtDate(f.interview_at) + (r ? ' (' + r + ')' : ''));
+    }
+    return bits.filter(Boolean).join(', ');
+  }
+
+  function packToText(pack, today) {
+    var p = obj(pack), out = [];
+    out.push('Prep pack: ' + [str(p.client), str(p.role)].filter(Boolean).join(', '));
+    var f = obj(p.for_candidate);
+    if (str(f.name)) out.push('For ' + str(f.name) + (packForLine(p, today) ? ', ' + packForLine(p, today) : ''));
+    var built = arr(p.built_from).map(obj);
+    if (built.length) out.push('Built from ' + plural(built.length, 'debrief'));
+    var proc = arr(p.process).map(obj).filter(function (s) { return str(s.round) || str(s.format); });
+    if (proc.length) {
+      out.push('', 'The process');
+      proc.forEach(function (s) {
+        out.push('- ' + [human(s.round), str(s.format)].filter(Boolean).join(': ') + (str(s.who) ? ' (' + str(s.who) + ')' : ''));
+        if (str(s.what_they_look_for)) out.push('  They look for: ' + str(s.what_they_look_for));
+      });
+    }
+    var themes = sortThemes(p.question_themes);
+    if (themes.length) {
+      out.push('', 'Questions that come up');
+      themes.forEach(function (t) {
+        out.push('- ' + str(t.theme));
+        strs(t.examples).forEach(function (x) { out.push('  ' + x); });
+      });
+    }
+    [['went_well', 'What went well'], ['tripped_people_up', 'What tripped people up'], ['advice', 'Advice'], ['logistics', 'Logistics']].forEach(function (k) {
+      var l = strs(p[k[0]]);
+      if (l.length) { out.push('', k[1]); l.forEach(function (x) { out.push('- ' + x); }); }
+    });
+    return out.join('\n').trim();
+  }
+
+  function renderPack(pack, today) {
+    var p = obj(pack), body = '';
+    var title = [str(p.client), str(p.role)].filter(Boolean);
+    body += '<h3 class="pack-title">' + (title.length ? title.map(esc).join(', ') : 'Prep pack') + '</h3>';
+    var f = obj(p.for_candidate);
+    if (str(f.name)) {
+      var line = packForLine(p, today);
+      body += '<p class="pack-for">For <b>' + esc(f.name) + '</b>' + (line ? ', ' + esc(line) : '') + '</p>';
+    } else {
+      body += '<p class="pack-for">No one else has an interview booked for this role yet. The pack is ready for whoever goes next on it.</p>';
+    }
+
+    var built = arr(p.built_from).map(obj);
+    var total = built.length;
+    if (total) {
+      body += '<div class="built"><div class="built-n">Built from <span>' + total + '</span> ' + (total === 1 ? 'debrief' : 'debriefs') + '</div><ul>' +
+        built.map(function (b) {
+          return '<li><span>' + (esc(b.candidate) || 'Unnamed') + (str(b.round) ? ', ' + esc(human(b.round).toLowerCase()) : '') +
+            (b.same_role === false ? ' (' + (str(b.role) ? esc(b.role) + ', ' : '') + 'other role, firm-wide points only)' : '') + '</span>' +
+            (str(b.date) ? '<span class="d">' + esc(fmtDate(b.date)) + '</span>' : '') + '</li>';
+        }).join('') + '</ul></div>';
+    }
+
+    var proc = arr(p.process).map(obj).filter(function (s) { return str(s.round) || str(s.format) || str(s.what_they_look_for); });
+    if (proc.length) {
+      body += '<h3 class="k">The process</h3><ol class="steps prose">' + proc.map(function (s) {
+        return '<li><div><div class="r">' + (esc(human(s.round)) || 'Round') + '</div>' + (str(s.who) ? '<div class="who">' + esc(s.who) + '</div>' : '') + '</div>' +
+          '<div>' + esc(s.format) + (str(s.what_they_look_for) ? '<div class="look"><em>They look for</em>' + esc(s.what_they_look_for) + '</div>' : '') + '</div></li>';
+      }).join('') + '</ol>';
+    }
+
+    var themes = sortThemes(p.question_themes);
+    if (themes.length) {
+      body += '<h3 class="k">Questions that come up</h3><ul class="themes prose">' + themes.map(function (t) {
+        var n = num(t.seen_in), badge = '';
+        if (n !== null && n > 0) {
+          var w = total ? Math.max(0.2, Math.min(1, n / total)) : 0.5;
+          badge = '<span class="seen" style="--w:' + w.toFixed(2) + '">Seen in ' + n + (total ? ' of ' + total : '') + '</span>';
+        }
+        var ex = strs(t.examples);
+        return '<li><span class="name">' + esc(t.theme) + '</span>' + (badge || '<span></span>') +
+          (ex.length ? '<ul>' + ex.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul>' : '') + '</li>';
+      }).join('') + '</ul>';
+    }
+
+    function block(key, label) {
+      var l = strs(p[key]);
+      return l.length ? '<div><h3 class="k">' + label + '</h3><ul class="plain prose">' + l.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul></div>' : '';
+    }
+    var pair = block('went_well', 'What went well') + block('tripped_people_up', 'What tripped people up');
+    if (pair) body += '<div class="two">' + pair + '</div>';
+    body += block('advice', 'Advice for the next candidate');
+    body += block('logistics', 'Logistics');
+
+    return '<section class="sheet pack" aria-label="Prep pack"><div class="sheet-head"><h2>Prep pack</h2>' +
+      '<div class="actions">' + copyBtn('pack', 'Copy pack') + '</div></div><div class="sheet-body">' + body + '</div></section>';
+  }
+
+  // Returns {html, copy}; copy maps data-copy keys to raw text.
+  function renderDebrief(data, today) {
+    var d = obj(data), copy = {};
+    var note = obj(d.crm_note), emails = obj(d.emails), pack = obj(d.prep_pack);
+    copy.note = noteToText(note, d.matched);
+    var ec = obj(emails.candidate), el = obj(emails.client);
+    copy['email-candidate-subject'] = str(ec.subject);
+    copy['email-candidate-body'] = emailToText(ec);
+    copy['email-client-subject'] = str(el.subject);
+    copy['email-client-body'] = emailToText(el);
+    copy.pack = packToText(pack, today);
+    var html = renderMatched(d.matched) +
+      '<p class="drafts-line">Drafts only. Nothing is sent or written to the CRM until you do it.</p>' +
+      '<div class="results"><div class="col col-note">' + renderNote(note, d.matched) + '</div>' +
+      '<div class="col col-mail">' + renderEmail(ec, 'candidate') + renderEmail(el, 'client') + '</div>' +
+      '<div class="col col-pack">' + renderPack(pack, today) + '</div></div>' +
+      '<div style="margin-top:10px">' + renderMeta(d.meta) + '</div>';
+    return { html: html, copy: copy };
+  }
+
+  /* ---------- Call list ---------- */
+
+  function renderCall(call, open) {
+    var c = obj(call);
+    var rank = num(c.rank), score = num(c.score);
+    var factors = arr(c.factors).map(obj).filter(function (f) { return str(f.label) || num(f.points) !== null; });
+    var id = 'f-' + (rank !== null ? rank : Math.random().toString(36).slice(2, 8));
+    var where = [str(c.client), str(c.role)].filter(Boolean).map(esc).join(', ');
+    var tel = telHref(c.phone);
+    var top = '<div class="call-top"><span class="name">' + (esc(c.candidate) || 'Unnamed candidate') + '</span>' +
+      (str(c.stage) ? '<span class="stage">' + esc(human(c.stage)) + '</span>' : '') +
+      (str(c.phone) ? (tel ? '<a class="phone" href="' + esc(tel) + '">' + esc(c.phone) + '</a>' : '<span class="phone">' + esc(c.phone) + '</span>') : '<span class="sub">No number on file</span>') +
+      '</div>';
+    var main = '<div class="call-main">' + top + (where ? '<div class="where">' + where + '</div>' : '') +
+      (str(c.reason) ? '<p class="reason">' + esc(c.reason) + '</p>' : '') +
+      (str(c.opener) ? '<p class="opener">' + esc(c.opener) + '</p>' : '') +
+      '<div class="last">' + (str(c.last_contact) ? 'Last contact: ' + esc(c.last_contact) : 'No contact logged') + '</div></div>';
+
+    var rows = factors.map(function (f) {
+      var pts = num(f.points);
+      return '<tr><td>' + esc(f.label) + '</td><td class="pts' + (pts !== null && pts < 0 ? ' neg' : '') + '">' + esc(fmtPoints(pts)) + '</td></tr>';
+    }).join('');
+    var sum = factors.reduce(function (a, f) { return a + (num(f.points) || 0); }, 0);
+    var table = factors.length
+      ? '<table><tbody>' + rows + '<tr class="total"><td>Total</td><td class="pts">' + esc(score !== null ? score : sum) + '</td></tr></tbody></table>'
+      : '<p class="none" style="margin:0 8px">No scoring factors came back for this call.</p>';
+    var breakdown = '<div class="factors" id="' + esc(id) + '"' + (open ? '' : ' hidden') + '>' + table +
+      '<p class="src">Points come from fixed rules in the code. The model only writes the reason and the opening line.</p></div>';
+    var btn = '<div class="score-cell"><button type="button" class="score-btn" data-toggle="' + esc(id) + '" aria-expanded="' + (open ? 'true' : 'false') + '" aria-controls="' + esc(id) + '">' +
+      '<b>' + (score !== null ? esc(score) : '?') + '</b><span>' + (open ? 'Hide points' : 'Points') + '</span></button></div>';
+    return '<li class="call"><div class="rank" aria-label="Rank">' + (rank !== null ? esc(rank) : '') + '</div>' + main + btn + breakdown + '</li>';
+  }
+
+  function renderCalls(data, open) {
+    var d = obj(data), con = obj(d.consultant), meta = obj(d.meta);
+    var calls = arr(d.calls).map(obj).slice().sort(function (a, b) {
+      var x = num(a.rank), y = num(b.rank);
+      return (x === null ? 1e9 : x) - (y === null ? 1e9 : y);
+    });
+    var title = str(con.name) ? esc(con.name) + (str(con.desk) ? ', ' + esc(con.desk) : '') : 'Call list';
+    var extra = [];
+    var wording = str(meta.wording).toLowerCase();
+    if (wording === 'template') extra.push('Wording from templates (the model was not available)');
+    else if (wording === 'model') extra.push('Wording written by the model');
+    var head = '<div class="list-head"><h2>' + title + '</h2><span class="sub">' +
+      (str(d.date) ? esc(plural(calls.length, 'call')) + ' for ' + esc(fmtDate(d.date)) : esc(plural(calls.length, 'call'))) +
+      ', highest score first</span></div>';
+    if (!calls.length) return head + '<div class="sheet empty">No calls for today. Everything in this pipeline is up to date.</div>';
+    return head + '<ol class="calls">' + calls.map(function (c) { return renderCall(c, open); }).join('') + '</ol>' +
+      '<div style="margin-top:10px">' + renderMeta({ model: meta.model, ms: meta.ms }, extra) + '</div>';
+  }
+
+  /* ---------- Ask ---------- */
+
+  function renderTable(columns, rows) {
+    var cols = arr(columns).map(function (c) { return str(c); });
+    var rs = arr(rows);
+    if (!cols.length && rs.length && Array.isArray(rs[0])) cols = rs[0].map(function (_, i) { return 'Column ' + (i + 1); });
+    if (!cols.length && rs.length && rs[0] && typeof rs[0] === 'object') cols = Object.keys(rs[0]);
+    if (!rs.length) return '<div class="sheet empty">The query ran and returned no rows.</div>';
+    var cells = rs.map(function (r) {
+      if (Array.isArray(r)) return r;
+      if (r && typeof r === 'object') return cols.map(function (c) { return r[c]; });
+      return [r];
+    });
+    var numeric = cols.map(function (_, i) {
+      var seen = false;
+      for (var j = 0; j < cells.length; j++) {
+        var v = cells[j][i];
+        if (v === null || v === undefined || v === '') continue;
+        if (typeof v !== 'number') return false;
+        seen = true;
+      }
+      return seen;
+    });
+    var head = '<tr>' + cols.map(function (c, i) { return '<th' + (numeric[i] ? ' class="num"' : '') + '>' + (esc(c) || '&nbsp;') + '</th>'; }).join('') + '</tr>';
+    var body = cells.map(function (r) {
+      return '<tr>' + cols.map(function (_, i) {
+        var v = r[i], s = (v !== null && typeof v === 'object') ? JSON.stringify(v) : str(v);
+        if (!s) return '<td class="blank">blank</td>';
+        return '<td' + (numeric[i] ? ' class="num"' : '') + '>' + esc(s) + '</td>';
+      }).join('') + '</tr>';
+    }).join('');
+    return '<div class="scroll"><table class="data"><thead>' + head + '</thead><tbody>' + body + '</tbody></table></div>';
+  }
+
+  function renderAsk(data) {
+    var d = obj(data), rows = arr(d.rows);
+    var html = '<section class="sheet"><div class="sheet-body">';
+    if (str(d.answer)) html += '<p class="answer">' + esc(d.answer) + '</p>';
+    if (str(d.question)) html += '<p class="asked">You asked: ' + esc(d.question) + '</p>';
+    html += renderTable(d.columns, rows);
+    if (rows.length) html += '<p class="sub" style="margin:6px 0 0">' + esc(plural(rows.length, 'row')) + '</p>';
+    html += '<div class="sql-wrap"><div class="cap"><span>The SQL that ran <span class="sub">(read-only connection, SELECT only)</span></span>' +
+      (str(d.sql) ? copyBtn('sql', 'Copy SQL') : '') + '</div>' +
+      (str(d.sql) ? '<pre class="sql">' + esc(d.sql) + '</pre>' : '<p class="none">No SQL came back.</p>') + '</div>';
+    html += '<div style="margin-top:10px">' + renderMeta(d.meta) + '</div></div></section>';
+    return { html: html, copy: { sql: str(d.sql) } };
+  }
+
+  // A transcript's word count, for the summary line.
+  function wordCount(t) { var s = str(t); return s ? s.split(/\s+/).length : 0; }
+
+  var api = {
+    str: str, esc: esc, arr: arr, obj: obj, strs: strs, num: num, human: human,
+    fmtDate: fmtDate, relDay: relDay, fmtMs: fmtMs, fmtPoints: fmtPoints, telHref: telHref, plural: plural, wordCount: wordCount,
+    renderMeta: renderMeta, renderError: renderError, renderMatched: renderMatched, noteToText: noteToText,
+    renderNote: renderNote, renderEmail: renderEmail, packToText: packToText, renderPack: renderPack, renderDebrief: renderDebrief,
+    renderCall: renderCall, renderCalls: renderCalls, renderTable: renderTable, renderAsk: renderAsk, sortThemes: sortThemes
+  };
+  if (typeof module !== 'undefined' && module.exports) module.exports = api;
+  if (typeof document === 'undefined') return;
+
+  /* ---------- page wiring ---------- */
+
+  var $ = function (id) { return document.getElementById(id); };
+  var state = { mode: 'static', today: '', model: '', transcripts: [], consultants: [], questions: [], copy: {}, callsLoaded: false, callsOpen: false, runSeq: 0, callSeq: 0, askSeq: 0, ready: false };
+
+  function delay(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
+
+  // Never throws. Returns {ok, status, data, error}.
+  function getJSON(url, opts) {
+    opts = opts || {};
+    var ctrl = typeof AbortController !== 'undefined' ? new AbortController() : null;
+    var timer = opts.timeout && ctrl ? setTimeout(function () { ctrl.abort(); }, opts.timeout) : null;
+    var init = { method: opts.body ? 'POST' : 'GET', headers: { 'Accept': 'application/json' }, cache: 'no-store' };
+    if (ctrl) init.signal = ctrl.signal;
+    if (opts.body) { init.headers['Content-Type'] = 'application/json'; init.body = JSON.stringify(opts.body); }
+    return fetch(url, init).then(function (res) {
+      return res.text().then(function (text) {
+        var data = null;
+        try { data = text ? JSON.parse(text) : null; } catch (e) { data = null; }
+        if (res.ok && data !== null) return { ok: true, status: res.status, data: data };
+        var msg = data && str(data.error) ? str(data.error)
+          : data && str(data.detail) ? str(data.detail)
+          : res.ok ? 'The server sent back something that was not JSON.'
+          : res.status === 404 ? 'Not found.'
+          : 'The server returned an error (HTTP ' + res.status + ').';
+        return { ok: false, status: res.status, data: data, error: msg };
+      });
+    }).catch(function (e) {
+      var aborted = e && e.name === 'AbortError';
+      return { ok: false, status: 0, data: null, error: aborted ? 'The request timed out.' : 'Could not reach the server. Check it is still running.' };
+    }).then(function (r) { if (timer) clearTimeout(timer); return r; });
+  }
+
+  function setCopy(map) { Object.keys(map || {}).forEach(function (k) { state.copy[k] = map[k]; }); }
+
+  function copyText(text) {
+    if (navigator.clipboard && window.isSecureContext) return navigator.clipboard.writeText(text);
+    return new Promise(function (resolve, reject) {
+      var ta = document.createElement('textarea');
+      ta.value = text; ta.setAttribute('readonly', ''); ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.appendChild(ta); ta.select();
+      try { document.execCommand('copy') ? resolve() : reject(); } catch (e) { reject(e); }
+      document.body.removeChild(ta);
+    });
+  }
+
+  document.addEventListener('click', function (ev) {
+    var b = ev.target.closest ? ev.target.closest('[data-copy]') : null;
+    if (b) {
+      var text = state.copy[b.getAttribute('data-copy')] || '';
+      var label = b.getAttribute('data-label') || b.textContent;
+      b.setAttribute('data-label', label);
+      copyText(text).then(function () { b.textContent = 'Copied'; b.classList.add('done'); },
+        function () { b.textContent = 'Copy failed'; })
+        .then(function () { setTimeout(function () { b.textContent = label; b.classList.remove('done'); }, 1500); });
+      return;
+    }
+    var t = ev.target.closest ? ev.target.closest('[data-toggle]') : null;
+    if (t) {
+      var box = $(t.getAttribute('data-toggle'));
+      if (!box) return;
+      var open = box.hidden;
+      box.hidden = !open;
+      t.setAttribute('aria-expanded', open ? 'true' : 'false');
+      var s = t.querySelector('span'); if (s) s.textContent = open ? 'Hide points' : 'Points';
+    }
+  });
+
+  /* tabs */
+  var TABS = ['debrief', 'call-list', 'ask'];
+  function showTab(name) {
+    if (TABS.indexOf(name) < 0) name = 'debrief';
+    TABS.forEach(function (t) {
+      $('tab-' + t).setAttribute('aria-selected', t === name ? 'true' : 'false');
+      $('tab-' + t).tabIndex = t === name ? 0 : -1;
+      $('panel-' + t).hidden = t !== name;
+    });
+    if (name === 'call-list' && !state.callsLoaded && state.ready) loadCalls();
+  }
+  function tabFromHash() { return (location.hash || '').replace(/^#/, '') || 'debrief'; }
+  Array.prototype.forEach.call(document.querySelectorAll('.tab'), function (b) {
+    b.addEventListener('click', function () {
+      var name = b.getAttribute('data-tab');
+      if (location.hash !== '#' + name) location.hash = name; else showTab(name);
+    });
+    b.addEventListener('keydown', function (ev) {
+      if (ev.key !== 'ArrowRight' && ev.key !== 'ArrowLeft') return;
+      var i = TABS.indexOf(b.getAttribute('data-tab'));
+      var next = TABS[(i + (ev.key === 'ArrowRight' ? 1 : TABS.length - 1)) % TABS.length];
+      location.hash = next; $('tab-' + next).focus();
+    });
+  });
+  window.addEventListener('hashchange', function () { showTab(tabFromHash()); });
+
+  /* debrief */
+  var PASTE = '__paste__';
+  function sampleLabel(t) {
+    var title = str(t.title).replace(/^Debrief call:\s*/i, '') || str(t.id);
+    var bits = [title];
+    if (str(t.date)) bits.push(fmtDate(t.date));
+    bits.push(t.in_db ? 'already on file' : 'new call');
+    return bits.join(', ');
+  }
+  function fillTranscripts() {
+    var sel = $('transcript-select');
+    var list = state.transcripts.slice();
+    // New, not-yet-filed calls first: they show the prep pack drawing on every earlier debrief.
+    list.sort(function (a, b) { return (a.in_db ? 1 : 0) - (b.in_db ? 1 : 0); });
+    var html = list.map(function (t) { return '<option value="' + esc(t.id) + '">' + esc(sampleLabel(t)) + '</option>'; }).join('');
+    if (state.mode === 'live') html += '<option value="' + PASTE + '">Paste your own transcript</option>';
+    if (!html) html = '<option value="">No sample calls found</option>';
+    sel.innerHTML = html;
+    var ta = $('transcript-text');
+    ta.readOnly = state.mode !== 'live';
+    ta.placeholder = state.mode === 'live' ? 'Paste a debrief call transcript here, or pick a sample above.' : '';
+    $('debrief-hint').textContent = state.mode === 'live' ? 'Edit the text or paste your own.' : 'Saved sample. Run it locally to paste your own.';
+    if (list.length) loadTranscript(list[0].id);
+  }
+  function updateSummary() {
+    var sel = $('transcript-select'), ta = $('transcript-text');
+    var opt = sel.options[sel.selectedIndex];
+    var n = wordCount(ta.value);
+    $('transcript-words').textContent = n ? plural(n, 'word') : '';
+    var label = opt && opt.value !== PASTE ? opt.textContent : (n ? 'Your transcript' : 'Nothing pasted yet');
+    $('transcript-summary').textContent = label + (n ? ', ' + plural(n, 'word') : '');
+  }
+  function loadTranscript(id) {
+    var ta = $('transcript-text');
+    $('debrief-status').innerHTML = '';
+    if (id === PASTE) { ta.value = ''; ta.focus(); updateSummary(); return; }
+    var url = state.mode === 'live' ? 'api/transcripts/' + encodeURIComponent(id) : 'saved/transcript_' + encodeURIComponent(id) + '.json';
+    ta.value = ''; ta.placeholder = 'Loading transcript';
+    getJSON(url).then(function (r) {
+      if ($('transcript-select').value !== id) return;
+      ta.placeholder = state.mode === 'live' ? 'Paste a debrief call transcript here, or pick a sample above.' : '';
+      if (!r.ok) { $('debrief-status').innerHTML = renderError('Could not load that transcript. ' + r.error); updateSummary(); return; }
+      ta.value = str(obj(r.data).text);
+      updateSummary();
+    });
+  }
+  $('transcript-select').addEventListener('change', function (e) { loadTranscript(e.target.value); });
+  $('transcript-text').addEventListener('input', updateSummary);
+  $('transcript-box').addEventListener('toggle', function () { $('transcript-toggle').textContent = $('transcript-box').open ? 'Hide' : 'Show'; });
+
+  function runDebrief() {
+    var btn = $('run-debrief'), status = $('debrief-status'), out = $('debrief-results');
+    var id = $('transcript-select').value, text = $('transcript-text').value.trim();
+    var seq = ++state.runSeq, started = Date.now(), ticker = null;
+    status.innerHTML = '';
+    var job;
+    if (state.mode === 'live') {
+      if (wordCount(text) < 40) { status.innerHTML = renderError('Paste a debrief transcript first. It needs to be a real call, at least a few lines long.'); return; }
+      btn.disabled = true; btn.textContent = 'Running';
+      status.innerHTML = renderInfo('Reading the call, matching it to the CRM and writing the drafts. This usually takes under a minute.');
+      ticker = setInterval(function () { btn.textContent = 'Running ' + Math.round((Date.now() - started) / 1000) + ' s'; }, 1000);
+      job = getJSON('api/debrief', { body: { transcript: text } });
+    } else {
+      if (!id) return;
+      btn.disabled = true; btn.textContent = 'Loading';
+      job = Promise.all([getJSON('saved/debrief_' + encodeURIComponent(id) + '.json'), delay(450)]).then(function (x) { return x[0]; });
+    }
+    job.then(function (r) {
+      if (ticker) clearInterval(ticker);
+      if (seq !== state.runSeq) return;
+      btn.disabled = false; btn.textContent = 'Run debrief';
+      if (!r.ok) {
+        status.innerHTML = renderError(state.mode === 'live' ? r.error : (r.status === 404 ? 'There is no saved result for this sample yet.' : 'Could not load the saved result. ' + r.error));
+        return;
+      }
+      status.innerHTML = '';
+      var v = renderDebrief(r.data, state.today);
+      setCopy(v.copy);
+      out.innerHTML = v.html;
+      $('transcript-box').open = false;
+      out.scrollIntoView({ block: 'start', behavior: 'auto' });
+      window.scrollBy(0, -8);
+    });
+  }
+  $('run-debrief').addEventListener('click', runDebrief);
+
+  /* call list */
+  function fillConsultants() {
+    var sel = $('consultant-select');
+    sel.innerHTML = state.consultants.length
+      ? state.consultants.map(function (c) { c = obj(c); return '<option value="' + esc(c.id) + '">' + esc(c.name) + (str(c.desk) ? ', ' + esc(c.desk) : '') + '</option>'; }).join('')
+      : '<option value="">No consultants found</option>';
+  }
+  function loadCalls() {
+    var id = $('consultant-select').value, status = $('calls-status'), out = $('calls-results');
+    state.callsLoaded = true;
+    if (!id) { out.innerHTML = '<div class="sheet empty">No consultants to show.</div>'; return; }
+    var seq = ++state.callSeq;
+    status.innerHTML = renderInfo(state.mode === 'live' ? 'Scoring the pipeline and writing openers.' : 'Loading saved call list.');
+    var url = state.mode === 'live' ? 'api/calllist?consultant_id=' + encodeURIComponent(id) : 'saved/calllist_' + encodeURIComponent(id) + '.json';
+    var job = state.mode === 'live' ? getJSON(url) : Promise.all([getJSON(url), delay(250)]).then(function (x) { return x[0]; });
+    job.then(function (r) {
+      if (seq !== state.callSeq) return;
+      status.innerHTML = '';
+      if (!r.ok) {
+        out.innerHTML = state.mode === 'static' && r.status === 404
+          ? '<div class="sheet empty">There is no saved call list for this consultant. Pick another, or run it locally.</div>'
+          : renderError('Could not load the call list. ' + r.error);
+        return;
+      }
+      out.innerHTML = renderCalls(r.data, state.callsOpen);
+    });
+  }
+  $('consultant-select').addEventListener('change', loadCalls);
+  $('calls-toggle-all').addEventListener('click', function () {
+    state.callsOpen = !state.callsOpen;
+    var b = $('calls-toggle-all');
+    b.setAttribute('aria-pressed', state.callsOpen ? 'true' : 'false');
+    b.textContent = state.callsOpen ? 'Hide all points' : 'Show all points';
+    Array.prototype.forEach.call(document.querySelectorAll('#calls-results [data-toggle]'), function (t) {
+      var box = $(t.getAttribute('data-toggle')); if (!box) return;
+      box.hidden = !state.callsOpen;
+      t.setAttribute('aria-expanded', state.callsOpen ? 'true' : 'false');
+      var s = t.querySelector('span'); if (s) s.textContent = state.callsOpen ? 'Hide points' : 'Points';
+    });
+  });
+
+  /* ask */
+  function fillQuestions() {
+    var box = $('ask-questions'), qs = state.questions.map(obj).filter(function (q) { return str(q.question); });
+    $('ask-form').hidden = state.mode !== 'live';
+    $('ask-questions-label').textContent = state.mode === 'live' ? 'Or try one of these' : 'Saved questions. Pick one to see the answer, the table and the SQL that ran.';
+    $('ask-questions-label').hidden = !qs.length;
+    box.innerHTML = qs.map(function (q) {
+      return '<button type="button" class="q" aria-pressed="false" data-qid="' + esc(q.id) + '">' + esc(q.question) + '</button>';
+    }).join('');
+    if (!qs.length && state.mode !== 'live') $('ask-results').innerHTML = '<div class="sheet empty">No saved questions yet.</div>';
+    Array.prototype.forEach.call(box.querySelectorAll('.q'), function (b) {
+      b.addEventListener('click', function () {
+        Array.prototype.forEach.call(box.querySelectorAll('.q'), function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+        if (state.mode === 'live') { $('ask-input').value = b.textContent; ask(b.textContent, null); }
+        else ask(b.textContent, b.getAttribute('data-qid'));
+      });
+    });
+    if (state.mode !== 'live' && qs.length) box.querySelector('.q').click();
+  }
+  function ask(question, qid) {
+    var status = $('ask-status'), out = $('ask-results'), btn = $('ask-submit');
+    var seq = ++state.askSeq;
+    status.innerHTML = '';
+    var job;
+    if (state.mode === 'live') {
+      if (!str(question)) { status.innerHTML = renderError('Type a question first.'); return; }
+      btn.disabled = true; btn.textContent = 'Asking';
+      job = getJSON('api/ask', { body: { question: str(question) } });
+    } else {
+      job = Promise.all([getJSON('saved/ask_' + encodeURIComponent(qid) + '.json'), delay(250)]).then(function (x) { return x[0]; });
+    }
+    job.then(function (r) {
+      if (seq !== state.askSeq) return;
+      btn.disabled = false; btn.textContent = 'Ask';
+      if (!r.ok) {
+        out.innerHTML = '';
+        status.innerHTML = state.mode === 'static' && r.status === 404
+          ? renderError('There is no saved answer for this question.')
+          : renderError(r.error, r.data && r.data.sql);
+        return;
+      }
+      var v = renderAsk(r.data);
+      setCopy(v.copy);
+      out.innerHTML = v.html;
+    });
+  }
+  $('ask-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+    Array.prototype.forEach.call(document.querySelectorAll('#ask-questions .q'), function (x) { x.setAttribute('aria-pressed', 'false'); });
+    ask($('ask-input').value, null);
+  });
+
+  /* start */
+  function setHeader(extra) {
+    var pill = $('mode-pill');
+    pill.className = 'pill ' + state.mode;
+    pill.textContent = state.mode === 'live' ? 'Live' : 'Saved results';
+    $('static-note').hidden = state.mode === 'live';
+    $('today-line').textContent = state.today ? 'Demo date: ' + fmtDate(state.today) : '';
+    $('model-line').innerHTML = (state.model ? 'Model: ' + esc(state.model) : '') + (extra ? ' <span class="warn-text">' + esc(extra) + '</span>' : '');
+  }
+
+  function start() {
+    showTab(tabFromHash());
+    getJSON('api/health', { timeout: 1500 }).then(function (h) {
+      var hd = obj(h.data);
+      if (h.ok && hd.ok === true) {
+        state.mode = 'live';
+        state.today = str(hd.today);
+        state.model = str(hd.model);
+        setHeader(hd.has_key === false ? 'No API key set, so model calls will fail' : '');
+        return Promise.all([getJSON('api/transcripts'), getJSON('api/consultants'), getJSON('saved/index.json')]).then(function (x) {
+          state.transcripts = arr(x[0].data).map(obj).filter(function (t) { return str(t.id); });
+          state.consultants = arr(x[1].data).map(obj).filter(function (c) { return str(c.id); });
+          state.questions = arr(obj(x[2].data).questions);
+          if (!x[0].ok) $('debrief-status').innerHTML = renderError('Could not load the sample calls. ' + x[0].error);
+          if (!x[1].ok) $('calls-status').innerHTML = renderError('Could not load the consultants. ' + x[1].error);
+        });
+      }
+      state.mode = 'static';
+      return getJSON('saved/index.json').then(function (r) {
+        var d = obj(r.data);
+        state.today = str(d.today);
+        state.model = str(d.model);
+        state.transcripts = arr(d.transcripts).map(obj).filter(function (t) { return str(t.id); });
+        state.consultants = arr(d.consultants).map(obj).filter(function (c) { return str(c.id); });
+        state.questions = arr(d.questions);
+        setHeader('');
+        if (!r.ok) $('debrief-status').innerHTML = renderError('Could not load the saved results. ' + r.error);
+      });
+    }).then(function () {
+      state.ready = true;
+      fillTranscripts();
+      fillConsultants();
+      fillQuestions();
+      if (tabFromHash() === 'call-list') loadCalls();
+    });
+  }
+  start();
+})();
+</script>
+</body>
+</html>

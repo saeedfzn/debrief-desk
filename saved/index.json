@@ -1,0 +1,92 @@
+{
+  "generated": "2026-11-24",
+  "model": "claude-sonnet-5-5",
+  "today": "2026-11-25",
+  "transcripts": [
+    {
+      "id": "a1_oliver_brennan",
+      "title": "Debrief call: Oliver Brennan after first round at Fernhallow Capital (Quantitative Researcher, Systematic Equities)",
+      "date": "2026-11-03",
+      "in_db": true
+    },
+    {
+      "id": "a2_mei_lin_tan",
+      "title": "Debrief call: Mei Lin Tan after second round at Fernhallow Capital (Quantitative Researcher, Systematic Equities)",
+      "date": "2026-11-10",
+      "in_db": true
+    },
+    {
+      "id": "a3_rohan_mehta",
+      "title": "Debrief call: Rohan Mehta after final round at Fernhallow Capital (Quantitative Researcher, Systematic Equities)",
+      "date": "2026-11-17",
+      "in_db": true
+    },
+    {
+      "id": "b1_lukas_brandt",
+      "title": "Debrief call: Lukas Brandt after first round at Brackenvane Trading (Low-Latency C++ Developer)",
+      "date": "2026-11-12",
+      "in_db": true
+    },
+    {
+      "id": "b2_chloe_adeyemi",
+      "title": "Debrief call: Chloe Adeyemi after second round at Brackenvane Trading (Quantitative Trader, Options Market Making)",
+      "date": "2026-11-19",
+      "in_db": true
+    },
+    {
+      "id": "c1_arjun_nair",
+      "title": "Debrief call: Arjun Nair after second round at Lumenfold Research (Research Engineer, Training Infrastructure)",
+      "date": "2026-11-18",
+      "in_db": true
+    },
+    {
+      "id": "fresh_a4_sofia_marchetti",
+      "title": "Debrief call: Sofia Marchetti after second round at Fernhallow Capital (Quantitative Researcher, Systematic Equities)",
+      "date": "2026-11-24",
+      "in_db": false
+    }
+  ],
+  "consultants": [
+    {
+      "id": 1,
+      "name": "Hannah Pryce",
+      "desk": "Quant Research"
+    },
+    {
+      "id": 2,
+      "name": "Tom Okafor",
+      "desk": "Low-Latency Engineering"
+    },
+    {
+      "id": 3,
+      "name": "Priya Raman",
+      "desk": "AI/ML"
+    }
+  ],
+  "questions": [
+    {
+      "id": "q1",
+      "question": "Which final-round candidates have not had a call from us in the last 7 days?"
+    },
+    {
+      "id": "q2",
+      "question": "Which offers have been out for more than three working days, and when did we last speak to each candidate?"
+    },
+    {
+      "id": "q3",
+      "question": "Which candidates in an active process have a non-compete of six months or more, grouped by client?"
+    },
+    {
+      "id": "q4",
+      "question": "How many active applications are there at each stage?"
+    },
+    {
+      "id": "q5",
+      "question": "Who has an interview in the next three days, and has each of them had a call since their last stage change?"
+    },
+    {
+      "id": "q6",
+      "question": "For each consultant, how many active candidates have not been contacted for more than two weeks?"
+    }
+  ]
+}

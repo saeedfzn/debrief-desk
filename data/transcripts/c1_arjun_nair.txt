@@ -1,0 +1,26 @@
+Debrief call: Arjun Nair after second round at Lumenfold Research (Research Engineer, Training Infrastructure)
+Date: 2026-11-18
+
+Consultant: Arjun, it's Priya. How did today go?
+Candidate: Hi Priya. Good, I think? It was a full afternoon, three sessions. Sorry, I'm eating, I haven't eaten since breakfast.
+Consultant: Go ahead, eat. Three sessions, which ones?
+Candidate: First was systems design with a guy called Oren, from the pre-training infra team. Design the checkpointing for a training run across a few thousand GPUs. How often you save, how you avoid stalling the whole job while you write, what happens when a node dies mid-save.
+Consultant: How did you approach it?
+Candidate: I said async checkpointing, so you snapshot to host memory and write in the background, shard the state so every rank writes its own piece, and keep the last two good checkpoints in case the newest is corrupt. He pushed on the restart side, like how long to get back to the same step, and whether the data loader state is in the checkpoint. I'd honestly forgotten the data loader until he asked. I recovered, but he noticed.
+Consultant: OK. Second session?
+Candidate: Second was a debugging one with Hana. She showed me a loss curve with spikes and asked what I'd check. I went through learning rate warmup, bad batches, fp16 overflow if anything was still running in half precision, attention logits blowing up, gradient norm. She liked that I asked for the gradient norm plot before guessing. Then a bit on parallelism, when you'd use FSDP versus tensor parallel, and the communication cost of each. I was solid there, it's what I do every day at Whitfenn.
+Consultant: And the third?
+Candidate: Research deep dive with Marta, she's a research lead. She picked one of my papers, the data mixing one, and went really deep. Why that ablation, why not this one, would the result hold at bigger scale. And she asked about eval contamination, how I'd know a benchmark had leaked into the training data. That one I enjoyed.
+Consultant: Did anything feel shaky?
+Candidate: The checkpointing restart thing. And at one point Oren asked me to estimate how long a checkpoint write takes for a given model size and bandwidth, back of the envelope, and I did the arithmetic wrong first time. Got there, but slowly.
+Consultant: Did they talk about next steps?
+Candidate: Marta said the last stage is a values and team chat, plus a call with the head of infra. They said a week or so.
+Consultant: Good. Did comp come up?
+Candidate: The recruiter there asked my expectations at the end. I said what we agreed, around one seventy-five base, and I asked how the equity works. She said it's options with a four-year vest and a one-year cliff, and they'd explain the valuation at offer stage.
+Consultant: That matches what I've heard from them. And notice?
+Candidate: Eight weeks, no non-compete. Whitfenn doesn't do them.
+Consultant: Great. Anything else on your side?
+Candidate: I've got another lab interested, early stages, and a big tech offer that I'm probably going to turn down. My worry with Lumenfold is the equity. I've got a mortgage, I can't eat options. If the base is lower and it's mostly equity, I'm not sure.
+Consultant: That's important. I'll get the base range firmed up before you go any further so you're not surprised at offer stage.
+Candidate: Thanks, that'd help a lot.
+Consultant: I'll call you Friday.

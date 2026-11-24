@@ -1,0 +1,24 @@
+Debrief call: Rohan Mehta after final round at Fernhallow Capital (Quantitative Researcher, Systematic Equities)
+Date: 2026-11-17
+
+Consultant: Rohan, it's Hannah. How was it?
+Candidate: Long. Good, I think, but long. Three hours in the end, they kept me for an extra chat at the end, which I'm taking as a good sign?
+Consultant: Usually is. Walk me through it.
+Candidate: OK so first was the research presentation. Thirty minutes to present, they'd told me any past project I could talk about without breaking confidentiality, so I did the earnings drift work, sanitised, no actual numbers from Sallowmere. In the room was Marcus Elling, the PM, and two researchers, Nadia and a guy called Felix.
+Consultant: How far did you get before Marcus jumped in?
+Candidate: Ha, you know him. Slide three. I'd barely put the chart up. He asked "is this just value in disguise", like, have you neutralised against the standard factors or am I looking at a value tilt with a nice story. Luckily I had a backup slide with the factor-neutral version, and the effect drops but it's still there.
+Consultant: Did he like that?
+Candidate: He went "OK, good" and moved on, which I gather is high praise. Then it was basically the second half of the hour as a grilling. The question I'll remember is "what would make you kill this signal". Like, what evidence, what threshold, would you switch it off live. I said if the decay in the out of sample period breached what we'd expect from the in-sample noise, plus if the crowding measures went up, and he pushed, how long would you wait, are you going to sit through six months of drawdown?
+Consultant: What did you say?
+Candidate: I said I'd rather cut the size than kill it outright and set the rule before going live, not after. Felix nodded a lot at that. Marcus also asked why it works economically, who's on the other side of the trade. He clearly hates "the model found it" answers.
+Consultant: Yes, that's his thing. And then?
+Candidate: Then thirty minutes with Ingrid Saarinen, head of research. Much softer, culture, how I like to work, how I deal with being wrong. And then she asked about notice and non-compete, quite directly. And here's the thing I wanted to flag. She said they don't buy out garden leave. At all. Policy.
+Consultant: Right. So with twelve weeks notice and six months non-compete you're looking at, what, close to nine months before you could start?
+Candidate: If Sallowmere enforces it fully, yes. Ingrid said they're used to waiting and it's not a deal-breaker, but she asked if I'd be willing to ask my firm to shorten it. I said I'd try.
+Consultant: OK. And the extra chat at the end?
+Candidate: Marcus again, fifteen minutes, just the two of us. Comp, sort of. He asked what it would take. I said I'm on one sixty base, bonus was about ninety, and I'd want one eighty base and a bonus that reflects the PnL. He didn't flinch. He also asked for references, which nobody's asked me for before an offer.
+Consultant: They do take references early, it's normal for them. Any concerns from your side?
+Candidate: Two. First, I'm worried about a counter-offer conversation with my boss, he's going to take it personally. Second, I've got a prop shop that's said they'll make me an offer this week. Higher guaranteed bonus. I'd still rather Fernhallow, honestly, I liked the people.
+Consultant: That's really useful to know. I won't share the other offer with Fernhallow unless you want me to use it. I'll speak to Ingrid tomorrow and get a read, and I'll come straight back to you.
+Candidate: Thanks. And can you find out if they'd at least guarantee year one bonus? That would make the garden leave easier to swallow.
+Consultant: I'll ask. No promises, but I'll ask.

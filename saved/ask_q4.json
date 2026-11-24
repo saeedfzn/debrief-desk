@@ -1,0 +1,49 @@
+{
+  "question": "How many active applications are there at each stage?",
+  "sql": "SELECT stage AS stage, COUNT(*) AS active_applications FROM applications WHERE status = 'active' GROUP BY stage ORDER BY CASE stage WHEN 'sourced' THEN 1 WHEN 'screened' THEN 2 WHEN 'submitted' THEN 3 WHEN 'first_round' THEN 4 WHEN 'second_round' THEN 5 WHEN 'final_round' THEN 6 WHEN 'offer' THEN 7 WHEN 'placed' THEN 8 WHEN 'rejected' THEN 9 WHEN 'withdrawn' THEN 10 ELSE 11 END",
+  "columns": [
+    "stage",
+    "active_applications"
+  ],
+  "rows": [
+    [
+      "sourced",
+      5
+    ],
+    [
+      "screened",
+      6
+    ],
+    [
+      "submitted",
+      6
+    ],
+    [
+      "first_round",
+      7
+    ],
+    [
+      "second_round",
+      6
+    ],
+    [
+      "final_round",
+      5
+    ],
+    [
+      "offer",
+      3
+    ]
+  ],
+  "answer": "There are 38 active applications in total: first round has the most with 7, sourced and final round have 5 each, screened, submitted and second round have 6 each, and offer has the fewest with 3.",
+  "meta": {
+    "model": "claude-sonnet-5-5",
+    "ms": 2773,
+    "calls": 2,
+    "input_tokens": 2462,
+    "output_tokens": 351,
+    "row_count": 7,
+    "truncated": false,
+    "note": "Counts applications with status = 'active', grouped by stage and ordered in pipeline sequence; stages with zero active applications are not shown."
+  }
+}
