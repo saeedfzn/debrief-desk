@@ -1,37 +1,33 @@
 {
   "question": "For each consultant, how many active candidates have not been contacted for more than two weeks?",
-  "sql": "WITH active_c AS (SELECT DISTINCT candidate_id FROM applications WHERE status = 'active'), last_contact AS (SELECT a.candidate_id, MAX(substr(a.at,1,10)) AS last_at FROM activities a GROUP BY a.candidate_id) SELECT co.name AS consultant, co.desk AS desk, COUNT(c.id) AS stale_active_candidates FROM consultants co LEFT JOIN candidates c ON c.consultant_id = co.id AND c.id IN (SELECT candidate_id FROM active_c) AND (SELECT lc.last_at FROM last_contact lc WHERE lc.candidate_id = c.id) IS NOT NULL AND julianday('2026-11-25') - julianday((SELECT lc.last_at FROM last_contact lc WHERE lc.candidate_id = c.id)) > 14 OR (c.consultant_id = co.id AND c.id IN (SELECT candidate_id FROM active_c) AND c.id NOT IN (SELECT candidate_id FROM last_contact)) GROUP BY co.id, co.name, co.desk ORDER BY stale_active_candidates DESC, co.name LIMIT 200",
+  "sql": "SELECT co.name AS consultant, COUNT(DISTINCT c.id) AS candidates_not_contacted FROM consultants co LEFT JOIN candidates c ON c.consultant_id = co.id AND EXISTS (SELECT 1 FROM applications a WHERE a.candidate_id = c.id AND a.status = 'active') AND NOT EXISTS (SELECT 1 FROM activities ac WHERE ac.candidate_id = c.id AND ac.with_party = 'candidate' AND ac.at >= date('2026-11-25', '-14 day')) GROUP BY co.id, co.name ORDER BY candidates_not_contacted DESC, co.name LIMIT 200",
   "columns": [
     "consultant",
-    "desk",
-    "stale_active_candidates"
+    "candidates_not_contacted"
   ],
   "rows": [
     [
       "Hannah Pryce",
-      "Quant Research",
+      4
+    ],
+    [
+      "Priya Raman",
       3
     ],
     [
       "Tom Okafor",
-      "Low-Latency Engineering",
       3
-    ],
-    [
-      "Priya Raman",
-      "AI/ML",
-      2
     ]
   ],
-  "answer": "Three consultants have active candidates not contacted for over two weeks: Hannah Pryce (Quant Research) has 3, Tom Okafor (Low-Latency Engineering) has 3, and Priya Raman (AI/ML) has 2.",
+  "answer": "Hannah Pryce has the most active candidates not contacted for more than two weeks, with 4, while Priya Raman and Tom Okafor each have 3. That makes 10 candidates in total across the three consultants.",
   "meta": {
     "model": "claude-sonnet-5-5",
-    "ms": 6913,
+    "ms": 6576,
     "calls": 2,
-    "input_tokens": 2503,
-    "output_tokens": 1114,
+    "input_tokens": 2969,
+    "output_tokens": 475,
     "row_count": 3,
     "truncated": false,
-    "note": "Active = has an application with status 'active'; stale = last activity more than 14 days before 2026-11-25 or no activity at all; counted per owning consultant."
+    "note": "Active candidate = has at least one active application; not contacted = no with_party='candidate' activity on or after 2026-11-11; consultants with zero are included."
   }
 }

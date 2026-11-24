@@ -47,7 +47,7 @@ def write(out: Path, name: str, data) -> None:
 def do_index(out: Path) -> None:
     ts = crm.list_sample_transcripts()
     write(out, "index.json", {
-        "generated": date.today().isoformat(), "model": llm.model_name(), "today": config.DEMO_TODAY,
+        "generated": date.today().isoformat(), "model": llm.model_label(), "today": config.DEMO_TODAY,
         "transcripts": [{k: t.get(k) for k in ("id", "title", "date", "in_db")} for t in ts],
         "consultants": [{k: c.get(k) for k in ("id", "name", "desk")} for c in crm.list_consultants()],
         "questions": QUESTIONS,

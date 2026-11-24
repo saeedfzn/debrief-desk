@@ -19,11 +19,22 @@ def _db_path() -> Path:
     return Path(config.DB_PATH)
 
 
+class CRMMissing(FileNotFoundError):
+    """The sample CRM database has not been built yet."""
+
+
+MISSING_MESSAGE = "The sample CRM database has not been built yet. Run: py -3 data/seed.py (or python data/seed.py)."
+
+
+def db_ready() -> bool:
+    return _db_path().is_file()
+
+
 def connect() -> sqlite3.Connection:
     """Open the CRM read-only. There is no writable connection anywhere in the app."""
     path = _db_path()
-    if not path.exists():
-        raise FileNotFoundError(f"CRM database not found at {path}. Run: py -3 data/seed.py")
+    if not path.is_file():
+        raise CRMMissing(MISSING_MESSAGE)
     conn = sqlite3.connect(path.resolve().as_uri() + "?mode=ro", uri=True)
     conn.row_factory = sqlite3.Row
     return conn
@@ -175,23 +186,37 @@ def next_candidates_for_client(client_id: int, exclude_candidate_id: int | None 
 
 
 def pipeline_for_consultant(consultant_id: int) -> list[dict]:
+    """Active applications for one consultant, with the last contact WITH THE CANDIDATE.
+
+    Only activities with with_party = 'candidate' count: a CV sent to the client, a chase for feedback or an
+    internal note is not contact with the candidate. last_call_at is the latest call with the candidate.
+    """
     return _all(
         """
         WITH last AS (
           SELECT candidate_id, kind, at, summary,
                  ROW_NUMBER() OVER (PARTITION BY candidate_id ORDER BY at DESC, id DESC) AS rn
           FROM activities
+          WHERE with_party = 'candidate'
+        ),
+        last_call AS (
+          SELECT candidate_id, MAX(at) AS at
+          FROM activities
+          WHERE with_party = 'candidate' AND kind = 'call'
+          GROUP BY candidate_id
         )
         SELECT a.id AS application_id, ca.id AS candidate_id, ca.name AS candidate_name,
                ca.known_as, ca.pronouns,
                cl.name AS client_name, r.title AS role_title, r.status AS role_status, a.stage, a.stage_updated,
                a.next_interview_at, a.offer_sent_at, ca.notice_weeks, ca.non_compete_months, ca.phone,
-               l.at AS last_contact_at, l.kind AS last_contact_kind, l.summary AS last_contact_summary
+               l.at AS last_contact_at, l.kind AS last_contact_kind, l.summary AS last_contact_summary,
+               lc.at AS last_call_at
         FROM applications a
         JOIN candidates ca ON ca.id = a.candidate_id
         JOIN roles r ON r.id = a.role_id
         JOIN clients cl ON cl.id = r.client_id
         LEFT JOIN last l ON l.candidate_id = ca.id AND l.rn = 1
+        LEFT JOIN last_call lc ON lc.candidate_id = ca.id
         WHERE ca.consultant_id = ? AND a.status = 'active'
         ORDER BY a.id
         """,
@@ -240,7 +265,8 @@ _BLOCKED_WORDS = re.compile(
 _TICK_OPS = 1000            # SQLite VM instructions between progress-handler ticks
 _MAX_STEPS = 50_000         # ticks, i.e. 50 million VM instructions
 _MAX_SECONDS = 1.0          # wall-clock cap, whichever comes first
-_MAX_LENGTH = 10_000_000    # longest string or blob a query may build
+_MAX_LENGTH = 100_000       # longest string or blob a query may build (about 100 KB per value)
+_MAX_RESULT_BYTES = 1_000_000  # total size of the text and blob cells returned (about 1 MB)
 
 
 def _authorizer(action, arg1, arg2, dbname, source):
@@ -295,7 +321,16 @@ def run_readonly_sql(sql: str, limit: int = 200) -> dict:
         conn.set_progress_handler(_tick, _TICK_OPS)
         try:
             cur = conn.execute(text)
-            rows = cur.fetchmany(limit + 1)
+            rows, size = [], 0
+            for _ in range(limit + 1):  # row by row, so an oversized result stops early
+                r = cur.fetchone()
+                if r is None:
+                    break
+                size += sum(len(v.encode("utf-8")) if isinstance(v, str) else len(v)
+                            for v in r if isinstance(v, (str, bytes)))
+                if size > _MAX_RESULT_BYTES:
+                    raise ValueError("That result is too large to show.")
+                rows.append(r)
         except sqlite3.DatabaseError as e:
             msg = str(e)
             if "not authorized" in msg:

@@ -73,11 +73,18 @@ def _crm_context(m: dict) -> dict:
     if m["consultant"]:
         ctx["consultant"] = {"name": m["consultant"].get("name"),
                              "first_name_to_sign_with": _first_name(m["consultant"].get("name"))}
+    else:
+        ctx["consultant"] = {"name": None, "first_name_to_sign_with": None,
+                             "note": "Not in the CRM. Sign with the consultant's first name only if the transcript"
+                                     " gives it; otherwise end with \"Best wishes,\" and no name."}
     if cand:
         ctx["candidate"] = {k: cand.get(k) for k in ("name", "known_as", "pronouns", "current_employer",
                                                      "current_title", "location", "skills", "base_salary",
                                                      "currency", "notice_weeks", "non_compete_months")}
         ctx["candidate"]["pronouns"] = ctx["candidate"].get("pronouns") or "they"
+    else:
+        ctx["candidate"] = {"name": m["header"].get("candidate"), "pronouns": "they", "matched_in_crm": False,
+                            "note": "Not in the CRM: refer to them as \"they\" throughout; do not guess from the name."}
     if m["client"]:
         ctx["client"] = {k: m["client"].get(k) for k in ("name", "kind", "city")}
     if app:
@@ -93,7 +100,8 @@ def _note_and_emails(text: str, m: dict):
             " describe the call as of its own date and do not comment on those later changes.\n"
             + json.dumps(ctx, indent=1, default=str)
             + "\n\nDebrief transcript:\n<<<\n" + text.strip() + "\n>>>")
-    return llm.call_json(prompts.DEBRIEF_SYSTEM, user, max_tokens=16000, effort="medium")
+    return llm.call_json(prompts.DEBRIEF_SYSTEM, user, max_tokens=16000, effort="medium",
+                         model=llm.writer_model_name())
 
 
 def _debriefs_to_use(text: str, m: dict) -> list[dict]:
@@ -146,7 +154,8 @@ def _prep_pack(debriefs: list[dict], next_cand: dict | None, client_name: str, r
     user = (f"Today: {config.DEMO_TODAY}\nFirm: {client_name}\nRole the pack is for: {role}\n{who}\n\n"
             f"Number of debriefs: {len(debriefs)} ({n_same} for this role, {len(debriefs) - n_same} for other roles)"
             "\n\n" + "\n\n".join(parts))
-    return llm.call_json(prompts.PREP_SYSTEM, user, max_tokens=16000, effort="medium")
+    return llm.call_json(prompts.PREP_SYSTEM, user, max_tokens=16000, effort="medium",
+                         model=llm.writer_model_name())
 
 
 def _list(v):

@@ -79,7 +79,7 @@ CANDIDATES = [
     ("Tariq Aziz", "Teshwick Technologies", "Senior Software Engineer", "London", "C++, Linux kernel tuning, multicast", 135000, "GBP", 12, 0, 2),
     ("Ryan Gallagher", "Halbury Data", "Systems Engineer", "Dublin", "C++, Rust, networking", 95000, "EUR", 4, 0, 2),
     ("Wei Zhang", "Sallowmere Asset Management", "Quant Developer", "London", "Python, C++, research infrastructure, data pipelines", 120000, "GBP", 12, 6, 2),
-    ("Harriet Cole", "Quarnby Systems", "C++ Developer", "London", "C++, market data handlers, SIMD", 110000, "GBP", 8, 0, 2),
+    ("Harriet Cole", "Brackenvane Trading", "C++ Developer", "London", "C++, market data handlers, SIMD", 110000, "GBP", 8, 0, 2),
     ("Oskar Nilsson", "Corrish Exchange Services", "Software Engineer", "Stockholm", "Java, C++, exchange connectivity", 85000, "EUR", 12, 0, 2),
     ("Mateo Ruiz", "Teshwick Technologies", "Hardware Engineer", "London", "FPGA, SystemVerilog, timing closure", 98000, "GBP", 8, 0, 2),
     ("Laura Schmidt", "Halbury Data", "C++ Engineer", "London", "C++20, templates, benchmarking", 105000, "GBP", 8, 0, 2),
@@ -181,97 +181,100 @@ APPLICATIONS = [
     ("Rafael Mendes", 6, "first_round", "2026-11-12", None, None, "active"),
 ]
 
-# The story beats for each candidate; the latest one is their last contact.
+# The story beats for each candidate: (name, kind, date, with_party, summary).
+# with_party says who the contact was with: 'candidate' (a call or email with the candidate themself),
+# 'client' (with the hiring firm, e.g. a CV submission or a chase for feedback) or 'internal' (a note).
+# Only 'candidate' rows count as contact for the call list. The latest 'candidate' row is the last contact.
 # Filler history is generated strictly BEFORE each candidate's earliest key activity.
 KEY_ACTIVITIES = [
     # Oliver: rejected after second round
-    ("Oliver Brennan", "call", "2026-11-03", "Debrief after Fernhallow first round with Graham Lowe. Felt unsure, brainteasers mostly fine. 12 weeks notice, 3 months non-compete."),
-    ("Oliver Brennan", "email", "2026-11-05", "Fernhallow feedback: through to second round. Sent him the technical round format."),
-    ("Oliver Brennan", "call", "2026-11-13", "Told him Fernhallow are not progressing after the second round: cost modelling too light. Taking it well, open to other roles."),
+    ("Oliver Brennan", "call", "2026-11-03", "candidate", "Debrief after Fernhallow first round with Graham Lowe. Felt unsure, brainteasers mostly fine. 12 weeks notice, 3 months non-compete."),
+    ("Oliver Brennan", "email", "2026-11-05", "candidate", "Fernhallow feedback: through to second round. Sent him the technical round format."),
+    ("Oliver Brennan", "call", "2026-11-13", "candidate", "Told him Fernhallow are not progressing after the second round: cost modelling too light. Taking it well, open to other roles."),
     # Mei Lin: final round, then silence (situation: final-round candidate not contacted for 8+ days)
-    ("Mei Lin Tan", "call", "2026-11-10", "Debrief after Fernhallow second round. Strong on survivorship and multiple testing, hand-wavy on market impact. Wants £155k base."),
-    ("Mei Lin Tan", "email", "2026-11-13", "Fernhallow passed her to the final round. Asked for her availability for the research presentation."),
+    ("Mei Lin Tan", "call", "2026-11-10", "candidate", "Debrief after Fernhallow second round. Strong on survivorship and multiple testing, hand-wavy on market impact. Wants £155k base."),
+    ("Mei Lin Tan", "email", "2026-11-13", "candidate", "Told Mei Lin she is through to the Fernhallow final round. Asked for her availability for the research presentation."),
     # Rohan: offer out, nothing since (situation: offer sent 3+ working days ago, no activity since)
-    ("Rohan Mehta", "call", "2026-11-17", "Debrief after Fernhallow final round. Went well with Marcus Elling. Garden leave not bought out. Has a competing prop offer this week."),
-    ("Rohan Mehta", "call", "2026-11-18", "Ingrid Saarinen at Fernhallow: offer coming, references requested. Asked her about a guaranteed first-year bonus."),
+    ("Rohan Mehta", "call", "2026-11-17", "candidate", "Debrief after Fernhallow final round. Went well with Marcus Elling. Garden leave not bought out. Has a competing prop offer this week."),
+    ("Rohan Mehta", "call", "2026-11-18", "client", "Ingrid Saarinen at Fernhallow: offer coming, references requested. Asked her about a guaranteed first-year bonus."),
     # Sofia: the fresh debrief (her second round on 24 Nov is not logged yet)
-    ("Sofia Marchetti", "call", "2026-11-12", "Debrief after Fernhallow first round with Graham Lowe. Comfortable with the probability questions."),
-    ("Sofia Marchetti", "email", "2026-11-13", "Fernhallow feedback: through to second round, booked for Tue 24 Nov."),
-    ("Sofia Marchetti", "call", "2026-11-20", "Prep call for Fernhallow second round: survivorship traps in the data, costs, Graham's poker face."),
+    ("Sofia Marchetti", "call", "2026-11-12", "candidate", "Debrief after Fernhallow first round with Graham Lowe. Comfortable with the probability questions."),
+    ("Sofia Marchetti", "email", "2026-11-13", "candidate", "Fernhallow feedback: through to second round, booked for Tue 24 Nov."),
+    ("Sofia Marchetti", "call", "2026-11-20", "candidate", "Prep call for Fernhallow second round: survivorship traps in the data, costs, Graham's poker face."),
     # Aisha: the next candidate at Fernhallow (healthy)
-    ("Aisha Karim", "call", "2026-11-19", "Debrief after Fernhallow first round. Good on the probability questions, CV deep dive on her Bayesian work."),
-    ("Aisha Karim", "email", "2026-11-20", "Fernhallow feedback: through to second round, booked Fri 27 Nov 14:00 at their office."),
-    ("Aisha Karim", "call", "2026-11-23", "Prep call: walked through the Fernhallow second round format. Second prep call booked for Thu 26 Nov."),
+    ("Aisha Karim", "call", "2026-11-19", "candidate", "Debrief after Fernhallow first round. Good on the probability questions, CV deep dive on her Bayesian work."),
+    ("Aisha Karim", "email", "2026-11-20", "candidate", "Fernhallow feedback: through to second round, booked Fri 27 Nov 14:00 at their office."),
+    ("Aisha Karim", "call", "2026-11-23", "candidate", "Prep call: walked through the Fernhallow second round format. Second prep call booked for Thu 26 Nov."),
     # Chloe: final round booked (healthy)
-    ("Chloe Adeyemi", "call", "2026-11-19", "Debrief after Brackenvane market-making game. Widened well under pressure, one position slip. Worried about maths speed."),
-    ("Chloe Adeyemi", "email", "2026-11-20", "Brackenvane feedback positive: final round with the head of the index options desk, Thu 3 Dec 10:00."),
+    ("Chloe Adeyemi", "call", "2026-11-19", "candidate", "Debrief after Brackenvane market-making game. Widened well under pressure, one position slip. Worried about maths speed."),
+    ("Chloe Adeyemi", "email", "2026-11-20", "candidate", "Brackenvane feedback positive: final round with the head of the index options desk, Thu 3 Dec 10:00."),
     # Grace: interview tomorrow, nothing logged since the booking (situation)
-    ("Grace Holloway", "call", "2026-11-06", "Screening call. Index arb background, interested in options market making at Brackenvane."),
-    ("Grace Holloway", "email", "2026-11-13", "Confirmed first round time with Brackenvane: Thu 26 Nov 09:30."),
+    ("Grace Holloway", "call", "2026-11-06", "candidate", "Screening call. Index arb background, interested in options market making at Brackenvane."),
+    ("Grace Holloway", "email", "2026-11-13", "candidate", "Emailed Grace to confirm her Brackenvane first round: Thu 26 Nov 09:30."),
     # Ewan: long non-compete (situation)
-    ("Ewan Fairley", "call", "2026-11-12", "Debrief after Brackenvane first round. Strong. 12-month non-compete at Kelmscroft, enforced in full last time someone left."),
-    ("Ewan Fairley", "call", "2026-11-20", "Second round at Brackenvane booked for 4 Dec. Brackenvane checking whether they would cover a 12-month non-compete."),
+    ("Ewan Fairley", "call", "2026-11-12", "candidate", "Debrief after Brackenvane first round. Strong. 12-month non-compete at Kelmscroft, enforced in full last time someone left."),
+    ("Ewan Fairley", "call", "2026-11-20", "candidate", "Told Ewan his Brackenvane second round is booked for 4 Dec. Brackenvane checking whether they would cover a 12-month non-compete."),
     # Callum: healthy, just submitted
-    ("Callum Reid", "call", "2026-11-18", "Screening call for the Fernhallow quant developer role. Keen, good C++ and Python."),
-    ("Callum Reid", "email", "2026-11-20", "Submitted CV to Fernhallow for the Quant Developer, Research Platform role."),
+    ("Callum Reid", "call", "2026-11-18", "candidate", "Screening call for the Fernhallow quant developer role. Keen, good C++ and Python."),
+    ("Callum Reid", "email", "2026-11-20", "client", "Submitted CV to Fernhallow for the Quant Developer, Research Platform role."),
     # stale early-stage ones (situation)
-    ("Freya Lindqvist", "note", "2026-10-14", "Sourced via referral. Interested in Fernhallow, not yet screened."),
-    ("Marek Novak", "call", "2026-10-28", "Screened for the Brackenvane options role. Strong maths, wants to think about leaving rates."),
-    ("Hugo Laurent", "email", "2026-10-30", "Submitted to Lumenfold for Research Scientist, Evaluations."),
-    ("Hugo Laurent", "email", "2026-11-03", "Chased Lumenfold for CV feedback. Nothing yet."),
+    ("Freya Lindqvist", "note", "2026-10-14", "internal", "Sourced via referral. Interested in Fernhallow, not yet screened."),
+    ("Marek Novak", "call", "2026-10-28", "candidate", "Screened for the Brackenvane options role. Strong maths, wants to think about leaving rates."),
+    ("Hugo Laurent", "email", "2026-10-30", "client", "Submitted to Lumenfold for Research Scientist, Evaluations."),
+    ("Hugo Laurent", "email", "2026-11-03", "client", "Chased Lumenfold for CV feedback. Nothing yet."),
     # healthy ones
-    ("Nikhil Rao", "email", "2026-11-20", "Lumenfold want a first round: Tue 1 Dec 10:00, evaluation design."),
-    ("Nikhil Rao", "call", "2026-11-24", "Prep call for Lumenfold first round on 1 Dec. Talked through benchmark contamination questions."),
-    ("Isabel Ferreira", "call", "2026-11-24", "Screening call. Keen on Fernhallow systematic equities, updating her CV this week."),
-    ("Samir Haddad", "call", "2026-11-16", "Screening call. Kernel bypass and order gateways, open to prop firms."),
-    ("Samir Haddad", "email", "2026-11-17", "CV submitted to Brackenvane execution technology team."),
+    ("Nikhil Rao", "email", "2026-11-20", "candidate", "Told Nikhil that Lumenfold want a first round: Tue 1 Dec 10:00, evaluation design."),
+    ("Nikhil Rao", "call", "2026-11-24", "candidate", "Prep call for Lumenfold first round on 1 Dec. Talked through benchmark contamination questions."),
+    ("Isabel Ferreira", "call", "2026-11-24", "candidate", "Screening call. Keen on Fernhallow systematic equities, updating her CV this week."),
+    ("Samir Haddad", "call", "2026-11-16", "candidate", "Screening call. Kernel bypass and order gateways, open to prop firms."),
+    ("Samir Haddad", "email", "2026-11-17", "client", "CV submitted to Brackenvane execution technology team."),
     # Jonah: sourced, never contacted (no activities on purpose)
     # Leah: placed earlier in the year
-    ("Leah Donovan", "email", "2026-09-08", "Brackenvane offer sent: £105k base plus desk bonus."),
-    ("Leah Donovan", "call", "2026-09-15", "Leah accepted Brackenvane. Start date after 6 months garden leave."),
+    ("Leah Donovan", "email", "2026-09-08", "candidate", "Sent Leah the Brackenvane offer: £105k base plus desk bonus."),
+    ("Leah Donovan", "call", "2026-09-15", "candidate", "Leah accepted Brackenvane. Start date after 6 months garden leave."),
     # second group
-    ("Lukas Brandt", "call", "2026-11-12", "Debrief after Brackenvane C++ coding round. Ring buffer strong, order book unfinished. Worried about hours."),
-    ("Lukas Brandt", "email", "2026-11-16", "Brackenvane: through to the final round, Tue 1 Dec 13:00: system design, then the head of the team."),
-    ("Lukas Brandt", "call", "2026-11-24", "Prep call for Brackenvane system design: market data handler end to end."),
-    ("Ben Hartley", "email", "2026-11-23", "Fernhallow first round booked: Wed 2 Dec 11:00."),
-    ("Dmitri Sokolov", "email", "2026-10-21", "Submitted to Brackenvane FPGA role. Role since put on hold."),
-    ("Kwame Mensah", "call", "2026-11-06", "Brackenvane declined after first round. Fed back to Kwame."),
-    ("Elena Petrova", "email", "2026-11-02", "Elena withdrew from the Fernhallow developer process to focus on Brackenvane."),
-    ("Elena Petrova", "call", "2026-11-23", "Prep call for Brackenvane final round on Mon 30 Nov. Relocation from Amsterdam discussed."),
-    ("Tariq Aziz", "email", "2026-11-23", "Brackenvane offer sent: £165k base plus bonus."),
-    ("Tariq Aziz", "call", "2026-11-24", "Tariq reviewing the Brackenvane offer, wants to talk about the bonus structure on Friday."),
-    ("Ryan Gallagher", "call", "2026-11-18", "Screening call. Open to relocating from Dublin."),
-    ("Wei Zhang", "call", "2026-11-17", "Debrief after Fernhallow developer second round. Waiting on feedback."),
-    ("Wei Zhang", "email", "2026-11-23", "Chased Fernhallow for Wei's second round feedback."),
-    ("Harriet Cole", "call", "2026-08-24", "Harriet accepted Brackenvane offer."),
-    ("Oskar Nilsson", "email", "2026-10-19", "Oskar withdrew: staying in Stockholm."),
-    ("Mateo Ruiz", "note", "2026-10-09", "Sourced for the Brackenvane FPGA role."),
-    ("Laura Schmidt", "email", "2026-11-20", "CV submitted to Brackenvane for the low-latency role."),
-    ("Laura Schmidt", "email", "2026-11-23", "Brackenvane first round booked: Fri 27 Nov 15:00, C++ coding with the execution tech team."),
-    ("Laura Schmidt", "call", "2026-11-24", "Prep call for Brackenvane first round: lock-free queues, cache behaviour, moving off the naive version."),
-    ("Imran Shah", "call", "2026-11-12", "Screening call for the Fernhallow research platform role."),
+    ("Lukas Brandt", "call", "2026-11-12", "candidate", "Debrief after Brackenvane C++ coding round. Ring buffer strong, order book unfinished. Worried about hours."),
+    ("Lukas Brandt", "email", "2026-11-16", "candidate", "Told Lukas he is through to the Brackenvane final round, Tue 1 Dec 13:00: system design, then the head of the team."),
+    ("Lukas Brandt", "call", "2026-11-24", "candidate", "Prep call for Brackenvane system design: market data handler end to end."),
+    ("Ben Hartley", "email", "2026-11-23", "candidate", "Emailed Ben his Fernhallow first round time: Wed 2 Dec 11:00."),
+    ("Dmitri Sokolov", "email", "2026-10-21", "client", "Submitted to Brackenvane FPGA role. Role since put on hold."),
+    ("Kwame Mensah", "call", "2026-11-06", "candidate", "Brackenvane declined after first round. Fed back to Kwame."),
+    ("Elena Petrova", "email", "2026-11-02", "candidate", "Elena emailed to withdraw from the Fernhallow developer process to focus on Brackenvane."),
+    ("Elena Petrova", "call", "2026-11-23", "candidate", "Prep call for Brackenvane final round on Mon 30 Nov. Relocation from Amsterdam discussed."),
+    ("Tariq Aziz", "email", "2026-11-23", "candidate", "Sent Tariq the Brackenvane offer: £165k base plus bonus."),
+    ("Tariq Aziz", "call", "2026-11-24", "candidate", "Tariq reviewing the Brackenvane offer, wants to talk about the bonus structure on Friday."),
+    ("Ryan Gallagher", "call", "2026-11-18", "candidate", "Screening call. Open to relocating from Dublin."),
+    ("Wei Zhang", "call", "2026-11-17", "candidate", "Debrief after Fernhallow developer second round. Waiting on feedback."),
+    ("Wei Zhang", "email", "2026-11-23", "client", "Chased Fernhallow for Wei's second round feedback."),
+    ("Harriet Cole", "call", "2026-08-24", "candidate", "Harriet accepted Brackenvane offer."),
+    ("Oskar Nilsson", "email", "2026-10-19", "candidate", "Oskar withdrew: staying in Stockholm."),
+    ("Mateo Ruiz", "note", "2026-10-09", "internal", "Sourced for the Brackenvane FPGA role."),
+    ("Laura Schmidt", "email", "2026-11-20", "client", "CV submitted to Brackenvane for the low-latency role."),
+    ("Laura Schmidt", "email", "2026-11-23", "candidate", "Emailed Laura her Brackenvane first round: Fri 27 Nov 15:00, C++ coding with the execution tech team."),
+    ("Laura Schmidt", "call", "2026-11-24", "candidate", "Prep call for Brackenvane first round: lock-free queues, cache behaviour, moving off the naive version."),
+    ("Imran Shah", "call", "2026-11-12", "candidate", "Screening call for the Fernhallow research platform role."),
     # third group
-    ("Arjun Nair", "call", "2026-11-18", "Debrief after Lumenfold second round. Checkpointing design and loss-spike debugging. Worried about equity versus base."),
-    ("Arjun Nair", "email", "2026-11-20", "Lumenfold: final round Fri 27 Nov 11:00, values chat and head of infra."),
-    ("Zara Hussain", "email", "2026-11-20", "Lumenfold offer sent: £185k base plus options."),
-    ("Zara Hussain", "call", "2026-11-24", "Zara has questions on the option vesting schedule. Asked Lumenfold for the valuation detail."),
-    ("Liam O'Connor", "call", "2026-10-05", "Liam accepted Lumenfold inference role."),
-    ("Chen Yu", "email", "2026-11-19", "Lumenfold: second round Wed 2 Dec 15:00."),
-    ("Fatima Bello", "call", "2026-11-11", "Lumenfold declined after first round. Fed back."),
-    ("Daniel Weiss", "email", "2026-11-16", "CV submitted to Lumenfold training infrastructure role."),
-    ("Ana Costa", "call", "2026-11-23", "Screening call for Lumenfold evaluations role."),
-    ("Kenji Watanabe", "call", "2026-11-20", "Lumenfold first round booked for 3 Dec. Talked about JAX versus PyTorch at Lumenfold."),
-    ("Ruth Abernethy", "email", "2026-11-18", "CV submitted to Fernhallow systematic equities."),
-    ("Pavel Horak", "note", "2026-11-02", "Sourced. Prague based, would relocate."),
-    ("Sara Okoye", "email", "2026-09-30", "Sara withdrew from Lumenfold process: accepted a counter-offer."),
+    ("Arjun Nair", "call", "2026-11-18", "candidate", "Debrief after Lumenfold second round. Checkpointing design and loss-spike debugging. Worried about equity versus base."),
+    ("Arjun Nair", "email", "2026-11-20", "candidate", "Told Arjun his Lumenfold final round is Fri 27 Nov 11:00: values chat and head of infra."),
+    ("Zara Hussain", "email", "2026-11-20", "candidate", "Sent Zara the Lumenfold offer: £185k base plus options."),
+    ("Zara Hussain", "call", "2026-11-24", "candidate", "Zara has questions on the option vesting schedule. Asked Lumenfold for the valuation detail."),
+    ("Liam O'Connor", "call", "2026-10-05", "candidate", "Liam accepted Lumenfold inference role."),
+    ("Chen Yu", "email", "2026-11-19", "candidate", "Emailed Chen Yu his Lumenfold second round time: Wed 2 Dec 15:00."),
+    ("Fatima Bello", "call", "2026-11-11", "candidate", "Lumenfold declined after first round. Fed back."),
+    ("Daniel Weiss", "email", "2026-11-16", "client", "CV submitted to Lumenfold training infrastructure role."),
+    ("Ana Costa", "call", "2026-11-23", "candidate", "Screening call for Lumenfold evaluations role."),
+    ("Kenji Watanabe", "call", "2026-11-20", "candidate", "Lumenfold first round booked for 3 Dec. Talked about JAX versus PyTorch at Lumenfold."),
+    ("Ruth Abernethy", "email", "2026-11-18", "client", "CV submitted to Fernhallow systematic equities."),
+    ("Pavel Horak", "note", "2026-11-02", "internal", "Sourced. Prague based, would relocate."),
+    ("Sara Okoye", "email", "2026-09-30", "candidate", "Sara withdrew from Lumenfold process: accepted a counter-offer."),
     # added later
-    ("Joel Varga", "call", "2026-11-05", "Screened for the Brackenvane low-latency role. Wants to see the team's stack before going further."),
-    ("Nina Kowalczyk", "email", "2026-11-09", "CV submitted to Fernhallow for the Quant Developer, Research Platform role."),
-    ("Nina Kowalczyk", "call", "2026-11-13", "Debrief after Fernhallow first round. Felt it went well. Waiting on feedback."),
-    ("Ines Duarte", "email", "2026-11-19", "Lumenfold: second round booked for Thu 26 Nov 16:00, evaluation design case."),
-    ("Ines Duarte", "call", "2026-11-24", "Prep call for Lumenfold second round: contamination checks and how to design an eval."),
-    ("Rafael Mendes", "email", "2026-11-06", "CV submitted to Lumenfold training infrastructure role."),
-    ("Rafael Mendes", "call", "2026-11-13", "Debrief after Lumenfold first round. Coding went well, unsure on the systems questions. Waiting on feedback."),
+    ("Joel Varga", "call", "2026-11-05", "candidate", "Screened for the Brackenvane low-latency role. Wants to see the team's stack before going further."),
+    ("Nina Kowalczyk", "email", "2026-11-09", "client", "CV submitted to Fernhallow for the Quant Developer, Research Platform role."),
+    ("Nina Kowalczyk", "call", "2026-11-13", "candidate", "Debrief after Fernhallow first round. Felt it went well. Waiting on feedback."),
+    ("Ines Duarte", "email", "2026-11-19", "candidate", "Emailed Ines her Lumenfold second round: Thu 26 Nov 16:00, evaluation design case."),
+    ("Ines Duarte", "call", "2026-11-24", "candidate", "Prep call for Lumenfold second round: contamination checks and how to design an eval."),
+    ("Rafael Mendes", "email", "2026-11-06", "client", "CV submitted to Lumenfold training infrastructure role."),
+    ("Rafael Mendes", "call", "2026-11-13", "candidate", "Debrief after Lumenfold first round. Coding went well, unsure on the systems questions. Waiting on feedback."),
 ]
 
 # Generic history. Deliberately never mentions "prep", offers or interviews, so it cannot
@@ -350,8 +353,12 @@ def build(db_path: Path | str = DEFAULT_DB) -> Path:
         # then the key beats. Inserted in date order so ids rise with time.
         rng = random.Random(20261125)
         earliest: dict[str, str] = {}
-        for name, _kind, at, _s in KEY_ACTIVITIES:
+        for name, _kind, at, _party, _s in KEY_ACTIVITIES:
             earliest[name] = min(at, earliest.get(name, at))
+        stage_of = {}
+        for a in APPLICATIONS:
+            if a[6] == "active":
+                stage_of.setdefault(a[0], set()).add(a[2])
         rows = []
         for c in CANDIDATES:
             name = c[0]
@@ -363,12 +370,16 @@ def build(db_path: Path | str = DEFAULT_DB) -> Path:
                 while at.weekday() >= 5:  # keep history on working days
                     at -= timedelta(days=1)
                 kind = rng.choice(["call", "call", "email", "note"])
-                rows.append((cand_id[name], cand_owner[name], kind, at.isoformat(), rng.choice(FILLER[kind])))
-        for name, kind, at, summary in KEY_ACTIVITIES:
-            rows.append((cand_id[name], cand_owner[name], kind, at, summary))
+                text = rng.choice(FILLER[kind])
+                if stage_of.get(name) == {"sourced"}:
+                    continue  # sourced and not yet screened: no earlier contact may exist (draws kept, so others are unchanged)
+                rows.append((cand_id[name], cand_owner[name], kind, at.isoformat(),
+                             "internal" if kind == "note" else "candidate", text))
+        for name, kind, at, party, summary in KEY_ACTIVITIES:
+            rows.append((cand_id[name], cand_owner[name], kind, at, party, summary))
         rows.sort(key=lambda r: (r[3], r[0]))
         conn.executemany(
-            "INSERT INTO activities (candidate_id, consultant_id, kind, at, summary) VALUES (?,?,?,?,?)", rows
+            "INSERT INTO activities (candidate_id, consultant_id, kind, at, with_party, summary) VALUES (?,?,?,?,?,?)", rows
         )
 
         # Debriefs from the transcript files, except fresh_* (that one is for the live paste).

@@ -35,15 +35,15 @@
       3
     ]
   ],
-  "answer": "There are 38 active applications in total: first round has the most with 7, sourced and final round have 5 each, screened, submitted and second round have 6 each, and offer has the fewest with 3.",
+  "answer": "There are 38 active applications in total: 5 at sourced, 6 at screened, 6 at submitted, 7 at first_round, 6 at second_round, 5 at final_round and 3 at offer. First_round has the most, and offer has the fewest.",
   "meta": {
     "model": "claude-sonnet-5-5",
-    "ms": 2773,
+    "ms": 2764,
     "calls": 2,
-    "input_tokens": 2462,
-    "output_tokens": 351,
+    "input_tokens": 2921,
+    "output_tokens": 370,
     "row_count": 7,
     "truncated": false,
-    "note": "Counts applications with status = 'active', grouped by stage and ordered in pipeline sequence; stages with zero active applications are not shown."
+    "note": "Counts applications with status 'active' grouped by stage, ordered by pipeline progression; stages with no active applications are not shown."
   }
 }

@@ -190,7 +190,7 @@ class CrmTests(unittest.TestCase):
         keys = {"application_id", "candidate_id", "candidate_name", "known_as", "pronouns", "client_name",
                 "role_title", "role_status", "stage",
                 "stage_updated", "next_interview_at", "offer_sent_at", "notice_weeks", "non_compete_months",
-                "phone", "last_contact_at", "last_contact_kind", "last_contact_summary"}
+                "phone", "last_contact_at", "last_contact_kind", "last_contact_summary", "last_call_at"}
         for r in rows:
             self.assertTrue(keys <= set(r), keys - set(r))
         by = {r["candidate_name"]: r for r in rows}
@@ -214,6 +214,74 @@ class CrmTests(unittest.TestCase):
         for r in rows:
             st = conn.execute("SELECT status FROM applications WHERE id = ?", (r["application_id"],)).fetchone()[0]
             self.assertEqual(st, "active")
+        conn.close()
+
+    def test_run_readonly_sql_caps_result_size(self):
+        # one value over the per-value limit: SQLite refuses to build it (an error, or NULL from printf)
+        try:
+            res = crm.run_readonly_sql("SELECT printf('%.*c', 5000000, 'x') FROM activities LIMIT 200")
+            self.assertTrue(all(v is None or len(v) <= 100_000 for r in res["rows"] for v in r))
+        except ValueError:
+            pass
+        with self.assertRaises(ValueError):
+            crm.run_readonly_sql("SELECT length(zeroblob(200000))")
+        # many values each under the per-value limit, but too much in total
+        with self.assertRaises(ValueError) as cm:
+            crm.run_readonly_sql("SELECT printf('%.*c', 90000, 'x') FROM activities LIMIT 200")
+        self.assertIn("too large to show", str(cm.exception))
+        with self.assertRaises(ValueError):
+            crm.run_readonly_sql("SELECT zeroblob(90000) FROM activities LIMIT 200")
+        # an ordinary result is untouched
+        res = crm.run_readonly_sql("SELECT printf('%.*c', 2000, 'x') FROM activities LIMIT 100")
+        self.assertEqual(len(res["rows"]), 100)
+
+    def test_last_contact_counts_only_contact_with_the_candidate(self):
+        conn = sqlite3.connect(self.db)
+        parties = {r[0] for r in conn.execute("SELECT DISTINCT with_party FROM activities")}
+        self.assertEqual(parties, {"candidate", "client", "internal"})
+        self.assertEqual(conn.execute("SELECT COUNT(*) FROM activities WHERE kind = 'note'"
+                                      " AND with_party != 'internal'").fetchone()[0], 0)
+        for summary in ("Chased Lumenfold for CV feedback%", "Ingrid Saarinen at Fernhallow: offer coming%",
+                        "CV submitted to%", "Submitted%"):
+            got = {r[0] for r in conn.execute("SELECT with_party FROM activities WHERE summary LIKE ?", (summary,))}
+            self.assertEqual(got, {"client"}, summary)
+        conn.close()
+        for cid in (1, 2, 3):
+            for r in crm.pipeline_for_consultant(cid):
+                if r["last_contact_at"]:
+                    row = crm._one("SELECT with_party FROM activities WHERE candidate_id = ? AND at = ?"
+                                   " AND summary = ?", (r["candidate_id"], r["last_contact_at"],
+                                                        r["last_contact_summary"]))
+                    self.assertEqual(row["with_party"], "candidate", r["candidate_name"])
+                if r["last_call_at"]:
+                    self.assertLessEqual(r["last_call_at"], r["last_contact_at"])
+        by = {r["candidate_name"]: r for r in crm.pipeline_for_consultant(3)}
+        # Hugo's latest activities are emails to the client: they are not his last contact
+        self.assertLess(by["Hugo Laurent"]["last_contact_at"], "2026-10-30")
+        by = {r["candidate_name"]: r for r in crm.pipeline_for_consultant(1)}
+        # Rohan: the call with Ingrid on 18 Nov was with the client, so nothing with him since the offer
+        self.assertEqual(by["Rohan Mehta"]["last_contact_at"], "2026-11-17")
+
+    def test_seed_histories_match_stages(self):
+        conn = sqlite3.connect(self.db)
+        # sourced and not yet screened: no call or email with the candidate may exist
+        rows = conn.execute(
+            "SELECT c.name FROM candidates c JOIN activities act ON act.candidate_id = c.id"
+            " WHERE act.with_party = 'candidate' AND c.id IN (SELECT candidate_id FROM applications"
+            " WHERE status = 'active' GROUP BY candidate_id HAVING MIN(stage = 'sourced') = 1)").fetchall()
+        self.assertEqual(rows, [])
+        # anyone placed whose start date has passed works at the firm they were placed with
+        placed = conn.execute(
+            "SELECT c.name, c.current_employer, cl.name, a.stage_updated, c.notice_weeks FROM applications a"
+            " JOIN candidates c ON c.id = a.candidate_id JOIN roles r ON r.id = a.role_id"
+            " JOIN clients cl ON cl.id = r.client_id WHERE a.stage = 'placed'").fetchall()
+        from datetime import date, timedelta
+        for name, employer, firm, upd, notice in placed:
+            gone = date.fromisoformat(upd) + timedelta(weeks=notice or 0) < date(2026, 11, 25)
+            garden = conn.execute("SELECT COUNT(*) FROM activities a JOIN candidates c ON c.id = a.candidate_id"
+                                  " WHERE c.name = ? AND a.summary LIKE '%garden leave%'", (name,)).fetchone()[0]
+            if gone and not garden:
+                self.assertEqual(employer, firm, name)
         conn.close()
 
     def test_schema_text(self):

@@ -21,8 +21,8 @@
         }
       ],
       "last_contact": "2026-11-24 call: Tariq reviewing the Brackenvane offer, wants to talk about the bonus structure on Friday.",
-      "reason": "The Brackenvane offer went out on 23 Nov and Tariq is reviewing it, with a bonus structure discussion planned for Friday.",
-      "opener": "Hi Tariq, it's Tom. I wanted to check in while you're reviewing the Brackenvane offer and see whether you have any questions ahead of Friday."
+      "reason": "The Brackenvane offer went out on 23 November and Tariq is still reviewing it, with 12 weeks' notice and no non-compete.",
+      "opener": "Hi Tariq, it's Tom. I wanted to check in as you go through the Brackenvane offer and see whether anything has come up since we spoke."
     },
     {
       "rank": 2,
@@ -39,8 +39,8 @@
         }
       ],
       "last_contact": "2026-11-23 call: Prep call for Brackenvane final round on Mon 30 Nov. Relocation from Amsterdam discussed.",
-      "reason": "Elena has her Brackenvane final round on Monday 30 Nov at 10:00, and the prep call was on 23 Nov.",
-      "opener": "Hi Elena, it's Tom. I'm calling to see how you're feeling ahead of the Brackenvane final round on Monday and whether there is anything else you'd like to go through."
+      "reason": "Elena is in the Brackenvane final round, with her interview on Monday 30 November at 10:00.",
+      "opener": "Hi Elena, it's Tom. I wanted to check in ahead of your Brackenvane final round on Monday and see how your preparation is going."
     },
     {
       "rank": 3,
@@ -57,8 +57,8 @@
         }
       ],
       "last_contact": "2026-11-24 call: Prep call for Brackenvane system design: market data handler end to end.",
-      "reason": "Lukas has his Brackenvane final round on Tuesday 1 Dec at 13:00, and the system design prep call was yesterday.",
-      "opener": "Hi Lukas, it's Tom. I'm calling to see how your preparation for the Brackenvane final round is going and whether there is anything else you'd like to talk through."
+      "reason": "Lukas is in the Brackenvane final round, with his interview on Tuesday 1 December at 13:00.",
+      "opener": "Hi Lukas, it's Tom. I wanted to check in ahead of your Brackenvane final round next week and see how the preparation is going."
     },
     {
       "rank": 4,
@@ -70,16 +70,38 @@
       "score": 15,
       "factors": [
         {
-          "label": "Interview Fri 27 Nov, prep call logged",
+          "label": "Interview Fri 27 Nov, call in the last 3 days",
           "points": 15
         }
       ],
       "last_contact": "2026-11-24 call: Prep call for Brackenvane first round: lock-free queues, cache behaviour, moving off the naive version.",
-      "reason": "Laura has her Brackenvane first round on Friday 27 Nov at 15:00, and the prep call was logged yesterday.",
-      "opener": "Hi Laura, it's Tom. I'm calling to see how your preparation for Friday's Brackenvane interview is going and whether you have any last questions."
+      "reason": "Laura has her Brackenvane first round on Friday 27 November at 15:00 and we last spoke on 24 November.",
+      "opener": "Hi Laura, it's Tom. I wanted to check in before your Brackenvane interview on Friday and see if you have any last questions."
     },
     {
       "rank": 5,
+      "candidate": "Wei Zhang",
+      "phone": "07700 900125",
+      "client": "Fernhallow Capital",
+      "role": "Quant Developer, Research Platform",
+      "stage": "second_round",
+      "score": 13,
+      "factors": [
+        {
+          "label": "6-month non-compete, worth an early talk on timing",
+          "points": 10
+        },
+        {
+          "label": "8 days since last contact (second round allows 5)",
+          "points": 3
+        }
+      ],
+      "last_contact": "2026-11-17 call: Debrief after Fernhallow developer second round. Waiting on feedback.",
+      "reason": "Wei has a 6-month non-compete and 12 weeks' notice, and it has been 8 days since contact, past the 5 allowed at second round.",
+      "opener": "Hi Wei, it's Tom. I wanted to catch up on where things stand after your Fernhallow second round, and talk through your timing given your notice and non-compete."
+    },
+    {
+      "rank": 6,
       "candidate": "Joel Varga",
       "phone": "07700 900142",
       "client": "Brackenvane Trading",
@@ -93,26 +115,8 @@
         }
       ],
       "last_contact": "2026-11-05 call: Screened for the Brackenvane low-latency role. Wants to see the team's stack before going further.",
-      "reason": "Joel was screened for the Brackenvane role on 5 Nov, wanted to see the team's stack before going further, and there has been no contact for 20 days.",
-      "opener": "Hi Joel, it's Tom. I wanted to pick up where we left off on the Brackenvane low-latency role and ask whether you're still interested in going further."
-    },
-    {
-      "rank": 6,
-      "candidate": "Wei Zhang",
-      "phone": "07700 900125",
-      "client": "Fernhallow Capital",
-      "role": "Quant Developer, Research Platform",
-      "stage": "second_round",
-      "score": 10,
-      "factors": [
-        {
-          "label": "6-month non-compete, worth an early talk on timing",
-          "points": 10
-        }
-      ],
-      "last_contact": "2026-11-23 email: Chased Fernhallow for Wei's second round feedback.",
-      "reason": "Wei has a 6-month non-compete and a 12-week notice period, so timing is worth discussing early, and second round feedback from Fernhallow is still being chased.",
-      "opener": "Hi Wei, it's Tom. I'd like to talk through timing for the Fernhallow role, including your notice period and non-compete, and see how you're thinking about it."
+      "reason": "Joel was screened for the Brackenvane role and has had no contact for 20 days; he wanted to see the team's stack before going further.",
+      "opener": "Hi Joel, it's Tom. I wanted to catch up on the Brackenvane low-latency role and see how you are thinking about it."
     },
     {
       "rank": 7,
@@ -129,8 +133,8 @@
         }
       ],
       "last_contact": "2026-11-13 call: Debrief after Fernhallow first round. Felt it went well. Waiting on feedback.",
-      "reason": "It has been 12 days since the debrief after Nina's Fernhallow first round, against a 7-day limit for this stage, and she was waiting on feedback.",
-      "opener": "Hi Nina, it's Tom. I wanted to check in on how you're feeling about the Fernhallow role since your first round."
+      "reason": "Nina had her Fernhallow first round and it has been 12 days since contact, past the 7 allowed at this stage.",
+      "opener": "Hi Nina, it's Tom. I wanted to check in following your Fernhallow first round and see how you are getting on."
     },
     {
       "rank": 8,
@@ -147,8 +151,8 @@
         }
       ],
       "last_contact": "2026-11-12 call: Screening call for the Fernhallow research platform role.",
-      "reason": "It has been 13 days since Imran's screening call for the Fernhallow research platform role, against a 10-day limit for this stage.",
-      "opener": "Hi Imran, it's Tom. I wanted to follow up on our screening call for the Fernhallow research platform role and see how you're thinking about it."
+      "reason": "Imran was screened for the Fernhallow role and it has been 13 days since contact, past the 10 allowed at this stage.",
+      "opener": "Hi Imran, it's Tom. I wanted to catch up on the Fernhallow research platform role and see how you are feeling about it."
     },
     {
       "rank": 9,
@@ -157,23 +161,23 @@
       "client": "Brackenvane Trading",
       "role": "Low-Latency C++ Developer",
       "stage": "submitted",
-      "score": 1,
+      "score": 2,
       "factors": [
         {
-          "label": "8 days since last contact (submitted allows 7)",
-          "points": 1
+          "label": "9 days since last contact (submitted allows 7)",
+          "points": 2
         }
       ],
-      "last_contact": "2026-11-17 email: CV submitted to Brackenvane execution technology team.",
-      "reason": "Samir's CV was submitted to the Brackenvane execution technology team on 17 Nov, and it has been 8 days against a 7-day limit for this stage.",
-      "opener": "Hi Samir, it's Tom. I wanted to check in on the Brackenvane execution technology role, where we submitted your CV last week, and see how you're feeling about it."
+      "last_contact": "2026-11-16 call: Screening call. Kernel bypass and order gateways, open to prop firms.",
+      "reason": "Samir was submitted to Brackenvane and it has been 9 days since contact, past the 7 allowed at this stage.",
+      "opener": "Hi Samir, it's Tom. I wanted to catch up on the Brackenvane low-latency role and see how your search is going."
     }
   ],
   "meta": {
     "model": "claude-sonnet-5-5",
-    "ms": 6792,
+    "ms": 6240,
     "wording": "model",
-    "input_tokens": 2720,
-    "output_tokens": 1094
+    "input_tokens": 2781,
+    "output_tokens": 971
   }
 }

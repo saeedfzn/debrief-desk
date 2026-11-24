@@ -29,18 +29,33 @@ def _llm_failed(request: Request, exc: llm.LLMError):
     return _err(502, str(exc))
 
 
+@app.exception_handler(crm.CRMMissing)
+def _no_db(request: Request, exc: crm.CRMMissing):
+    return _err(503, crm.MISSING_MESSAGE)
+
+
+def _db_missing() -> JSONResponse | None:
+    """Checked before any model call, so a missing database never costs one."""
+    return None if crm.db_ready() else _err(503, crm.MISSING_MESSAGE)
+
+
 @app.get("/api/health")
 def health():
-    return {"ok": True, "mode": "live", "model": llm.model_name(), "today": config.DEMO_TODAY, "has_key": llm.has_key()}
+    return {"ok": True, "mode": "live", "model": llm.model_label(), "today": config.DEMO_TODAY, "has_key": llm.has_key(),
+            "has_db": crm.db_ready()}
 
 
 @app.get("/api/transcripts")
 def transcripts():
+    if (missing := _db_missing()):
+        return missing
     return [{k: t.get(k) for k in ("id", "title", "date", "in_db")} for t in crm.list_sample_transcripts()]
 
 
 @app.get("/api/transcripts/{tid}")
 def transcript(tid: str):
+    if (missing := _db_missing()):
+        return missing
     for t in crm.list_sample_transcripts():
         if t.get("id") == tid:
             return {k: t.get(k) for k in ("id", "title", "date", "in_db", "text")}
@@ -52,6 +67,8 @@ def run_debrief(body: dict):
     text = (body or {}).get("transcript") or ""
     if not text.strip():
         return _err(400, "Paste a debrief transcript first.")
+    if (missing := _db_missing()):
+        return missing
     if not llm.has_key():
         raise llm.LLMUnavailable("no key")
     return debrief.run_debrief(text)
@@ -59,11 +76,15 @@ def run_debrief(body: dict):
 
 @app.get("/api/consultants")
 def consultants():
+    if (missing := _db_missing()):
+        return missing
     return [{k: c.get(k) for k in ("id", "name", "desk")} for c in crm.list_consultants()]
 
 
 @app.get("/api/calllist")
 def get_calllist(consultant_id: int = 1):
+    if (missing := _db_missing()):
+        return missing
     try:
         return calllist.build_call_list(consultant_id)
     except LookupError as e:
@@ -73,6 +94,8 @@ def get_calllist(consultant_id: int = 1):
 @app.post("/api/ask")
 def ask(body: dict):
     question = (body or {}).get("question") or ""
+    if (missing := _db_missing()):
+        return missing
     if not llm.has_key():
         raise llm.LLMUnavailable("no key")
     try:

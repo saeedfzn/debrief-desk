@@ -32,6 +32,16 @@ def has_key() -> bool:
     return bool(os.environ.get("ANTHROPIC_API_KEY", "").strip())
 
 
+def writer_model_name() -> str:
+    return os.environ.get("DEBRIEF_WRITER_MODEL") or getattr(config, "WRITER_MODEL", "claude-opus-5-5")
+
+
+def model_label() -> str:
+    """One line for the page header."""
+    w, m = writer_model_name(), model_name()
+    return w if w == m else f"{w} for debriefs, {m} for the call list and questions"
+
+
 def model_name() -> str:
     return os.environ.get("DEBRIEF_MODEL") or getattr(config, "MODEL", "claude-sonnet-5-5")
 
@@ -61,10 +71,10 @@ def _extract_json(text: str):
     raise ValueError("no JSON object found")
 
 
-def _one_call(system: str, messages: list, max_tokens: int, effort: str):
+def _one_call(system: str, messages: list, max_tokens: int, effort: str, model: str | None = None):
     client = _get_client()
     resp = client.messages.create(
-        model=model_name(),
+        model=model or model_name(),
         max_tokens=max_tokens,
         system=system,
         messages=messages,
@@ -77,7 +87,8 @@ def _one_call(system: str, messages: list, max_tokens: int, effort: str):
     return resp
 
 
-def call_json(system: str, user: str, max_tokens: int = 4000, effort: str = "low") -> tuple[dict, dict]:
+def call_json(system: str, user: str, max_tokens: int = 4000, effort: str = "low",
+              model: str | None = None) -> tuple[dict, dict]:
     """Ask the model for a JSON object. Returns (parsed_json, meta).
 
     meta = {"model", "ms", "input_tokens", "output_tokens"} summed over any retry.
@@ -88,12 +99,12 @@ def call_json(system: str, user: str, max_tokens: int = 4000, effort: str = "low
     import anthropic
 
     t0 = time.perf_counter()
-    meta = {"model": model_name(), "ms": 0, "input_tokens": 0, "output_tokens": 0}
+    meta = {"model": model or model_name(), "ms": 0, "input_tokens": 0, "output_tokens": 0}
     messages = [{"role": "user", "content": user}]
     last_err = None
     for attempt in range(2):
         try:
-            resp = _one_call(system, messages, max_tokens, effort)
+            resp = _one_call(system, messages, max_tokens, effort, model)
         except anthropic.APIStatusError as e:
             raise LLMError(f"Model call failed ({e.status_code}): {getattr(e, 'message', e)}") from e
         except anthropic.APIConnectionError as e:

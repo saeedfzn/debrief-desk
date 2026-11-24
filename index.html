@@ -818,7 +818,7 @@ pre.sql { margin: 0; padding: 10px 12px; background: var(--sheet-2); border: 1px
     var body = cells.map(function (r) {
       return '<tr>' + cols.map(function (_, i) {
         var v = r[i], s = (v !== null && typeof v === 'object') ? JSON.stringify(v) : str(v);
-        if (!s) return '<td class="blank">blank</td>';
+        if (!s) return '<td class="blank" title="No value"></td>';
         return '<td' + (numeric[i] ? ' class="num"' : '') + '>' + esc(s) + '</td>';
       }).join('') + '</tr>';
     }).join('');

@@ -53,13 +53,13 @@ class ScoreRowTests(unittest.TestCase):
     def test_interview_tomorrow_without_prep(self):
         _, f = calllist.score_row(row(stage="first_round", next_interview_at="2026-11-26 10:00",
                                       last_contact_at="2026-11-19", last_contact_kind="email"), TODAY)
-        self.assertIn("Interview tomorrow, no prep call logged", labels(f))
+        self.assertIn("Interview tomorrow, no call in the last 3 days", labels(f))
 
     def test_interview_tomorrow_with_prep_call(self):
         _, f = calllist.score_row(row(stage="first_round", next_interview_at="2026-11-26 10:00",
                                       last_contact_at="2026-11-24", last_contact_kind="call"), TODAY)
-        self.assertIn("prep call logged", labels(f))
-        self.assertNotIn("no prep", labels(f))
+        self.assertIn("call in the last 3 days", labels(f))
+        self.assertNotIn("no call", labels(f))
 
     def test_interview_next_week_not_flagged(self):
         _, f = calllist.score_row(row(next_interview_at="2026-12-02 10:00"), TODAY)
@@ -92,7 +92,7 @@ class ScoreRowTests(unittest.TestCase):
         for when in ("2026-11-25 14:00", "2026-11-26 09:30", "2026-11-27 08:00", "2026-11-27 18:30"):
             _, f = calllist.score_row(row(stage="first_round", next_interview_at=when, last_contact_kind="email",
                                           last_contact_at="2026-11-19"), TODAY)
-            self.assertIn("no prep call logged", labels(f), when)
+            self.assertIn("no call in the last 3 days", labels(f), when)
         for when in ("2026-11-28 10:00", "2026-11-30 09:00", "2026-11-25 07:00"):
             _, f = calllist.score_row(row(next_interview_at=when), TODAY)
             self.assertNotIn("Interview", labels(f), when)
@@ -126,6 +126,30 @@ class ScoreRowTests(unittest.TestCase):
                 row(stage="second_round", next_interview_at="2026-11-26 09:00", last_contact_at="2026-11-23")]
         for r in live:
             self.assertGreater(calllist.score_row(r, TODAY)[0], early_max, r)
+
+    def test_early_stage_without_an_interview_never_above_12(self):
+        for stage in ("sourced", "screened", "submitted"):
+            for offer in (None, "2026-11-01", "2026-11-24"):
+                for last in (None, "2026-09-01", "2026-11-12", "2026-11-24"):
+                    s, _ = calllist.score_row(row(stage=stage, offer_sent_at=offer, last_contact_at=last,
+                                                  non_compete_months=12), TODAY)
+                    self.assertLessEqual(s, 12, (stage, offer, last))
+
+    def test_call_in_last_3_days_uses_last_call_not_last_contact(self):
+        # a prep call on the 24th followed by an email on the 25th still counts
+        _, f = calllist.score_row(row(stage="first_round", next_interview_at="2026-11-26 10:00",
+                                      last_contact_at="2026-11-25", last_contact_kind="email",
+                                      last_call_at="2026-11-24"), TODAY)
+        self.assertIn("call in the last 3 days", labels(f))
+        self.assertNotIn("no call", labels(f))
+        # an email two days ago and no call for a fortnight does not
+        _, f = calllist.score_row(row(stage="first_round", next_interview_at="2026-11-26 10:00",
+                                      last_contact_at="2026-11-23", last_contact_kind="email",
+                                      last_call_at="2026-11-10"), TODAY)
+        self.assertIn("no call in the last 3 days", labels(f))
+        _, f = calllist.score_row(row(stage="first_round", next_interview_at="2026-11-26 10:00",
+                                      last_contact_at=None, last_call_at=None), TODAY)
+        self.assertIn("no call in the last 3 days", labels(f))
 
     def test_greeting_name_never_splits_blindly(self):
         self.assertEqual(calllist.greeting_name({"candidate_name": "Mei Lin Tan", "known_as": "Mei Lin"}), "Mei Lin")

@@ -168,6 +168,19 @@ class DebriefTests(unittest.TestCase):
         self.assertIn("use the pronouns on their CRM record", prompts.RULES)
         self.assertIn("must not include any other candidate's private", prompts.PREP_SYSTEM)
 
+    def test_unmatched_candidate_and_consultant_get_safe_defaults(self):
+        hdr = {"candidate": "Sam Kirby", "round": "first round", "client": "Fernhallow Capital", "role": None,
+               "date": "2026-11-24"}
+        ctx = debrief._crm_context({"header": hdr, "candidate": None, "client": None, "application": None,
+                                    "consultant": None})
+        self.assertEqual(ctx["candidate"]["pronouns"], "they")
+        self.assertFalse(ctx["candidate"]["matched_in_crm"])
+        self.assertIsNone(ctx["consultant"]["first_name_to_sign_with"])
+        self.assertIn("Best wishes,", ctx["consultant"]["note"])
+        from app import prompts
+        self.assertNotIn("[Your name]", prompts.DEBRIEF_SYSTEM)
+        self.assertIn('"Best wishes," and nothing after it', " ".join(prompts.DEBRIEF_SYSTEM.split()))
+
     def test_empty_transcript(self):
         with self.assertRaises(ValueError):
             debrief.run_debrief("   ")

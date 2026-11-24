@@ -1,14 +1,13 @@
 {
   "question": "Which offers have been out for more than three working days, and when did we last speak to each candidate?",
-  "sql": "WITH n(i) AS (VALUES (1),(2),(3),(4),(5),(6),(7),(8),(9),(10),(11),(12),(13),(14),(15),(16),(17),(18),(19),(20),(21),(22),(23),(24),(25),(26),(27),(28),(29),(30)), o AS (SELECT a.id AS application_id, c.id AS candidate_id, c.name AS candidate, cl.name AS client, r.title AS role, substr(a.offer_sent_at,1,10) AS offer_sent, CASE WHEN julianday('2026-11-25') - julianday(substr(a.offer_sent_at,1,10)) > 30 THEN 99 ELSE (SELECT COUNT(*) FROM n WHERE n.i <= julianday('2026-11-25') - julianday(substr(a.offer_sent_at,1,10)) AND strftime('%w', date(substr(a.offer_sent_at,1,10), '+' || n.i || ' day')) NOT IN ('0','6')) END AS working_days_out FROM applications a JOIN candidates c ON c.id = a.candidate_id JOIN roles r ON r.id = a.role_id JOIN clients cl ON cl.id = r.client_id WHERE a.status = 'active' AND a.stage = 'offer' AND a.offer_sent_at IS NOT NULL) SELECT o.candidate AS candidate, o.client AS client, o.role AS role, o.offer_sent AS offer_sent, o.working_days_out AS working_days_out, (SELECT MAX(ac.at) FROM activities ac WHERE ac.candidate_id = o.candidate_id) AS last_contact, (SELECT ac.kind FROM activities ac WHERE ac.candidate_id = o.candidate_id ORDER BY ac.at DESC, ac.id DESC LIMIT 1) AS last_contact_type FROM o WHERE o.working_days_out > 3 ORDER BY o.offer_sent ASC LIMIT 200",
+  "sql": "WITH n(i) AS (VALUES (1),(2),(3),(4),(5),(6),(7),(8),(9),(10),(11),(12),(13),(14),(15),(16),(17),(18),(19),(20),(21),(22),(23),(24),(25),(26),(27),(28),(29),(30)), o AS (SELECT a.id AS application_id, c.id AS candidate_id, c.name AS candidate_name, cl.name AS client_name, r.title AS role_title, a.offer_sent_at AS offer_sent, (SELECT COUNT(*) FROM n WHERE n.i <= julianday('2026-11-25') - julianday(substr(a.offer_sent_at,1,10)) AND strftime('%w', date(substr(a.offer_sent_at,1,10), '+' || n.i || ' day')) NOT IN ('0','6')) AS working_days_out FROM applications a JOIN candidates c ON c.id = a.candidate_id JOIN roles r ON r.id = a.role_id JOIN clients cl ON cl.id = r.client_id WHERE a.status = 'active' AND a.stage = 'offer' AND a.offer_sent_at IS NOT NULL) SELECT o.candidate_name, o.client_name, o.role_title, o.offer_sent, o.working_days_out, (SELECT MAX(act.at) FROM activities act WHERE act.candidate_id = o.candidate_id AND act.with_party = 'candidate') AS last_candidate_contact FROM o WHERE o.working_days_out > 3 OR julianday('2026-11-25') - julianday(substr(o.offer_sent,1,10)) > 30 ORDER BY o.offer_sent ASC LIMIT 200",
   "columns": [
-    "candidate",
-    "client",
-    "role",
+    "candidate_name",
+    "client_name",
+    "role_title",
     "offer_sent",
     "working_days_out",
-    "last_contact",
-    "last_contact_type"
+    "last_candidate_contact"
   ],
   "rows": [
     [
@@ -17,19 +16,18 @@
       "Quantitative Researcher, Systematic Equities",
       "2026-11-19",
       4,
-      "2026-11-18",
-      "call"
+      "2026-11-17"
     ]
   ],
-  "answer": "Only one offer has been out for more than three working days: Rohan Mehta's offer from Fernhallow Capital for Quantitative Researcher, Systematic Equities, sent on 2026-11-19 and now four working days out. Rohan Mehta was last contacted on 2026-11-18 by call, which was the day before the offer went out.",
+  "answer": "One offer has been out for more than three working days: Rohan Mehta's offer for Quantitative Researcher, Systematic Equities at Fernhallow Capital, sent on 2026-11-19 and now 4 working days out. We last spoke to Rohan Mehta on 2026-11-17, which was before the offer was sent.",
   "meta": {
     "model": "claude-sonnet-5-5",
-    "ms": 7154,
+    "ms": 4782,
     "calls": 2,
-    "input_tokens": 2521,
-    "output_tokens": 890,
+    "input_tokens": 2982,
+    "output_tokens": 771,
     "row_count": 1,
     "truncated": false,
-    "note": "Active applications at offer stage with an offer date more than 3 Mon-Fri days before 2026-11-25 (working_days_out shows 99 where over 30 days), with each candidate's latest activity date and type."
+    "note": "Active applications at offer stage with an offer sent more than 3 Mon-Fri working days ago; last contact is the latest activity with the candidate (any kind)."
   }
 }

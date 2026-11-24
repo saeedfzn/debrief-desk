@@ -78,7 +78,7 @@ def score_row(row: dict, today) -> tuple[int, list[dict]]:
     | Offer out, no contact since it was sent                                        | 40, +2 per working day, max 50 |
     | Offer out, in touch since it was sent (or at offer stage, no date logged)      | 30                             |
     | Interview by the end of the next two working days, no call in the last 3 days  | 35                             |
-    | Interview by the end of the next two working days, prep call logged            | 15                             |
+    | Interview by the end of the next two working days, a call in the last 3 days   | 15                             |
     | Final round, no contact for 8+ days                                            | 30                             |
     | Final round, in touch                                                          | 20                             |
     | Early stage (sourced/screened/submitted), no contact for 14+ days, or never    | 12                             |
@@ -89,10 +89,12 @@ def score_row(row: dict, today) -> tuple[int, list[dict]]:
 
     Days a stage allows without contact: offer 2, final_round 4, second_round 5, first_round 7,
     submitted 7, screened 10, sourced 14. No contact ever logged counts as 99 days.
+    "Contact" means contact with the candidate: crm.pipeline_for_consultant counts only activities with
+    with_party = 'candidate', and "a call in the last 3 days" uses last_call_at (the latest call with them).
     The score is the sum of the factor points.
 
-    What this guarantees: an early-stage row scores at most 12, so any open offer (30+), any final round (20+)
-    and any interview in the window (15+) is always above a stale early-stage lead.
+    What this guarantees: an early-stage row with no interview in the window scores at most 12, so any open
+    offer (30+) and any final round (20+) is always above it, and so is any interview in the window (15+).
     """
     today = _d(today) if not isinstance(today, date) else today
     now = datetime(today.year, today.month, today.day, 8, 0)
@@ -102,8 +104,8 @@ def score_row(row: dict, today) -> tuple[int, list[dict]]:
     factors: list[dict] = []
     silence = False  # a stage-specific "gone quiet" signal fired, so the generic gap is not added on top
 
-    # Offer out
-    offer_at = _d(row.get("offer_sent_at"))
+    # Offer out (an offer date on an early-stage row is ignored, so an early-stage lead stays at most 12)
+    offer_at = _d(row.get("offer_sent_at")) if stage not in EARLY_STAGES else None
     if stage == "offer" or offer_at:
         if offer_at and (last is None or last <= offer_at):
             wd = working_days_between(offer_at, today)
@@ -120,11 +122,15 @@ def score_row(row: dict, today) -> tuple[int, list[dict]]:
     if iv and iv >= now and iv.date() <= interview_window_end(today):
         when = "today" if iv.date() == today else ("tomorrow" if iv.date() == today + timedelta(days=1)
                                                    else iv.strftime("%a %d %b"))
-        prepped = row.get("last_contact_kind") == "call" and last is not None and days_since <= 3
+        if "last_call_at" in row:  # from the CRM: the latest call with the candidate, whatever came after it
+            last_call = _d(row.get("last_call_at"))
+        else:  # a bare row: the last contact, if it was a call
+            last_call = last if row.get("last_contact_kind") == "call" else None
+        prepped = last_call is not None and 0 <= (today - last_call).days <= 3
         if prepped:
-            factors.append({"label": f"Interview {when}, prep call logged", "points": 15})
+            factors.append({"label": f"Interview {when}, call in the last 3 days", "points": 15})
         else:
-            factors.append({"label": f"Interview {when}, no prep call logged", "points": 35})
+            factors.append({"label": f"Interview {when}, no call in the last 3 days", "points": 35})
 
     # Final round
     if stage == "final_round":

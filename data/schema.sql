@@ -58,6 +58,7 @@ CREATE TABLE activities (
   consultant_id INT REFERENCES consultants(id),
   kind TEXT NOT NULL,               -- 'call' | 'email' | 'note'
   at TEXT NOT NULL,                 -- date 'YYYY-MM-DD'
+  with_party TEXT NOT NULL,         -- 'candidate' (contact with the candidate) | 'client' (with the hiring firm) | 'internal' (a note)
   summary TEXT
 );
 

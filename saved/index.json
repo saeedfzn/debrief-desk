@@ -1,6 +1,6 @@
 {
   "generated": "2026-11-24",
-  "model": "claude-sonnet-5-5",
+  "model": "claude-opus-5-5 for debriefs, claude-sonnet-5-5 for the call list and questions",
   "today": "2026-11-25",
   "transcripts": [
     {

@@ -6,40 +6,59 @@
     "round": "second round"
   },
   "crm_note": {
-    "headline": "Chloe: second round at Brackenvane done (mental maths test and market-making game); notice and non-compete accepted by the firm; awaiting feedback.",
+    "headline": "Chloe debriefed after Brackenvane second round (mental maths test, market-making game, betting game, options questions); awaiting feedback",
     "stage_after": "second_round done, awaiting feedback",
-    "how_it_went": "Chloe described the second round as the most fun she has had in an interview and also the most stressed. She was comfortable with the options questions at the end. She feels she sized too cautiously in the betting game and got her position wrong by one lot in the dice game. Feedback is not yet known.",
+    "how_it_went": "Chloe said it was the most fun she has had in an interview and also the most stressed. She got through about seventy of eighty mental maths questions and felt that was slow. In the market-making game Sam approved of her widening, but she got her position wrong by one lot. She thinks she was too cautious in the betting game, and she was comfortable on the options questions.",
     "rounds": [
       {
-        "round": "second round",
-        "format": "About an hour with two traders from the index options desk, Sam and Bea. Mental maths test on a tablet (80 questions in 8 minutes), then a market-making game on the sum of three dice, a second betting game on sizing, and options questions at the end.",
+        "round": "Mental maths test",
+        "format": "Tablet test before the game, eighty questions in eight minutes",
         "asked": [
-          "Mental maths test: 80 questions in 8 minutes covering fractions, decimals and percentages. Chloe got through about 70 and does not know how many were right.",
-          "Make a market on the sum of three dice. Chloe quoted 9.5 at 11.5 around a fair value of 10.5, moved her mid up to 13 after the first die came up a six, and widened when the traders kept lifting her. Sam asked why she widened.",
-          "Bea asked what Chloe's position was. Chloe got it wrong by one lot and Bea said firmly, 'always know your position'.",
-          "Second game with bets offered at different odds, where Chloe had to decide sizing. They asked about Kelly.",
+          "Fractions, decimals and a few percentages"
+        ],
+        "candidate_view": "Got through about seventy, with no idea how many were right. She said seventy out of eighty felt slow and is worried she is too slow at the maths for them."
+      },
+      {
+        "round": "Market-making game",
+        "format": "About an hour with two traders from the index options desk, Sam and Bea",
+        "asked": [
+          "Make a market on the sum of three dice, with dice revealed one at a time while they traded against her",
+          "Sam asked why she had widened",
+          "Bea asked what her position was"
+        ],
+        "candidate_view": "She quoted 9.5 at 11.5 around a fair value of 10.5, moved her mid to 13 after a six, and widened when they lifted her and seemed to have information. Sam said good, as many people keep quoting tight to look confident. She got her position wrong by one lot, which annoyed her, and Bea told her firmly to always know her position."
+      },
+      {
+        "round": "Betting game",
+        "format": "Offered bets at different odds and asked to decide sizing",
+        "asked": [
+          "Bet sizing",
+          "Kelly criterion"
+        ],
+        "candidate_view": "She thinks she was too cautious and was sizing small. She knew Kelly but did not use it properly."
+      },
+      {
+        "round": "Options knowledge",
+        "format": "Questions at the end of the session",
+        "asked": [
           "Put-call parity",
           "What happens to a call's delta as expiry gets close",
-          "Why an index skew exists",
-          "Notice period and non-compete (asked by Bea)"
+          "Why an index skew exists at all"
         ],
-        "candidate_view": "Chloe said it was the most fun she has had in an interview and also the most stressed. She said Sam responded well to her explanation for widening: she said it was because they were trading like they had information and she did not want to keep getting picked off, and he said 'good', adding that a lot of people keep quoting tight to look confident. She was annoyed at getting her position wrong by one lot. She thinks she was too cautious on sizing in the betting game and knew Kelly but did not use it properly. She was comfortable with the options questions, which she said are her day job at Kelmscroft. She was relieved by the response on notice and non-compete. She is worried that 70 out of 80 on the maths test was too slow for them."
+        "candidate_view": "Comfortable with this part, as it is her day job at Kelmscroft."
       }
     ],
     "compensation": {
-      "current": "Base £95,000, bonus about £40,000",
-      "expectation": "Around £110,000 base, with a bonus tied to the desk rather than discretionary",
-      "notes": "Chloe said she does not want another discretionary black box bonus."
+      "current": "Base £95k, bonus about £40k",
+      "expectation": "Base around £110k, with a bonus tied to the desk",
+      "notes": "Chloe does not want another discretionary bonus, which she described as a black box."
     },
-    "notice_and_non_compete": "12 weeks' notice and a 6-month non-compete. Bea asked about both on the call. Chloe said Bea told her this is standard for them, that they would cover it and that they are used to it. Chloe had been worried this would kill the process.",
+    "notice_and_non_compete": "Twelve weeks notice and six months non-compete. Bea asked about it and said this is standard for Brackenvane, they would cover it and they are used to it. Chloe had been worried it would stop the process.",
     "competing_processes": [
-      "First round done at a market maker in Amsterdam. Chloe said it is too early to say."
+      "First round done at a market maker in Amsterdam; Chloe said it is too early to say"
     ],
     "risks": [
-      "Chloe is worried that completing about 70 of 80 questions on the mental maths test was too slow for Brackenvane. Actual score unknown.",
-      "Chloe thinks she sized too cautiously in the betting game and did not use Kelly properly.",
-      "Chloe got her position wrong by one lot in the dice game, and Bea told her firmly to always know her position.",
-      "Chloe's bonus expectation is a desk-linked bonus rather than a discretionary one. How that compares with Brackenvane's structure was not discussed."
+      "Bonus structure: Chloe wants a bonus tied to the desk and said she does not want another discretionary bonus. Brackenvane's bonus structure was not discussed."
     ],
     "next_actions": [
       {
@@ -48,14 +67,9 @@
         "due": "2026-11-20"
       },
       {
-        "action": "Pass feedback to Chloe once received",
-        "owner": "consultant",
-        "due": "not discussed"
-      },
-      {
-        "action": "Brackenvane to come back to Chloe on the outcome of the second round. They told her they would come back quickly. If it goes well, the final is with the head of the desk (more about fit) and possibly a day watching on the desk.",
+        "action": "Brackenvane to come back with the outcome of the second round",
         "owner": "client",
-        "due": "not discussed"
+        "due": "quickly (said on the call)"
       }
     ]
   },
@@ -63,12 +77,12 @@
     "candidate": {
       "to": "chloe.adeyemi@example.com",
       "subject": "Brackenvane second round: next steps",
-      "body": "Hi Chloe,\n\nThanks for talking me through the second round so clearly. I have noted the mental maths test, the dice and betting games and the options questions at the end.\n\nAs agreed, I will speak to Brackenvane tomorrow and ask for their feedback. I will pass it on to you as soon as I have it. You said they told you that if it goes well, the final is with the head of the desk and is more about fit, with possibly a day watching on the desk. They also said they would come back quickly.\n\nI will wait for their feedback rather than guess at it.\n\nBest wishes,\nHannah"
+      "body": "Hi Chloe,\n\nThank you for talking me through the second round at Brackenvane Trading today, covering the mental maths test, the market-making and betting games and the options questions.\n\nAs I said on the call, I will speak to Brackenvane tomorrow about their feedback. They told you they would come back quickly, and if it goes well the final round would be with the head of the desk, focused on fit, possibly with a day on the desk.\n\nFor my notes, I have your current package as a base of £95k and a bonus of about £40k, and your expectation as a base of around £110k with a bonus tied to the desk rather than discretionary. It was good to hear that Bea said your twelve weeks notice and six month non-compete are standard for them.\n\nBest wishes,\nHannah"
     },
     "client": {
       "to": "Hiring team, Brackenvane Trading",
-      "subject": "Chloe Adeyemi: second round, Quantitative Trader, Options Market Making",
-      "body": "Hi,\n\nI spoke to Chloe Adeyemi after her second round with the index options desk. She described it as the most fun she has had in an interview, and she was comfortable with the options questions at the end.\n\nShe remains interested in the Quantitative Trader, Options Market Making role.\n\nCould you let me know the team's feedback from the second round, and confirm the next step? Chloe understood that, if it goes well, the final round is with the head of the desk and may include a day on the desk. I will call you tomorrow to follow up.\n\nBest wishes,\nHannah"
+      "subject": "Chloe Adeyemi: second round feedback",
+      "body": "Hi,\n\nThank you for interviewing Chloe Adeyemi for the Quantitative Trader, Options Market Making role.\n\nI would be grateful for your feedback on the second round when you have it. I would also be glad to hear your thoughts on next steps.\n\nBest wishes,\nHannah"
     }
   },
   "prep_pack": {
@@ -97,42 +111,46 @@
     ],
     "process": [
       {
-        "round": "Second round (the only round for this role covered in the debriefs; the first round is not discussed)",
-        "format": "About an hour. An eight-minute mental maths test on a tablet (eighty questions: fractions, decimals, a few percentages), then a market-making game, a second betting game where you choose bet sizes at different odds, and options knowledge questions at the end.",
-        "who": "Two traders from the index options desk, Sam and Bea.",
-        "what_they_look_for": "How you quote and adjust a market as information arrives, whether you notice when others are trading on information and widen, whether you know your position at all times, how you size bets, and your options knowledge."
+        "round": "First round",
+        "format": "not discussed",
+        "who": "not discussed",
+        "what_they_look_for": "not discussed"
       },
       {
-        "round": "Next stage after the second round (as described to a previous candidate)",
-        "format": "Final with the head of the desk, possibly with a day on the desk watching. Not confirmed as a fixed step.",
-        "who": "Head of the desk.",
-        "what_they_look_for": "More about how you would fit in. The firm said it would come back quickly after the second round."
+        "round": "Second round",
+        "format": "A mental maths test on a tablet (eighty questions in eight minutes), then a market-making game of about an hour. This includes a dice market, a second betting game on sizing, and options knowledge questions at the end.",
+        "who": "Two traders from the index options desk, Sam and Bea",
+        "what_they_look_for": "Fast, accurate arithmetic. Sensible quoting that adjusts as information is revealed, including widening when the other side trades as if informed. Always knowing your position. Sound bet sizing, including use of the Kelly criterion. Core options knowledge."
+      },
+      {
+        "round": "Final",
+        "format": "Described as more about how you would fit in, possibly with a day on the desk watching",
+        "who": "The head of the desk",
+        "what_they_look_for": "Fit with the desk"
       }
     ],
     "question_themes": [
       {
-        "theme": "Mental maths",
+        "theme": "Timed mental arithmetic",
         "examples": [
-          "Eighty questions in eight minutes on a tablet",
-          "Fractions, decimals and a few percentages"
+          "Eighty questions in eight minutes on a tablet, covering fractions, decimals and percentages"
         ],
         "seen_in": 1
       },
       {
-        "theme": "Market-making game",
+        "theme": "Market-making game on dice",
         "examples": [
-          "Make a market on the sum of three dice",
-          "Dice are revealed one at a time while the interviewers trade against you",
-          "Interviewer asked why the quote was widened",
-          "Interviewer asked what your position was"
+          "Make a market on the sum of three dice, with the interviewers trading against you and revealing dice one at a time",
+          "Why did you widen?",
+          "What is your position?"
         ],
         "seen_in": 1
       },
       {
-        "theme": "Betting and sizing game",
+        "theme": "Betting and sizing",
         "examples": [
-          "Bets offered at different odds, you decide the size",
-          "Interviewers asked about the Kelly criterion"
+          "A betting game where you are offered bets at different odds and must decide sizing",
+          "Questions on the Kelly criterion and using it for sizing"
         ],
         "seen_in": 1
       },
@@ -141,39 +159,38 @@
         "examples": [
           "Put-call parity",
           "What happens to a call's delta as expiry gets close",
-          "Why an index skew exists"
+          "Why an index skew exists at all"
         ],
         "seen_in": 1
       }
     ],
     "went_well": [
-      "Widening the quote after the interviewers' trading suggested they had information, and explaining why. Sam asked why and responded that a lot of people keep quoting tight to look confident.",
-      "The options knowledge questions at the end went comfortably."
+      "In the dice game, widening the quote after being lifted a couple of times drew a question from Sam on why. The explanation was that the interviewers were trading as if they had information and the aim was not to keep getting picked off. Sam said \"good\" and added that a lot of people just keep quoting tight to look confident."
     ],
     "tripped_people_up": [
-      "Getting the position wrong by one lot when Bea asked for it. Bea said firmly to always know your position.",
-      "Sizing bets small in the betting game. Kelly was asked about and was known, but it was not used properly."
+      "When Bea asked for the current position during the game, the answer was wrong by one lot. She said firmly: \"always know your position\".",
+      "In the betting game, sizing was kept too small. When Kelly came up, the criterion was known but not applied properly."
     ],
     "advice": [
-      "In any market-making exercise, keep a running count of your position so you can state it exactly when asked.",
-      "If counterparties keep trading against your quote, be ready to widen and say why, since that was received well.",
-      "Revise the Kelly criterion and practise applying it to bet sizing, not just defining it.",
-      "Practise timed mental arithmetic on fractions, decimals and percentages, as the test is eighty questions in eight minutes.",
-      "Be ready to talk through put-call parity, delta near expiry and the reasons for index skew.",
-      "Expect the interviewers to keep revealing information in stages and to trade against you, as happened with the dice."
+      "For the second round, practise rapid mental arithmetic with fractions, decimals and percentages against the clock, since the test is eighty questions in eight minutes.",
+      "In the dice game, start from fair value, move your mid as dice are revealed, and widen if the interviewers keep trading against you. Be ready to explain why you widened.",
+      "Keep a running count of your position throughout the game so you can answer instantly when asked.",
+      "Practise applying the Kelly criterion to bets at different odds, so you can size properly rather than just state the formula.",
+      "Revise put-call parity, how a call's delta behaves near expiry, and why index skew exists, as these were asked at the end of the second round."
     ],
     "logistics": [
-      "The second round for this role was about an hour with two index options desk traders, with the maths test on a tablet.",
-      "Notice and non-compete came up in the second round and the interviewer, Bea, asked about them. For a previous candidate, she said the firm treats long notice and non-competes as standard and is used to covering them. Your own record shows 12 weeks' notice and a 6-month non-compete, so expect the same question.",
-      "A debrief from a different role (Low-Latency C++ Developer, first round, call dated 12 Nov) said the firm told that candidate it moves fast, about a week between rounds. The second-round debrief for your role also said the firm would come back quickly.",
-      "The same different-role debrief described a first round of about ninety minutes with two engineers and a later round with the head of the team. This is not your process."
+      "The second-round mental maths test is taken on a tablet before the market-making game.",
+      "The second-round market-making game lasts about an hour.",
+      "Notice period and non-compete are asked about in the second round. Bea asked about them.",
+      "Your record shows a 12-week notice period and a 6-month non-compete. Expect to be asked about these in the second round.",
+      "The final is with the head of the desk and may include a day on the desk watching."
     ]
   },
   "meta": {
-    "model": "claude-sonnet-5-5",
-    "ms": 12635,
+    "model": "claude-opus-5-5",
+    "ms": 28422,
     "calls": 2,
-    "input_tokens": 7949,
-    "output_tokens": 3201
+    "input_tokens": 11307,
+    "output_tokens": 5394
   }
 }
